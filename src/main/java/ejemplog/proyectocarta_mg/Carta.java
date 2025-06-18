@@ -98,3 +98,5 @@ public abstract class Carta  {
  }
    
 
+
+/// comentario de prueba gerald
