@@ -1,0 +1,49 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ejemplog.proyectocarta_mg;
+
+import ejemplog.proyectocarta_mg.Carta;
+import javafx.scene.image.Image;
+
+/**
+ *
+ * @author admar
+ */
+public class CartaNormal extends Carta{
+    private int puntos=3;
+
+    public CartaNormal(String id, EstadoCarta estado, TipoCarta tipo, Image imagenCarta) {
+        super(id, estado, tipo, imagenCarta);
+        
+    }
+
+    public int getPuntos() {
+        return puntos;
+    }
+
+    public void setPuntos(int puntos) {
+        this.puntos = puntos;
+    }
+    
+   
+    
+    @Override
+    public int obtenerPuntos() {
+        
+        return puntos;
+}
+
+@Override
+       public Carta clonar(){
+           return new CartaBonus(
+           this.getId(),
+            EstadoCarta.Oculta,
+            this.getTipo(),
+            this.getImagenCarta()
+                   
+           );
+       }
+}
+      
