@@ -53,7 +53,7 @@ public class CartaBonus extends Carta{
    @Override
     public void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion{
         if(getEstado()== EstadoCarta.Emparejada){
-            throw new Excepciones.CartaNoVoltearExcepcion 
+            throw new Excepciones.CartaNoVoltearExcepcion("error");
         }
     
     }
