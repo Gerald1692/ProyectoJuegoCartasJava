@@ -72,7 +72,7 @@ public class Juego {
         
         aciertos++;
         
-        if(aciertos == 20){
+        if(aciertos == 1){
             quitarCastidos();
             aciertos =0;
             

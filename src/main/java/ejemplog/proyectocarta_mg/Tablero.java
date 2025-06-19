@@ -17,8 +17,8 @@ public class Tablero {
     
     private Carta [][] cartas;
     
-    private int filas=6;
-    private int columnas=4;
+    private int filas=4;
+    private int columnas=3;
     
     public Tablero(){
         inicializarCartas();
@@ -29,7 +29,7 @@ public class Tablero {
         int totalCartas = filas * columnas;
         List<Carta> listaCartas = new ArrayList<>();
         
-        for (int i=0; i<8;i++){
+        for (int i=0; i<4;i++){
             
             String id = "N"+i;
             
@@ -39,12 +39,12 @@ public class Tablero {
             Carta carta2 = new CartaNormal( id, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Normal, imagenCarta);
             
             listaCartas.add(carta1);
-            listaCartas.add(carta2);
+            listaCartas.add(carta2.clonar());
         }
         
-        for (int i =0;i<2;i++){
+        for (int i =0;i<1;i++){
             
-            String id = "N"+i;
+            String id = "B"+i;
             
             Image imagenCarta=null;
             
@@ -52,19 +52,19 @@ public class Tablero {
             Carta carta2 = new CartaBonus(id, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Bonus, imagenCarta);
             
             listaCartas.add(carta1);
-            listaCartas.add(carta2);
+            listaCartas.add(carta2.clonar());
         
         }
         
-        for (int i = 0;i <2; i++ ){
-            String id = "N"+i;
+        for (int i = 0;i <1; i++ ){
+            String id = "C"+i;
             
             Image imagenCarta=null;
             
             Carta carta1 = new CartaCastigo(id, Carta.EstadoCarta.Revelada, Carta.TipoCarta.Castigo, imagenCarta);
             Carta carta2 = new CartaCastigo(id, Carta.EstadoCarta.Revelada, Carta.TipoCarta.Castigo, imagenCarta);
             listaCartas.add(carta1);
-            listaCartas.add(carta2.clonar());
+            listaCartas.add(carta2.clonar().clonar());
         }
         
         Collections.shuffle(listaCartas);
