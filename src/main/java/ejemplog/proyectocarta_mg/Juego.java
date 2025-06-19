@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ejemplog.proyectocarta_mg;
-
+import java.util.Stack;
 /**
  *
  * @author admar
@@ -16,6 +16,8 @@ public class Juego {
   private Carta segundaSeleccion;
   private int vidas;
   private boolean terminarJuego;
+  
+  private Stack<Movimiento> historialMovimientos = new  Stack<>();
 
     public Juego(Tablero tablero, int puentajeJugador, Carta primerSeleccion, Carta segundaSeleccion, int vidas, boolean terminarJuego) {
         this.tablero = tablero;
@@ -77,7 +79,9 @@ public class Juego {
         
         else{
             primerSeleccion.setEstado(Carta.EstadoCarta.Oculta);
+            primerSeleccion.setImagenCarta(primerSeleccion.getImaEspalda());
             segundaSeleccion.setEstado(Carta.EstadoCarta.Oculta);
+            segundaSeleccion.setImagenCarta(segundaSeleccion.getImaEspalda());
         }
             
             
@@ -104,7 +108,12 @@ public class Juego {
         terminarJuego= true;
     }
   }
-
+  public void retroceder(){
+      if (historialMovimientos.isEmpty()){
+          throw new Excepciones.sinMovimientosAnt("error");
+          
+      }
+  }
     public Tablero getTablero() {
         return tablero;
     }

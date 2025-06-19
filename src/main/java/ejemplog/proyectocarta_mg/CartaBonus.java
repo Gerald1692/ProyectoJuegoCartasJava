@@ -50,12 +50,24 @@ public class CartaBonus extends Carta{
 
        }
        
-   @Override
+    @Override
     public void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion{
         if(getEstado()== EstadoCarta.Emparejada){
-            throw new Excepciones.CartaNoVoltearExcepcion("error");
+            throw new Excepciones.CartaNoVoltearExcepcion("ya le encontraste pareja");
         }
+        
+        if(getEstado() == EstadoCarta.Revelada){
+            throw new Excepciones.CartaNoVoltearExcepcion("La carta ya esta revelada");
+        }
+        
+        if (getEstado() == EstadoCarta.Oculta)
+            
+            setEstado(EstadoCarta.Revelada);
+            setImagenCarta(getImaCara());
+                    
     
+        
+        
     }
     
     

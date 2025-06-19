@@ -1,4 +1,5 @@
 /*
+
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -12,6 +13,12 @@ public final class Excepciones {
     
     public static class CartaNoVoltearExcepcion extends Exception{
         public CartaNoVoltearExcepcion(String mensaje){
+            super(mensaje);
+        }
+    }
+    
+    public static class sinMovimientosAnt extends Exception{
+        public sinMovimientosAnt (String mensaje){
             super(mensaje);
         }
     }
