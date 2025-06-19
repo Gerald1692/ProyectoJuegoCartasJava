@@ -15,7 +15,7 @@ public class PrimaryController {
     
       @FXML
     private void MostrarMensaje(ActionEvent event){
-        Alert comfimar =new Alert(Alert.AlertType.CONFIRMATION);
+        Alert comfimar =new Alert(Alert.AlertType.INFORMATION);
         comfimar.setTitle("Bienvenido ");
         comfimar.setHeaderText("Estas seguro?");
         comfimar.setContentText("Aceptar para continuar ");
