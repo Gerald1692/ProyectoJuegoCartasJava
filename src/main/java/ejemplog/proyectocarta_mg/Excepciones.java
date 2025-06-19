@@ -17,7 +17,7 @@ public final class Excepciones {
         }
     }
     
-    public static class sinMovimientosAnt extends Exception{
+    public static class sinMovimientosAnt extends RuntimeException{
         public sinMovimientosAnt (String mensaje){
             super(mensaje);
         }

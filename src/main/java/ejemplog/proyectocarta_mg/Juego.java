@@ -16,6 +16,7 @@ public class Juego {
   private Carta segundaSeleccion;
   private int vidas;
   private boolean terminarJuego;
+  private int aciertos= 0;
   
   private Stack<Movimiento> historialMovimientos = new  Stack<>();
 
@@ -38,7 +39,7 @@ public class Juego {
         terminarJuego = false;
         primerSeleccion = null;
         segundaSeleccion = null;
-        
+        aciertos =0;        
         
     }
   public void seleccionarCarta(int fila, int columna){
@@ -68,6 +69,15 @@ public class Juego {
         puntajeJugador += primerSeleccion.obtenerPuntos();
         primerSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
         segundaSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
+        
+        aciertos++;
+        
+        if(aciertos == 20){
+            quitarCastidos();
+            aciertos =0;
+            
+        
+        }
     }
     
     else{
@@ -111,7 +121,30 @@ public class Juego {
   public void retroceder(){
       if (historialMovimientos.isEmpty()){
           throw new Excepciones.sinMovimientosAnt("error");
+      }
+       Movimiento ultimo = historialMovimientos.pop();
+       ultimo.getCarta1().setEstado(ultimo.getEstadoAnterior1());
+       if(ultimo.getCarta2() !=null){
+           ultimo.getCarta2().setEstado(ultimo.getEstadoAnterior2());
+        }
           
+        puntajeJugador = ultimo.getPuntajeAnterior();
+        vidas = ultimo.getVidaAterior();
+        primerSeleccion = null;
+        segundaSeleccion = null;   
+          
+      
+  }
+  
+  private void quitarCastidos(){
+      for(int i=0; i<tablero.getFilas();i++){
+          for(int j=0; j< tablero.getColumnas();j++){
+          Carta c =tablero.getCarta(i, j);
+          if(c.getTipo()== Carta.TipoCarta.Castigo && c.getEstado()== Carta.EstadoCarta.Oculta){
+              c.setEstado(Carta.EstadoCarta.Revelada);
+              c.setImagenCarta(c.getImaCara());
+          }
+          }
       }
   }
     public Tablero getTablero() {
@@ -138,6 +171,12 @@ public class Juego {
         return terminarJuego;
     }
 
+    public int getAciertos() {
+        return aciertos;
+    }
+    
+    
+
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
     }
@@ -160,6 +199,10 @@ public class Juego {
 
     public void setTerminarJuego(boolean terminarJuego) {
         this.terminarJuego = terminarJuego;
+    }
+
+    public void setAciertos(int aciertos) {
+        this.aciertos = aciertos;
     }
   
   
