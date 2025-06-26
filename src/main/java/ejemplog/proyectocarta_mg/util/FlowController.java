@@ -21,10 +21,12 @@ import javafx.stage.WindowEvent;
 import ejemplog.proyectocarta_mg.controller.Controller;
 import ejemplog.proyectocarta_mg.controller.FlowController;
 import ejemplog.proyectocarta_mg.App;
+import ejemplog.proyectocarta_mg.SecondaryController;
+import javafx.fxml.FXML;
 
 public class FlowController {
 
-    private static FlowController INSTANCE = null;
+    private static FlowController INSTANCE = new FlowController();
     private static Stage mainStage;
     private static ResourceBundle idioma;
     private static final HashMap<String, FXMLLoader> loaders = new HashMap<>();
@@ -33,15 +35,12 @@ public class FlowController {
     }
 
     public static FlowController getInstance() {
-        if (INSTANCE == null) {
-            synchronized (FlowController.class) {
-                if (INSTANCE == null) {
-                    INSTANCE = new FlowController();
-                }
-            }
-        }
+        
         return INSTANCE;
     }
+    
+    
+       
 
     public void initialize(Stage stage, ResourceBundle idioma) {
         FlowController.mainStage = stage;
@@ -125,10 +124,22 @@ public class FlowController {
             ex.printStackTrace();
         }
     }
+    
+ 
+
+
 
     public void exit() {
         if (mainStage != null) {
             mainStage.close();
         }
     }
+    
+    
+    
+    
+    
+ 
+
+    
 }

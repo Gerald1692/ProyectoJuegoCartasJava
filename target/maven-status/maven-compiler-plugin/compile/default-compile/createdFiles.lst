@@ -6,6 +6,7 @@ ejemplog\proyectocarta_mg\controller\FlowController.class
 ejemplog\proyectocarta_mg\Excepciones.class
 ejemplog\proyectocarta_mg\SecondaryController.class
 ejemplog\proyectocarta_mg\Movimiento.class
+ejemplog\proyectocarta_mg\Controladores\ControladorEjemplo.class
 ejemplog\proyectocarta_mg\Tablero.class
 ejemplog\proyectocarta_mg\Carta$EstadoCarta.class
 ejemplog\proyectocarta_mg\Carta$TipoCarta.class
