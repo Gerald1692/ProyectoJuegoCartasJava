@@ -5,13 +5,21 @@
 package ejemplog.proyectocarta_mg;
 
 import java.nio.channels.CancelledKeyException;
+
 import javafx.scene.image.Image;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.io.IOException;
+
 
 /**
  *
  * @author admar
  */
-public abstract class Carta  {
+public abstract class Carta implements Serializable{
   public enum EstadoCarta{
   Oculta,
   Revelada,
@@ -26,9 +34,9 @@ public abstract class Carta  {
   private String id;
   private EstadoCarta estado;
   private TipoCarta tipo;
-  private Image imagenCarta;
-  private Image imaEspalda=null;
-  private Image imaCara= null;
+  private transient Image imagenCarta;
+  private transient Image imaEspalda=null;
+  private transient Image imaCara= null;
 
     public Carta(String id, EstadoCarta estado, TipoCarta tipo, Image imagenCarta) {
         this.id = id;

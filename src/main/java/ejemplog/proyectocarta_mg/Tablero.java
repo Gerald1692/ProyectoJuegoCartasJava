@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ejemplog.proyectocarta_mg;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.io.IOException;
 
 /**
  *
@@ -13,7 +19,7 @@ import java.util.List;
 import java.util.ArrayList;
 import javafx.scene.image.Image;
 
-public class Tablero {
+public class Tablero implements Serializable{
     
     private Carta [][] cartas;
     

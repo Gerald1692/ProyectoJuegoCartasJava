@@ -3,12 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ejemplog.proyectocarta_mg;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.io.IOException;
 
 /**
  *
  * @author admar
  */
-public class Jugador {
+public class Jugador implements Serializable{
     private String nombreJugador;
 
     public Jugador(String nombreJugador) {

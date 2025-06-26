@@ -5,11 +5,13 @@
  */
 package ejemplog.proyectocarta_mg;
 
+
+
 /**
  *
  * @author admar
  */
-public final class Excepciones {
+public final class Excepciones{
     
     public static class CartaNoVoltearExcepcion extends Exception{
         public CartaNoVoltearExcepcion(String mensaje){

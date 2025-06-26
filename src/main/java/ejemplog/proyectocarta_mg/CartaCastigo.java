@@ -5,12 +5,19 @@
 package ejemplog.proyectocarta_mg;
 
 import javafx.scene.image.Image;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.io.IOException;
+
 
 /**
  *
  * @author admar
  */
-public class CartaCastigo extends Carta{
+public class CartaCastigo extends Carta implements Serializable{
 
     private int puntos = -2;
 

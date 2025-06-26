@@ -3,12 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ejemplog.proyectocarta_mg;
+import java.io.File;
 import java.util.Stack;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.io.IOException;
+
+
 /**
  *
  * @author admar
  */
-public class Juego {
+public class Juego implements Serializable{
+  private static final long serialversionUID=1L;
   private static final int VidasI = 5;
   private Tablero tablero;
   private int puntajeJugador;
@@ -17,22 +27,25 @@ public class Juego {
   private int vidas;
   private boolean terminarJuego;
   private int aciertos= 0;
+  private Jugador nomJugador;
   
   private Stack<Movimiento> historialMovimientos = new  Stack<>();
 
-    public Juego(Tablero tablero, int puentajeJugador, Carta primerSeleccion, Carta segundaSeleccion, int vidas, boolean terminarJuego) {
+    public Juego(Tablero tablero, int puentajeJugador, Carta primerSeleccion, Carta segundaSeleccion, int vidas, boolean terminarJuego,Jugador nomJugador) {
         this.tablero = tablero;
         this.puntajeJugador = puentajeJugador;
         this.primerSeleccion = primerSeleccion;
         this.segundaSeleccion = segundaSeleccion;
         this.vidas = vidas;
         this.terminarJuego = terminarJuego;
+        this.nomJugador = nomJugador;
     }
     public Juego(){
         iniciarJuego();
     }
     
   public void iniciarJuego (){
+        nomJugador = nomJugador;
         tablero = new Tablero();
         puntajeJugador =0;
         vidas = VidasI;
@@ -146,6 +159,41 @@ public class Juego {
           }
           }
       }
+  }
+  
+  public void guardarPartida (String arghivo){
+    String rutaArchivo = "Partidas/PartidasJugadas.dat";  
+      try {
+       File carpeta = new File("Partidas");
+       
+       if(!carpeta.exists()){
+           carpeta.mkdir();
+       }
+       try(ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(rutaArchivo)) ){
+           salida.writeObject(this);
+               System.out.println("se guardo");
+           }
+      } 
+     
+      catch (IOException e) {
+          System.err.println("error");
+      }
+    
+  
+  }
+  public static Juego cargarPartida(){
+    String rutaArchivo = "Partidas/PartidasJugadas.dat";  
+    try(ObjectInputStream entrada =new ObjectInputStream(new FileInputStream(rutaArchivo))){
+        Juego juegoCargado = (Juego) entrada.readObject();
+        System.out.println("se cargo");
+        return juegoCargado;
+    }
+    
+    catch(IOException | ClassNotFoundException e){
+          System.err.println("error");
+          e.printStackTrace();
+          return null;
+    }
   }
     public Tablero getTablero() {
         return tablero;
