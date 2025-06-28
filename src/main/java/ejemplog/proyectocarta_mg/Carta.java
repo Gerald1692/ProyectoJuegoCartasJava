@@ -97,12 +97,12 @@ public abstract class Carta implements Serializable{
   
    
   
-   public abstract int obtenerPuntos();
-   
-  public abstract Carta clonar();
-   
-   public abstract void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion; 
-  
+    public abstract int obtenerPuntos();
+
+     public abstract Carta clonar();
+     public void cargarImagenesCarta();
+     public abstract void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion; 
+
  }
    
 
