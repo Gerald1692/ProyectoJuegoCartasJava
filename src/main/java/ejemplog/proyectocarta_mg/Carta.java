@@ -107,4 +107,3 @@ public abstract class Carta implements Serializable{
    
 
 
-/// comentario de prueba gerald
