@@ -95,7 +95,7 @@
                   <Button fx:id="BtnX1_Y0" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="1" />
                   <Button fx:id="BtnX1_Y3" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <Button fx:id="BtnX1_Y2" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX0_Y0" mnemonicParsing="false" onMouseClicked="#switchToPrimary" prefHeight="76.0" prefWidth="66.0" text="Button" />
+                  <Button fx:id="BtnX0_Y0" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" />
                </children>
             </GridPane>
             <Button layoutX="151.0" layoutY="368.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="76.0" text="Guardar" />

@@ -40,9 +40,9 @@ public abstract class Carta implements Serializable{
 
     public Carta(String id, EstadoCarta estado, TipoCarta tipo, Image imagenCarta) {
         this.id = id;
-        this.estado = estado;
+        this.estado = EstadoCarta.Oculta;
         this.tipo = tipo;
-        this.imagenCarta = imagenCarta;
+        this.imagenCarta = imaEspalda;
     }
 
     public String getId() {
@@ -100,7 +100,7 @@ public abstract class Carta implements Serializable{
     public abstract int obtenerPuntos();
 
      public abstract Carta clonar();
-     public void cargarImagenesCarta();
+     
      public abstract void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion; 
 
  }
