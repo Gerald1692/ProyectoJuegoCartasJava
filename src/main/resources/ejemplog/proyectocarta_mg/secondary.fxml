@@ -49,18 +49,22 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="BtnX2_Y0" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="2" />
-                  <Button fx:id="BtnX0_Y1" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" />
-                  <Button fx:id="BtnX0_Y3" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" />
-                  <Button fx:id="BtnX0_Y2" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" />
-                  <Button fx:id="BtnX2_Y2" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button fx:id="BtnX2_Y3" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Button fx:id="BtnX2_Y1" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="BtnX1_Y1" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX1_Y0" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX1_Y3" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX1_Y2" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX0_Y0" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" />
+                  <Button mnemonicParsing="false" text="Button" />
+                  <Button fx:id="BTN_02" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="2" />
+                  <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" text="Button" />
+                  <Button fx:id="BTN_00" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" />
+                  <Button fx:id="BTN_01" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="1" />
+                  <Button fx:id="BTN_03" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="3" />
+                  <Button fx:id="BTN_10" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.rowIndex="1" />
+                  <Button fx:id="BTN_11" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="BTN_12" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button fx:id="BTN_13" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Button fx:id="BTN_20" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.rowIndex="2" />
+                  <Button fx:id="BTN_21" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="BTN_22" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="BTN_23" mnemonicParsing="false" onAction="#iniciarJuego" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Button layoutX="151.0" layoutY="368.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" text="Guardar" textFill="RED" />

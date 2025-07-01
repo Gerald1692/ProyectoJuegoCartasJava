@@ -11,6 +11,7 @@ ejemplog\proyectocarta_mg\Tablero.class
 ejemplog\proyectocarta_mg\Carta$EstadoCarta.class
 ejemplog\proyectocarta_mg\Carta$TipoCarta.class
 ejemplog\proyectocarta_mg\CartaCastigo.class
+ejemplog\proyectocarta_mg\CargadorImagenes.class
 ejemplog\proyectocarta_mg\App.class
 ejemplog\proyectocarta_mg\Juego.class
 ejemplog\proyectocarta_mg\Carta.class

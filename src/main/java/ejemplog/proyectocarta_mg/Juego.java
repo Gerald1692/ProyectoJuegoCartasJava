@@ -60,11 +60,12 @@ public class Juego implements Serializable{
   
   Carta cartaSelect = tablero.getCarta(fila, columna);
   
-  if (cartaSelect.getEstado()!= Carta.EstadoCarta.Oculta){
-      return;
-  }
-  
-  cartaSelect.setEstado(Carta.EstadoCarta.Revelada);
+      try {
+          cartaSelect.voltearCarta();
+      } catch (Excepciones.CartaNoVoltearExcepcion e) {
+          System.err.println("No se puede voltear la carta" + e.getMessage());
+          return;
+      }
   
   if (primerSeleccion == null){
       primerSeleccion = cartaSelect;
@@ -85,7 +86,7 @@ public class Juego implements Serializable{
         
         aciertos++;
         
-        if(aciertos == 1){
+        if(aciertos == 3){
             quitarCastidos();
             aciertos =0;
             
