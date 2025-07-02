@@ -19,7 +19,7 @@ public class CargadorImagenes {
         List <Image> imagenes = new ArrayList<>();
         
         try {
-           File carpeta = new File("../../../resources/"+ nomCarpeta);
+           File carpeta = new File("src/main/resources/"+ nomCarpeta);
            File [] archivos = carpeta.listFiles(((dir, name) -> name.endsWith(".jpg")));
            
            if(archivos != null){

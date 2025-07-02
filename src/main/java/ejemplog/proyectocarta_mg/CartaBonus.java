@@ -67,11 +67,11 @@ public class CartaBonus extends Carta implements Serializable{
             throw new Excepciones.CartaNoVoltearExcepcion("La carta ya esta revelada");
         }
         
-        if (getEstado() == EstadoCarta.Oculta){
+        if (getEstado() == EstadoCarta.Oculta)
             
             setEstado(EstadoCarta.Revelada);
             setImagenCarta(getImaCara());
-        }         
+                    
     
         
         
