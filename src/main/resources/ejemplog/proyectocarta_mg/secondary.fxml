@@ -49,7 +49,7 @@
                   <Button fx:id="BtnX0_Y0" mnemonicParsing="false" onAction="#handleBtnX0_Y0" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button layoutX="632.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="142.0" text="Guardar" textFill="RED">
+            <Button fx:id="BtnGuardar" layoutX="632.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="142.0" text="Guardar" textFill="RED">
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
                </font></Button>
@@ -57,7 +57,7 @@
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
                </font></Button>
-            <Button layoutX="47.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="175.0" text="Retroceder Paso" textFill="RED">
+            <Button fx:id="btnRetrocederPaso" layoutX="47.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="175.0" text="Retroceder Paso" textFill="RED">
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
                </font></Button>
