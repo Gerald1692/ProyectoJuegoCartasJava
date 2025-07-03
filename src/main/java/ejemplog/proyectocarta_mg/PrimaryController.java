@@ -11,6 +11,10 @@ public class PrimaryController {
     private Button BtnEntrar;
     @FXML
     private TextArea textonombre;
+    @FXML
+    private Button btnReplays;
+    @FXML
+    private Button btnSettings;
 
     @FXML
     private void switchToSecondary() throws IOException {
@@ -23,8 +27,18 @@ public class PrimaryController {
         App.setRoot("secondary");
     }
 
+    @FXML
+    private void showReplays() {
+        mostrarAlerta("Repeticiones", "Funcionalidad en desarrollo");
+    }
+
+    @FXML
+    private void showSettings() {
+        mostrarAlerta("Ajustes", "Funcionalidad en desarrollo");
+    }
+
     private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);

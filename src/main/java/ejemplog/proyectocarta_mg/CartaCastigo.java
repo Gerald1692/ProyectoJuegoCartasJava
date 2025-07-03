@@ -22,7 +22,7 @@ public class CartaCastigo extends Carta implements Serializable{
     private int puntos = -2;
 
     public CartaCastigo(String id, EstadoCarta estado, TipoCarta tipo, Image imagenCarta) {
-        super(id, estado, tipo, imagenCarta);
+        super(id, estado, tipo);
     }
 
     public int getPuntos() {

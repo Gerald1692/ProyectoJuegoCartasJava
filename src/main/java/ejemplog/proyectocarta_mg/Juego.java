@@ -29,6 +29,8 @@ public class Juego implements Serializable{
   private int aciertos= 0;
   private Jugador nomJugador;
   
+  
+  
   private Stack<Movimiento> historialMovimientos = new  Stack<>();
 
     public Juego(Tablero tablero, int puentajeJugador, Carta primerSeleccion, Carta segundaSeleccion, int vidas, boolean terminarJuego,Jugador nomJugador) {

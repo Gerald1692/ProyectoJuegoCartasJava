@@ -12,60 +12,70 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="545.0" prefWidth="696.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ejemplog.proyectocarta_mg.SecondaryController">
+<VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ejemplog.proyectocarta_mg.SecondaryController">
     <children>
-      <AnchorPane prefHeight="443.0" prefWidth="688.0">
+      <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
-            <ImageView fitHeight="419.0" fitWidth="638.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+            <ImageView fitHeight="600.0" fitWidth="800.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
                   <Image url="@../../imagenes/FONDO%20Proyecto.png" />
                </image>
             </ImageView>
-            <Label fx:id="Labeltxt" layoutX="285.0" layoutY="23.0" text="NOMBRE" textFill="#fffd00">
-               <font>
-                  <Font name="Headline R" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="Labeltiempo" layoutX="489.0" layoutY="24.0" text="TIEMPO">
-               <font>
-                  <Font name="Bauhaus 93" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="Labelvidas" layoutX="124.0" layoutY="24.0" text="VIDAS">
-               <font>
-                  <Font name="Bauhaus 93" size="25.0" />
-               </font>
-            </Label>
-            <GridPane layoutX="189.0" layoutY="70.0" prefHeight="279.0" prefWidth="366.0">
+            <GridPane layoutX="269.0" layoutY="85.0" prefHeight="364.0" prefWidth="400.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="66.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="66.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="66.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="66.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="146.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="145.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="141.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="136.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="87.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="107.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints />
+                <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="119.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="221.0" minHeight="10.0" prefHeight="115.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="218.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="BtnX2_Y0" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="2" />
-                  <Button fx:id="BtnX0_Y1" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" />
-                  <Button fx:id="BtnX0_Y3" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" />
-                  <Button fx:id="BtnX0_Y2" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" />
-                  <Button fx:id="BtnX2_Y2" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button fx:id="BtnX2_Y3" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <Button fx:id="BtnX2_Y1" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="BtnX1_Y1" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX1_Y0" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX1_Y3" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX1_Y2" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button fx:id="BtnX0_Y0" mnemonicParsing="false" prefHeight="76.0" prefWidth="66.0" text="Button" />
+                  <Button fx:id="BtnX2_Y0" mnemonicParsing="false" onAction="#handleBtnX2_Y0" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="3" />
+                  <Button fx:id="BtnX0_Y1" mnemonicParsing="false" onAction="#handleBtnX0_Y1" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="BtnX0_Y3" mnemonicParsing="false" onAction="#handleBtnX0_Y3" prefHeight="76.0" prefWidth="69.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Button fx:id="BtnX0_Y2" mnemonicParsing="false" onAction="#handleBtnX0_Y2" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button fx:id="BtnX2_Y2" mnemonicParsing="false" onAction="#handleBtnX2_Y2" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Button fx:id="BtnX2_Y3" mnemonicParsing="false" onAction="#handleBtnX2_Y3" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <Button fx:id="BtnX2_Y1" mnemonicParsing="false" onAction="#handleBtnX2_Y1" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Button fx:id="BtnX1_Y1" mnemonicParsing="false" onAction="#handleBtnX1_Y1" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="BtnX1_Y0" mnemonicParsing="false" onAction="#handleBtnX1_Y0" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="2" />
+                  <Button fx:id="BtnX1_Y3" mnemonicParsing="false" onAction="#handleBtnX1_Y3" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <Button fx:id="BtnX1_Y2" mnemonicParsing="false" onAction="#handleBtnX1_Y2" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="BtnX0_Y0" mnemonicParsing="false" onAction="#handleBtnX0_Y0" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button layoutX="151.0" layoutY="368.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" text="Guardar" textFill="RED" />
-              <Button fx:id="secondaryButton" layoutX="325.0" layoutY="368.0" onAction="#switchToPrimary" text="Volver al Inicio" textFill="#ff0202" />
-            <Button layoutX="501.0" layoutY="368.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="124.0" text="Retroceder Paso" textFill="RED" />
+            <Button layoutX="632.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="142.0" text="Guardar" textFill="RED">
+               <font>
+                  <Font name="Bauhaus 93" size="20.0" />
+               </font></Button>
+              <Button fx:id="secondaryButton" layoutX="352.0" layoutY="458.0" onAction="#switchToPrimary" prefHeight="29.0" prefWidth="162.0" text="Volver al Inicio" textFill="#ff0202">
+               <font>
+                  <Font name="Bauhaus 93" size="20.0" />
+               </font></Button>
+            <Button layoutX="47.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="175.0" text="Retroceder Paso" textFill="RED">
+               <font>
+                  <Font name="Bauhaus 93" size="20.0" />
+               </font></Button>
+            <Label fx:id="Labeltiempo" layoutX="433.0" layoutY="47.0" text="TIEMPO" textFill="#fbff00">
+               <font>
+                  <Font name="Bauhaus 93" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="Labeltxt" layoutX="658.0" layoutY="47.0" prefHeight="14.0" prefWidth="135.0" text="NOMBRE" textFill="#fbff00">
+               <font>
+                  <Font name="Bauhaus 93" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="Labelvidas" layoutX="204.0" layoutY="47.0" text="VIDAS" textFill="#fbff00">
+               <font>
+                  <Font name="Bauhaus 93" size="25.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
     </children>

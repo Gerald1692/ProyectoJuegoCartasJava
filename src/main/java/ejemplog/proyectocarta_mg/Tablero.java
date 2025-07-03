@@ -58,8 +58,8 @@ public class Tablero implements Serializable{
             
             Image imagenCarta=imagenesNormales.get(indiceNormal++);;
             
-            Carta carta1 = new CartaNormal(id, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Normal,imagenCarta);
-            Carta carta2 = new CartaNormal( id, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Normal, imagenCarta);
+            Carta carta1 = new CartaNormal(id);
+            Carta carta2 = new CartaNormal( id);
             
             listaCartas.add(carta1);
             listaCartas.add(carta2.clonar());

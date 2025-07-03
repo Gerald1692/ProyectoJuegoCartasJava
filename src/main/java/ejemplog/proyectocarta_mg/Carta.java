@@ -1,50 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ejemplog.proyectocarta_mg;
 
-import java.nio.channels.CancelledKeyException;
-
 import javafx.scene.image.Image;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.io.IOException;
 
-
-/**
- *
- * @author admar
- */
-public abstract class Carta implements Serializable{
-  public enum EstadoCarta{
-  Oculta,
-  Revelada,
-  Emparejada
-  }
-  
-  public enum TipoCarta{
-      Normal,
-      Bonus,
-      Castigo
-  }
-  private String id;
-  private EstadoCarta estado;
-  private TipoCarta tipo;
-  private transient Image imagenCarta;
-  private transient Image imaEspalda=null;
-  private transient Image imaCara= null;
-
-    public Carta(String id, EstadoCarta estado, TipoCarta tipo, Image imagenCarta) {
-        this.id = id;
-        this.estado = EstadoCarta.Oculta;
-        this.tipo = tipo;
-        this.imagenCarta = imaEspalda;
+public abstract class Carta implements Serializable {
+    public enum EstadoCarta {
+        Oculta,
+        Revelada,
+        Emparejada
     }
 
+    public enum TipoCarta {
+        Normal,
+        Bonus,
+        Castigo
+    }
+
+    private String id;
+    private EstadoCarta estado;
+    private TipoCarta tipo;
+    private transient Image imagenCarta;
+    private transient Image imaEspalda = null;
+    private transient Image imaCara = null;
+
+    public Carta(String id, EstadoCarta estado, TipoCarta tipo) {
+        this.id = id;
+        this.estado = estado;
+        this.tipo = tipo;
+        
+        try {
+            // Cargar imágenes desde recursos
+            this.imaEspalda = new Image(getClass().getResourceAsStream("/imagenes/imagen_de_carta.jpg"));
+            this.imaCara = new Image(getClass().getResourceAsStream("/imagenes/imgNormal/" + id + ".png"));
+            this.imagenCarta = imaEspalda;
+        } catch (Exception e) {
+            System.err.println("Error cargando imágenes para carta: " + id);
+            e.printStackTrace();
+        }
+    }
+
+    // Getters y setters
     public String getId() {
         return id;
     }
@@ -68,8 +63,6 @@ public abstract class Carta implements Serializable{
     public Image getImaCara() {
         return imaCara;
     }
-    
-    
 
     public void setId(String id) {
         this.id = id;
@@ -94,16 +87,9 @@ public abstract class Carta implements Serializable{
     public void setImaCara(Image imaCara) {
         this.imaCara = imaCara;
     }
-  
-   
-  
+
+    // Métodos abstractos
     public abstract int obtenerPuntos();
-
-     public abstract Carta clonar();
-     
-     public abstract void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion; 
-
- }
-   
-
-
+    public abstract Carta clonar();
+    public abstract void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion;
+}

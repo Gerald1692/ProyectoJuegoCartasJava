@@ -5,18 +5,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class App extends Application {
     public static String playerName;
+    public static int gameDuration = 120; // Tiempo predeterminado (segundos)
     private static Scene scene;
+    private static SoundManager soundManager;
 
     @Override
     public void start(Stage stage) throws IOException {
+        soundManager = new SoundManager();
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.centerOnScreen();
+        stage.setTitle("Provigio - Juego de Memoria");
         stage.show();
     }
 
@@ -31,5 +34,9 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+    
+    public static SoundManager getSoundManager() {
+        return soundManager;
     }
 }
