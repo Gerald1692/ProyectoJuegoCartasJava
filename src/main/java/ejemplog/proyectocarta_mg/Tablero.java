@@ -3,106 +3,55 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ejemplog.proyectocarta_mg;
-import javafx.scene.image.Image;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.io.Serializable;
 
-/**
- *
- * @author admar
- */
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import javafx.scene.image.Image;
-
-public class Tablero implements Serializable{
+public class Tablero implements Serializable {
+    private Carta[][] cartas;
+    private int filas = 3; // 3 filas
+    private int columnas = 4; // 4 columnas
     
-    private Carta [][] cartas;
-    private int filas=4;
-    private int columnas=3;
-    
-    
-    private List<Image> imagenesNormales;
-    private List<Image> imagenesBonus;
-    private List<Image> imagenesCastigo;
-    
-    
-    
-    public Tablero(){
-        imagenesNormales = CargadorImagenes.cargarDesdeCarpeta("imagenes/ImgNormal");
-        imagenesBonus = CargadorImagenes.cargarDesdeCarpeta("imagenes/ImgBonus");
-        imagenesCastigo = CargadorImagenes.cargarDesdeCarpeta("imagenes/Castigo");
+    public Tablero() {
         inicializarCartas();
     }
     
-    
-    
-    private void inicializarCartas(){
+    private void inicializarCartas() {
         cartas = new Carta[filas][columnas];
-        int totalCartas = filas * columnas;
         List<Carta> listaCartas = new ArrayList<>();
         
-       
-        
-        int indiceNormal= 0;
-        int indiceBonus= 0;
-        int indiceCastigo= 0;
-        
-        
-        for (int i=0; i<4;i++){
-            
-            String id = "N"+i;
-            
-            Image imagenCarta=imagenesNormales.get(indiceNormal++);;
-            
-            Carta carta1 = new CartaNormal(id);
-            Carta carta2 = new CartaNormal( id);
-            
-            listaCartas.add(carta1);
-            listaCartas.add(carta2.clonar());
+        // 4 pares de cartas normales (8 cartas)
+        for (int i = 0; i < 4; i++) {
+            String id = "N" + i;
+            listaCartas.add(new CartaNormal(id));
+            listaCartas.add(new CartaNormal(id)); // Par
         }
         
-        for (int i =0;i<1;i++){
-            
-            String id = "B"+i;
-            
-            Image imagenCarta= imagenesBonus.get(indiceBonus++);
-            
-            Carta carta1 = new CartaBonus(id, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Bonus, imagenCarta);
-            Carta carta2 = new CartaBonus(id, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Bonus, imagenCarta);
-            
-            listaCartas.add(carta1);
-            listaCartas.add(carta2.clonar());
+        // 1 par de cartas bonus (2 cartas)
+        String idBonus = "B0";
+        listaCartas.add(new CartaBonus(idBonus, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Bonus, null));
+        listaCartas.add(new CartaBonus(idBonus, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Bonus, null));
         
-        }
-        
-        for (int i = 0;i <1; i++ ){
-            String id = "C"+i;
-            
-            Image imagenCarta=imagenesCastigo.get(indiceCastigo);
-            
-            Carta carta1 = new CartaCastigo(id, Carta.EstadoCarta.Revelada, Carta.TipoCarta.Castigo, imagenCarta);
-            Carta carta2 = new CartaCastigo(id, Carta.EstadoCarta.Revelada, Carta.TipoCarta.Castigo, imagenCarta);
-            listaCartas.add(carta1);
-            listaCartas.add(carta2.clonar());
-        }
+        // 1 par de cartas castigo (2 cartas)
+        String idCastigo = "C0";
+        listaCartas.add(new CartaCastigo(idCastigo, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Castigo, null));
+        listaCartas.add(new CartaCastigo(idCastigo, Carta.EstadoCarta.Oculta, Carta.TipoCarta.Castigo, null));
         
         Collections.shuffle(listaCartas);
-        int index =0;
-        for(int i =0;i < filas; i++){
-            for (int j =0; j < columnas; j++){
-            cartas[i][j] = listaCartas.get(index);
-            index++;
+        
+        int index = 0;
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                cartas[i][j] = listaCartas.get(index);
+                index++;
             }
         }
-        
-        
     }
-    public Carta getCarta(int fila, int columna){
-        return cartas [fila][columna];
+    
+    public Carta getCarta(int fila, int columna) {
+        return cartas[fila][columna];
     }
 
     public Carta[][] getCartas() {
@@ -128,6 +77,4 @@ public class Tablero implements Serializable{
     public void setColumnas(int columnas) {
         this.columnas = columnas;
     }
-    
-    
 }

@@ -29,6 +29,17 @@ public class CartaNormal extends Carta {
     
     @Override
     public void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion {
-        // Implementación según sea necesario
+        if (getEstado() == EstadoCarta.Emparejada) {
+            throw new Excepciones.CartaNoVoltearExcepcion("Ya emparejada");
+        }
+        
+        if (getEstado() == EstadoCarta.Revelada) {
+            throw new Excepciones.CartaNoVoltearExcepcion("Ya revelada");
+        }
+        
+        if (getEstado() == EstadoCarta.Oculta) {
+            setEstado(EstadoCarta.Revelada);
+            setImagenCarta(getImaCara());
+        }
     }
 }

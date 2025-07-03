@@ -3,205 +3,180 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ejemplog.proyectocarta_mg;
+
 import java.io.File;
-import java.util.Stack;
-import java.io.FileOutputStream;
 import java.io.FileInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Stack;
 
+public final class Juego implements Serializable {
+    private static final long serialVersionUID = 1L; // Corregido: serialVersionUID
+    private static final int VidasI = 5;
+    private Tablero tablero;
+    private int puntajeJugador;
+    private Carta primerSeleccion;
+    private Carta segundaSeleccion;
+    private int vidas;
+    private boolean terminarJuego;
+    private int aciertos = 0;
+    private Jugador nomJugador;
+    private final Stack<Movimiento> historialMovimientos;
 
-/**
- *
- * @author admar
- */
-public class Juego implements Serializable{
-  private static final long serialversionUID=1L;
-  private static final int VidasI = 5;
-  private Tablero tablero;
-  private int puntajeJugador;
-  private Carta primerSeleccion;
-  private Carta segundaSeleccion;
-  private int vidas;
-  private boolean terminarJuego;
-  private int aciertos= 0;
-  private Jugador nomJugador;
-  
-  
-  
-  private Stack<Movimiento> historialMovimientos = new  Stack<>();
-
-    public Juego(Tablero tablero, int puentajeJugador, Carta primerSeleccion, Carta segundaSeleccion, int vidas, boolean terminarJuego,Jugador nomJugador) {
+    public Juego(Tablero tablero, int puntajeJugador, Carta primerSeleccion, Carta segundaSeleccion, int vidas, boolean terminarJuego, Jugador nomJugador) {
+        this.historialMovimientos = new Stack<>();
         this.tablero = tablero;
-        this.puntajeJugador = puentajeJugador;
+        this.puntajeJugador = puntajeJugador;
         this.primerSeleccion = primerSeleccion;
         this.segundaSeleccion = segundaSeleccion;
         this.vidas = vidas;
         this.terminarJuego = terminarJuego;
         this.nomJugador = nomJugador;
     }
-    public Juego(){
+
+    public Juego() {
+        this.historialMovimientos = new Stack<>();
         iniciarJuego();
     }
     
-  public void iniciarJuego (){
-        nomJugador = nomJugador;
+    public void iniciarJuego() {
         tablero = new Tablero();
-        puntajeJugador =0;
+        puntajeJugador = 0;
         vidas = VidasI;
         terminarJuego = false;
         primerSeleccion = null;
         segundaSeleccion = null;
-        aciertos =0;        
-        
+        aciertos = 0;        
     }
-  public void seleccionarCarta(int fila, int columna){
-  if (terminarJuego) return;
-  
-  Carta cartaSelect = tablero.getCarta(fila, columna);
-  
-  if (cartaSelect.getEstado()!= Carta.EstadoCarta.Oculta){
-      return;
-  }
-  
-  cartaSelect.setEstado(Carta.EstadoCarta.Revelada);
-  
-  if (primerSeleccion == null){
-      primerSeleccion = cartaSelect;
-  }
-  else if(segundaSeleccion == null){
-      segundaSeleccion = cartaSelect;
-      verificarPareja();
-  }
-  
-  }
-  
-  private void verificarPareja(){
-    if (primerSeleccion.getId().equals(segundaSeleccion.getId())){
 
-        puntajeJugador += primerSeleccion.obtenerPuntos();
-        primerSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
-        segundaSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
+    public void seleccionarCarta(int fila, int columna) {
+        if (terminarJuego) return;
         
-        aciertos++;
+        Carta cartaSelect = tablero.getCarta(fila, columna);
         
-        if(aciertos == 1){
-            quitarCastidos();
-            aciertos =0;
+        try {
+            cartaSelect.voltearCarta();
             
-        
+            if (primerSeleccion == null) {
+                primerSeleccion = cartaSelect;
+            } else if (segundaSeleccion == null) {
+                segundaSeleccion = cartaSelect;
+                verificarPareja();
+            }
+        } catch (Excepciones.CartaNoVoltearExcepcion e) {
+            System.out.println("No se puede voltear: " + e.getMessage());
         }
     }
     
-    else{
-        vidas--;
-        
-        if(vidas<= 0){
-            terminarJuego=true;
-        }
-        
-        else{
-            primerSeleccion.setEstado(Carta.EstadoCarta.Oculta);
-            primerSeleccion.setImagenCarta(primerSeleccion.getImaEspalda());
-            segundaSeleccion.setEstado(Carta.EstadoCarta.Oculta);
-            segundaSeleccion.setImagenCarta(segundaSeleccion.getImaEspalda());
-        }
+    private void verificarPareja() {
+        if (primerSeleccion.getId().equals(segundaSeleccion.getId())) {
+            primerSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
+            segundaSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
+            puntajeJugador += primerSeleccion.obtenerPuntos();
+            aciertos++;
             
+            if (aciertos == 1) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
+                quitarCastigos();
+                aciertos = 0;
+            }
+        } else {
+            vidas--;
             
-    }
-    primerSeleccion =null;
-    segundaSeleccion = null;
-    verificarFinJuego();
-    
-  
-  }
-  
-  private void verificarFinJuego(){
-    boolean todasEmparejadas = true;
-    for(int i=0; i<tablero.getFilas();i++){
-        for(int j=0;j< tablero.getColumnas();j++){
-            Carta c = tablero.getCarta(i, j);
-            if(c.getEstado()!= Carta.EstadoCarta.Emparejada){
-                todasEmparejadas=false;
-                break;
+            if (vidas <= 0) {
+                terminarJuego = true;
+            } else {
+                // Volver a ocultar
+                primerSeleccion.setEstado(Carta.EstadoCarta.Oculta);
+                primerSeleccion.setImagenCarta(primerSeleccion.getImaEspalda());
+                segundaSeleccion.setEstado(Carta.EstadoCarta.Oculta);
+                segundaSeleccion.setImagenCarta(segundaSeleccion.getImaEspalda());
             }
         }
+        primerSeleccion = null;
+        segundaSeleccion = null;
+        verificarFinJuego();
     }
-    if(todasEmparejadas){
-        terminarJuego= true;
-    }
-  }
-  public void retroceder(){
-      if (historialMovimientos.isEmpty()){
-          throw new Excepciones.sinMovimientosAnt("error");
-      }
-       Movimiento ultimo = historialMovimientos.pop();
-       ultimo.getCarta1().setEstado(ultimo.getEstadoAnterior1());
-       if(ultimo.getCarta2() !=null){
-           ultimo.getCarta2().setEstado(ultimo.getEstadoAnterior2());
+    
+    private void verificarFinJuego() {
+        boolean todasEmparejadas = true;
+        for (int i = 0; i < tablero.getFilas(); i++) {
+            for (int j = 0; j < tablero.getColumnas(); j++) {
+                Carta c = tablero.getCarta(i, j);
+                if (c.getEstado() != Carta.EstadoCarta.Emparejada) {
+                    todasEmparejadas = false;
+                    break;
+                }
+            }
         }
-          
+        if (todasEmparejadas) {
+            terminarJuego = true;
+        }
+    }
+    
+    public void retroceder() {
+        if (historialMovimientos.isEmpty()) {
+            throw new Excepciones.sinMovimientosAnt("No hay movimientos anteriores");
+        }
+        Movimiento ultimo = historialMovimientos.pop();
+        ultimo.getCarta1().setEstado(ultimo.getEstadoAnterior1());
+        if (ultimo.getCarta2() != null) {
+            ultimo.getCarta2().setEstado(ultimo.getEstadoAnterior2());
+        }
         puntajeJugador = ultimo.getPuntajeAnterior();
         vidas = ultimo.getVidaAterior();
         primerSeleccion = null;
         segundaSeleccion = null;   
-          
-      
-  }
-  
-  private void quitarCastidos(){
-      for(int i=0; i<tablero.getFilas();i++){
-          for(int j=0; j< tablero.getColumnas();j++){
-          Carta c =tablero.getCarta(i, j);
-          if(c.getTipo()== Carta.TipoCarta.Castigo && c.getEstado()== Carta.EstadoCarta.Oculta){
-              c.setEstado(Carta.EstadoCarta.Revelada);
-              c.setImagenCarta(c.getImaCara());
-          }
-          }
-      }
-  }
-  
-  public void guardarPartida (String arghivo){
-    String rutaArchivo = "Partidas/PartidasJugadas.dat";  
-      try {
-       File carpeta = new File("Partidas");
-       
-       if(!carpeta.exists()){
-           carpeta.mkdir();
-       }
-       try(ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(rutaArchivo)) ){
-           salida.writeObject(this);
-               System.out.println("se guardo");
-           }
-      } 
-     
-      catch (IOException e) {
-          System.err.println("error");
-      }
-    
-  
-  }
-  public static Juego cargarPartida(){
-    String rutaArchivo = "Partidas/PartidasJugadas.dat";  
-    try(ObjectInputStream entrada =new ObjectInputStream(new FileInputStream(rutaArchivo))){
-        Juego juegoCargado = (Juego) entrada.readObject();
-        System.out.println("se cargo");
-        return juegoCargado;
     }
-    
-    catch(IOException | ClassNotFoundException e){
-          System.err.println("error");
-          e.printStackTrace();
-          return null;
+  
+    private void quitarCastigos() {
+        for (int i = 0; i < tablero.getFilas(); i++) {
+            for (int j = 0; j < tablero.getColumnas(); j++) {
+                Carta c = tablero.getCarta(i, j);
+                if (c.getTipo() == Carta.TipoCarta.Castigo && c.getEstado() == Carta.EstadoCarta.Oculta) {
+                    try {
+                        c.voltearCarta(); // Revelar castigos
+                    } catch (Excepciones.CartaNoVoltearExcepcion e) {
+                        // Ignorar
+                    }
+                }
+            }
+        }
     }
-  }
+  
+    public void guardarPartida(String archivo) {
+        String rutaArchivo = "Partidas/" + archivo;  
+        try {
+            File carpeta = new File("Partidas");
+            if (!carpeta.exists()) {
+                carpeta.mkdir();
+            }
+            try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(rutaArchivo))) {
+                salida.writeObject(this);
+            }
+        } catch (IOException e) {
+            System.err.println("Error guardando partida: " + e.getMessage());
+        }
+    }
+  
+    public static Juego cargarPartida(String archivo) {
+        String rutaArchivo = "Partidas/" + archivo;  
+        try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(rutaArchivo))) {
+            return (Juego) entrada.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Error cargando partida: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // Getters y setters
     public Tablero getTablero() {
         return tablero;
     }
 
-    public int getPuentajeJugador() {
+    public int getPuntajeJugador() {
         return puntajeJugador;
     }
 
@@ -224,15 +199,13 @@ public class Juego implements Serializable{
     public int getAciertos() {
         return aciertos;
     }
-    
-    
 
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
     }
 
-    public void setPuentajeJugador(int puentajeJugador) {
-        this.puntajeJugador = puentajeJugador;
+    public void setPuntajeJugador(int puntajeJugador) {
+        this.puntajeJugador = puntajeJugador;
     }
 
     public void setPrimerSeleccion(Carta primerSeleccion) {
@@ -254,6 +227,14 @@ public class Juego implements Serializable{
     public void setAciertos(int aciertos) {
         this.aciertos = aciertos;
     }
-  
-  
+
+    int getPuentajeJugador() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+   
+
+    void setPuentajeJugador(int score) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

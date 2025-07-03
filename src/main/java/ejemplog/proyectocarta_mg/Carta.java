@@ -29,9 +29,18 @@ public abstract class Carta implements Serializable {
         this.tipo = tipo;
         
         try {
-            // Cargar imágenes desde recursos
+            String carpeta = "";
+            switch(tipo) {
+                case Normal: carpeta = "imgNormal"; break;
+                case Bonus: carpeta = "ImgBonus"; break;
+                case Castigo: carpeta = "Castigo"; break;
+            }
+            
+            // Cargar reverso común
             this.imaEspalda = new Image(getClass().getResourceAsStream("/imagenes/imagen_de_carta.jpg"));
-            this.imaCara = new Image(getClass().getResourceAsStream("/imagenes/imgNormal/" + id + ".png"));
+            // Cargar cara específica según tipo
+            this.imaCara = new Image(getClass().getResourceAsStream("/imagenes/" + carpeta + "/" + id + ".png"));
+            // Imagen actual comienza siendo el reverso
             this.imagenCarta = imaEspalda;
         } catch (Exception e) {
             System.err.println("Error cargando imágenes para carta: " + id);
