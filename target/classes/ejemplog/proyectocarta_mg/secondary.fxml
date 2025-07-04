@@ -49,34 +49,35 @@
                   <Button fx:id="BtnX0_Y0" mnemonicParsing="false" onAction="#handleBtnX0_Y0" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button fx:id="BtnGuardar" layoutX="632.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="142.0" text="Guardar" textFill="RED">
+            <Button fx:id="BtnGuardar" layoutX="634.0" layoutY="466.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="142.0" text="Guardar" textFill="RED">
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
                </font></Button>
-              <Button fx:id="secondaryButton" layoutX="352.0" layoutY="458.0" onAction="#switchToPrimary" prefHeight="29.0" prefWidth="162.0" text="Volver al Inicio" textFill="#ff0202">
+              <Button fx:id="secondaryButton" layoutX="352.0" layoutY="466.0" onAction="#switchToPrimary" prefHeight="29.0" prefWidth="162.0" text="Volver al Inicio" textFill="#ff0202">
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
                </font></Button>
-            <Button fx:id="btnRetrocederPaso" layoutX="47.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="175.0" text="Retroceder Paso" textFill="RED">
+            <Button fx:id="btnRetrocederPaso" layoutX="54.0" layoutY="466.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="175.0" text="Retroceder Paso" textFill="RED">
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
-               </font></Button>
-            <Label fx:id="Labeltiempo" layoutX="433.0" layoutY="47.0" text="TIEMPO" textFill="#fbff00">
+               </font>
+            </Button>
+            <Label fx:id="Labeltiempo" layoutX="433.0" layoutY="47.0" text="TIEMPO" textFill="#32322e">
                <font>
                   <Font name="Bauhaus 93" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="Labeltxt" layoutX="658.0" layoutY="47.0" prefHeight="14.0" prefWidth="135.0" text="NOMBRE" textFill="#fbff00">
+            <Label fx:id="Labeltxt" layoutX="658.0" layoutY="47.0" prefHeight="14.0" prefWidth="135.0" text="NOMBRE" textFill="#32322e">
                <font>
                   <Font name="Bauhaus 93" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="Labelvidas" layoutX="204.0" layoutY="47.0" text="VIDAS" textFill="#fbff00">
+            <Label fx:id="Labelvidas" layoutX="204.0" layoutY="47.0" text="VIDAS" textFill="#32322e">
                <font>
                   <Font name="Bauhaus 93" size="25.0" />
                </font>
             </Label>
-            <Label fx:id="LabelScore" layoutX="54.0" layoutY="47.0" text="Puntos" textFill="#fbff00">
+            <Label fx:id="LabelScore" layoutX="54.0" layoutY="47.0" text="Puntos" textFill="#32322e">
                <font>
                   <Font name="Bauhaus 93" size="25.0" />
                </font>

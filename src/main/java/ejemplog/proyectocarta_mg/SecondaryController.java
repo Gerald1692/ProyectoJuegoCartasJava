@@ -55,7 +55,7 @@ public class SecondaryController {
         Labeltxt.setText(App.playerName);
         Labelvidas.setText("Vidas: " + lives);
         Labeltiempo.setText("Tiempo: " + App.gameDuration);
-        
+        LabelScore.setText("Puntos: "+score);
         setupGame();
         startTimer();
     }
@@ -206,7 +206,7 @@ public class SecondaryController {
     }
     
     private void applyCombo() {
-        comboCount = 0;
+        comboCount = 12;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("¡Combo!");
         alert.setHeaderText(null);

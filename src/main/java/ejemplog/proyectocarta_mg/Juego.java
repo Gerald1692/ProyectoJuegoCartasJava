@@ -15,7 +15,7 @@ import java.util.Stack;
 
 public final class Juego implements Serializable {
     private static final long serialVersionUID = 1L; // Corregido: serialVersionUID
-    private static final int VidasI = 5;
+    private static final int VidasI = 30;
 
     
     private Tablero tablero;
@@ -80,7 +80,7 @@ public final class Juego implements Serializable {
             puntajeJugador += primerSeleccion.obtenerPuntos();
             aciertos++;
             
-            if (aciertos == 1) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
+            if (aciertos == 4) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
                 quitarCastigos();
                 aciertos = 0;
             }
@@ -230,13 +230,5 @@ public final class Juego implements Serializable {
         this.aciertos = aciertos;
     }
 
-    int getPuentajeJugador() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
    
-
-    void setPuentajeJugador(int score) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

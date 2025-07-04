@@ -20,6 +20,7 @@ public class CartaCastigo extends Carta implements Serializable {
     
     @Override
     public int obtenerPuntos() {
+        System.out.println("*"+puntos);
         return puntos;
     }
     
@@ -35,17 +36,9 @@ public class CartaCastigo extends Carta implements Serializable {
      
     @Override
     public void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion {
-        if (getEstado() == EstadoCarta.Emparejada) {
-            throw new Excepciones.CartaNoVoltearExcepcion("Ya emparejada");
-        }
-        
-        if (getEstado() == EstadoCarta.Revelada) {
-            throw new Excepciones.CartaNoVoltearExcepcion("Ya revelada");
-        }
-        
-        if (getEstado() == EstadoCarta.Oculta) {
+       
             setEstado(EstadoCarta.Revelada);
             setImagenCarta(getImaCara());
-        }
+        
     }
 }
