@@ -16,7 +16,7 @@
     <children>
       <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
-            <ImageView fitHeight="600.0" fitWidth="800.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+            <ImageView fitHeight="600.0" fitWidth="800.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
                   <Image url="@../../imagenes/FONDO%20Proyecto.png" />
                </image>
@@ -49,7 +49,7 @@
                   <Button fx:id="BtnX0_Y0" mnemonicParsing="false" onAction="#handleBtnX0_Y0" prefHeight="76.0" prefWidth="66.0" text="Button" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button layoutX="632.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="142.0" text="Guardar" textFill="RED">
+            <Button fx:id="BtnGuardar" layoutX="632.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="142.0" text="Guardar" textFill="RED">
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
                </font></Button>
@@ -57,7 +57,7 @@
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
                </font></Button>
-            <Button layoutX="47.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="175.0" text="Retroceder Paso" textFill="RED">
+            <Button fx:id="btnRetrocederPaso" layoutX="47.0" layoutY="458.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="175.0" text="Retroceder Paso" textFill="RED">
                <font>
                   <Font name="Bauhaus 93" size="20.0" />
                </font></Button>
@@ -72,6 +72,11 @@
                </font>
             </Label>
             <Label fx:id="Labelvidas" layoutX="204.0" layoutY="47.0" text="VIDAS" textFill="#fbff00">
+               <font>
+                  <Font name="Bauhaus 93" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="LabelScore" layoutX="54.0" layoutY="47.0" text="Puntos" textFill="#fbff00">
                <font>
                   <Font name="Bauhaus 93" size="25.0" />
                </font>

@@ -16,6 +16,8 @@ import java.util.Stack;
 public final class Juego implements Serializable {
     private static final long serialVersionUID = 1L; // Corregido: serialVersionUID
     private static final int VidasI = 5;
+
+    
     private Tablero tablero;
     private int puntajeJugador;
     private Carta primerSeleccion;

@@ -35,8 +35,13 @@ public class SecondaryController {
     private static final int COMBO_REQUIRED = 3;
     private Timeline gameTimer;
     private Button[][] buttonsGrid;
-
     @FXML
+    private Button BtnGuardar;
+    @FXML
+    private Button btnRetrocederPaso;
+    @FXML
+    private Label LabelScore;
+
     public void initialize() {
         juego = new Juego();
         buttonsGrid = new Button[][]{
@@ -112,23 +117,28 @@ public class SecondaryController {
         rt.play();
     }
     
-    private void checkMatch() {
-        Button btn1 = flippedCards.get(0);
-        Button btn2 = flippedCards.get(1);
-        
+   private void checkMatch() {
+    Button btn1 = flippedCards.get(0);
+    Button btn2 = flippedCards.get(1);
+    
+    PauseTransition initialPause = new PauseTransition(Duration.millis(500));
+    initialPause.setOnFinished(e -> {
         int fila1 = getFila(btn1);
         int columna1 = getColumna(btn1);
         int fila2 = getFila(btn2);
         int columna2 = getColumna(btn2);
-        
-        // Primera selección
+
+        // Procesar selección de cartas
         juego.seleccionarCarta(fila1, columna1);
-        // Segunda selección (desencadena verificación)
         juego.seleccionarCarta(fila2, columna2);
         
         // Actualizar estado del juego
         score = juego.getPuntajeJugador();
         lives = juego.getVidas();
+        
+        // Actualizar UI inmediatamente
+        Labelvidas.setText("Vidas: " + lives);
+        LabelScore.setText("Puntos: " + score);
         
         if (juego.isTerminarJuego()) {
             if (lives <= 0) {
@@ -139,25 +149,28 @@ public class SecondaryController {
         } else {
             // Si no es pareja, voltear de nuevo
             if (!buttonCartaMap.get(btn1).getId().equals(buttonCartaMap.get(btn2).getId())) {
-                PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(e -> {
+                PauseTransition flipBackPause = new PauseTransition(Duration.seconds(1));
+                flipBackPause.setOnFinished(ev -> {
                     flipCard(btn1, false);
                     flipCard(btn2, false);
                     flippedCards.clear();
                 });
-                pause.play();
+                flipBackPause.play();
             } else {
                 // Si es pareja, deshabilitar
                 btn1.setDisable(true);
                 btn2.setDisable(true);
                 flippedCards.clear();
+                
+                // Verificar si el jugador ganó
+                if (checkWin()) {
+                    gameWon();
+                }
             }
         }
-        
-        // Actualizar UI
-        updateScore(0);
-        updateLives();
-    }
+    });
+    initialPause.play();
+}
     
     private int getFila(Button btn) {
         for (int i = 0; i < buttonsGrid.length; i++) {

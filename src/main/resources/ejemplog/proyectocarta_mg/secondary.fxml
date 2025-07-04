@@ -16,7 +16,7 @@
     <children>
       <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
-            <ImageView fitHeight="600.0" fitWidth="800.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+            <ImageView fitHeight="600.0" fitWidth="800.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                <image>
                   <Image url="@../../imagenes/FONDO%20Proyecto.png" />
                </image>
@@ -72,6 +72,11 @@
                </font>
             </Label>
             <Label fx:id="Labelvidas" layoutX="204.0" layoutY="47.0" text="VIDAS" textFill="#fbff00">
+               <font>
+                  <Font name="Bauhaus 93" size="25.0" />
+               </font>
+            </Label>
+            <Label fx:id="LabelScore" layoutX="54.0" layoutY="47.0" text="Puntos" textFill="#fbff00">
                <font>
                   <Font name="Bauhaus 93" size="25.0" />
                </font>
