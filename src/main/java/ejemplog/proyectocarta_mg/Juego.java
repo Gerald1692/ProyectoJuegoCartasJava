@@ -4,12 +4,16 @@
  */
 package ejemplog.proyectocarta_mg;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.Stack;
 
@@ -157,6 +161,65 @@ public final class Juego implements Serializable {
         return null;
         
     }
+    
+    
+   public void guardarPartidaTxt(String nombreArchivo) throws FileNotFoundException {
+    // Ruta a la carpeta "CargaPartidas" dentro de resources
+    File carpeta = new File("src/main/resources/CargaPartidas");
+    if (!carpeta.exists()) {
+        carpeta.mkdirs(); // Crea la carpeta y cualquier carpeta padre necesaria
+    }
+    
+    File archivo = new File(carpeta, nombreArchivo + ".txt");
+    try (PrintWriter writer = new PrintWriter(archivo)) {
+        writer.println("Jugador: " + nomJugador.getNombreJugador());
+        writer.println("Puntaje: " + puntajeJugador);
+        writer.println("Vidas: " + vidas);
+        writer.println("Tiempo: " + App.gameDuration);
+        
+        for (int i = 0; i < tablero.getFilas(); i++) {
+            for (int j = 0; j < tablero.getColumnas(); j++) {
+                Carta c = tablero.getCarta(i, j);
+                writer.println(i + "," + j + "," + c.getId() + "," + c.getEstado());
+            }
+        }
+    }
+}
+
+public static Juego cargarPartidaTxt(String nombreArchivo) {
+    // Ruta a la carpeta "CargaPartidas" dentro de resources
+    File carpeta = new File("src/main/resources/CargaPartidas");
+    File archivo = new File(carpeta, nombreArchivo + ".txt");
+    
+    try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+        Juego juego = new Juego();
+        String line;
+        
+        while ((line = reader.readLine()) != null) {
+            if (line.startsWith("Jugador: ")) {
+                juego.nomJugador = new Jugador(line.substring(9));
+            } else if (line.startsWith("Puntaje: ")) {
+                juego.puntajeJugador = Integer.parseInt(line.substring(9));
+            } else if (line.startsWith("Vidas: ")) {
+                juego.vidas = Integer.parseInt(line.substring(7));
+            } else if (line.startsWith("Tiempo: ")) {
+                App.gameDuration = Integer.parseInt(line.substring(8));
+            } else {
+                String[] parts = line.split(",");
+                int i = Integer.parseInt(parts[0]);
+                int j = Integer.parseInt(parts[1]);
+                Carta carta = juego.tablero.getCarta(i, j);
+                carta.setEstado(Carta.EstadoCarta.valueOf(parts[3]));
+            }
+        }
+        return juego;
+    } catch (IOException e) {
+        System.err.println("Error cargando partida TXT: " + e.getMessage());
+        return null;
+    }
+}
+    
+    
 
     // Getters y setters
     public Tablero getTablero() {
@@ -214,6 +277,8 @@ public final class Juego implements Serializable {
     public void setAciertos(int aciertos) {
         this.aciertos = aciertos;
     }
+    
+    
 
    
 }

@@ -17,6 +17,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ChoiceDialog;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class SecondaryController {
     @FXML private Label Labeltxt;
@@ -26,6 +32,60 @@ public class SecondaryController {
     @FXML private Button BtnX2_Y0, BtnX0_Y1, BtnX0_Y3, BtnX0_Y2, BtnX2_Y2;
     @FXML private Button BtnX2_Y3, BtnX2_Y1, BtnX1_Y1, BtnX1_Y0, BtnX1_Y3;
     @FXML private Button BtnX1_Y2, BtnX0_Y0;
+    
+    ////////////////////////////////////////////////
+   @FXML
+private void handleGuardar() {
+    TextInputDialog dialog = new TextInputDialog("Partida1");
+    dialog.setTitle("Guardar Partida");
+    dialog.setHeaderText("Nombre de la partida:");
+    dialog.setContentText("Nombre:");
+
+    Optional<String> result = dialog.showAndWait();
+    result.ifPresent(nombre -> {
+        try {
+            juego.guardarPartidaTxt(nombre);
+            mostrarAlerta("Partida Guardada", "Partida guardada como: " + nombre);
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    });
+}
+
+@FXML
+private void handleCargar() {
+    // Ruta a la carpeta "CargaPartidas" dentro de resources
+    File carpeta = new File("src/main/resources/CargaPartidas");
+    if (!carpeta.exists()) {
+        carpeta.mkdirs();
+    }
+    
+    File[] archivos = carpeta.listFiles((dir, name) -> name.endsWith(".txt"));
+    
+    if (archivos == null || archivos.length == 0) {
+        mostrarAlerta("Error", "No hay partidas guardadas");
+        return;
+    }
+    
+    ChoiceDialog<File> dialog = new ChoiceDialog<>(archivos[0], Arrays.asList(archivos));
+    dialog.setTitle("Cargar Partida");
+    dialog.setHeaderText("Seleccione una partida:");
+    dialog.setContentText("Partidas:");
+    
+    Optional<File> result = dialog.showAndWait();
+    result.ifPresent(archivo -> {
+        String nombre = archivo.getName().replace(".txt", "");
+        Juego juegoCargado = Juego.cargarPartidaTxt(nombre);
+        
+        if (juegoCargado != null) {
+            this.juego = juegoCargado;
+            actualizarUI();
+            mostrarAlerta("Partida Cargada", "Partida cargada: " + nombre);
+        }
+    });
+}
+    //////////////////////////////////////////////////////////////////////
+    
     
     private Juego juego;
     private Map<Button, Carta> buttonCartaMap = new HashMap<>();
@@ -43,6 +103,51 @@ public class SecondaryController {
     @FXML
     private Label LabelScore;
 
+    
+    
+    ////////////////
+    ///
+    ///
+    private void actualizarUI() {
+        // Actualizar la interfaz con el estado del juego cargado
+        lives = juego.getVidas();
+        score = juego.getPuntajeJugador();
+        Labelvidas.setText("Vidas: " + lives);
+        LabelScore.setText("Puntos: " + score);
+        
+        // Actualizar estado de las cartas
+        Tablero tablero = juego.getTablero();
+        for (int i = 0; i < tablero.getFilas(); i++) {
+            for (int j = 0; j < tablero.getColumnas(); j++) {
+                Button btn = buttonsGrid[i][j];
+                Carta carta = tablero.getCarta(i, j);
+                ImageView iv = (ImageView) btn.getGraphic();
+                
+                // Actualizar imagen según estado
+                if (carta.getEstado() == Carta.EstadoCarta.Revelada || 
+                    carta.getEstado() == Carta.EstadoCarta.Emparejada) {
+                    iv.setImage(carta.getImaCara());
+                } else {
+                    iv.setImage(carta.getImaEspalda());
+                }
+                
+                // Deshabilitar cartas emparejadas
+                btn.setDisable(carta.getEstado() == Carta.EstadoCarta.Emparejada);
+            }
+        }
+    }
+    
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+    
+    
+    ////////////////////////////
+    
     public void initialize() {
         juego = new Juego();
         buttonsGrid = new Button[][]{
