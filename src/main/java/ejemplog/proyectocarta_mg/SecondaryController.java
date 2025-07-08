@@ -1,5 +1,6 @@
 package ejemplog.proyectocarta_mg;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,9 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class SecondaryController {
+    
+    
+    
     @FXML private Label Labeltxt;
     @FXML private Label Labeltiempo;
     @FXML private Label Labelvidas;
