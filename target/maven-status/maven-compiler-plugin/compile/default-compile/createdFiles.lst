@@ -1,8 +1,8 @@
 ejemplog\proyectocarta_mg\Jugador.class
 ejemplog\proyectocarta_mg\PrimaryController.class
 ejemplog\proyectocarta_mg\CartaBonus.class
+module-info.class
 ejemplog\proyectocarta_mg\controller\Controller.class
-ejemplog\proyectocarta_mg\controller\FlowController.class
 ejemplog\proyectocarta_mg\controller\ControladorJuego.class
 ejemplog\proyectocarta_mg\Excepciones.class
 ejemplog\proyectocarta_mg\SecondaryController.class
