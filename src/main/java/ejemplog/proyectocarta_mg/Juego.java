@@ -149,28 +149,13 @@ public final class Juego implements Serializable {
     }
   
     public void guardarPartida(String archivo) {
-        String rutaArchivo = "Partidas/" + archivo;  
-        try {
-            File carpeta = new File("Partidas");
-            if (!carpeta.exists()) {
-                carpeta.mkdir();
-            }
-            try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(rutaArchivo))) {
-                salida.writeObject(this);
-            }
-        } catch (IOException e) {
-            System.err.println("Error guardando partida: " + e.getMessage());
-        }
+        
     }
   
     public static Juego cargarPartida(String archivo) {
-        String rutaArchivo = "Partidas/" + archivo;  
-        try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(rutaArchivo))) {
-            return (Juego) entrada.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Error cargando partida: " + e.getMessage());
-            return null;
-        }
+        
+        return null;
+        
     }
 
     // Getters y setters
