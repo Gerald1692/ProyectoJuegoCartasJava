@@ -1,5 +1,6 @@
 package ejemplog.proyectocarta_mg;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class SecondaryController {
+    
+    
+    
     @FXML private Label Labeltxt;
     @FXML private Label Labeltiempo;
     @FXML private Label Labelvidas;
