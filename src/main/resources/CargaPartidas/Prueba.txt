@@ -1,0 +1,18 @@
+Jugador: gerald
+Puntaje: 3
+Vidas: 27
+Tiempo: 103
+Terminado: false
+Aciertos: 1
+0,0,C0,Castigo,Oculta
+0,1,N3,Normal,Oculta
+0,2,N3,Normal,Oculta
+0,3,C0,Castigo,Oculta
+1,0,B0,Bonus,Oculta
+1,1,N0,Normal,Emparejada
+1,2,N1,Normal,Oculta
+1,3,N1,Normal,Oculta
+2,0,N2,Normal,Oculta
+2,1,N0,Normal,Revelada
+2,2,B0,Bonus,Oculta
+2,3,N2,Normal,Oculta

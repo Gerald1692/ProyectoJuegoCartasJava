@@ -2,6 +2,7 @@ ejemplog\proyectocarta_mg\Jugador.class
 ejemplog\proyectocarta_mg\PrimaryController.class
 ejemplog\proyectocarta_mg\CartaBonus.class
 ejemplog\proyectocarta_mg\CargarPartida.class
+ejemplog\proyectocarta_mg\Juego$1.class
 module-info.class
 ejemplog\proyectocarta_mg\controller\Controller.class
 ejemplog\proyectocarta_mg\controller\ControladorJuego.class

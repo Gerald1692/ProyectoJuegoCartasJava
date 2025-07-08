@@ -48,7 +48,8 @@ private void handleGuardar() {
     Optional<String> result = dialog.showAndWait();
     result.ifPresent(nombre -> {
         try {
-            juego.guardarPartidaTxt(nombre);
+            // Pasar el nombre del jugador
+            juego.guardarPartidaTxt(nombre, App.playerName);
             mostrarAlerta("Partida Guardada", "Partida guardada como: " + nombre);
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();

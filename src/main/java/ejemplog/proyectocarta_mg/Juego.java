@@ -163,38 +163,45 @@ public final class Juego implements Serializable {
     }
     
     
-   public void guardarPartidaTxt(String nombreArchivo) throws FileNotFoundException {
-    // Ruta a la carpeta "CargaPartidas" dentro de resources
+  public void guardarPartidaTxt(String nombreArchivo, String nombreJugador) throws FileNotFoundException {
     File carpeta = new File("src/main/resources/CargaPartidas");
     if (!carpeta.exists()) {
-        carpeta.mkdirs(); // Crea la carpeta y cualquier carpeta padre necesaria
+        carpeta.mkdirs();
     }
     
     File archivo = new File(carpeta, nombreArchivo + ".txt");
     try (PrintWriter writer = new PrintWriter(archivo)) {
-        writer.println("Jugador: " + nomJugador.getNombreJugador());
+        // Guardar datos básicos
+        writer.println("Jugador: " + nombreJugador);
         writer.println("Puntaje: " + puntajeJugador);
         writer.println("Vidas: " + vidas);
         writer.println("Tiempo: " + App.gameDuration);
+        writer.println("Terminado: " + terminarJuego);
+        writer.println("Aciertos: " + aciertos);
         
+        // Guardar estado de cada carta
         for (int i = 0; i < tablero.getFilas(); i++) {
             for (int j = 0; j < tablero.getColumnas(); j++) {
                 Carta c = tablero.getCarta(i, j);
-                writer.println(i + "," + j + "," + c.getId() + "," + c.getEstado());
+                writer.printf("%d,%d,%s,%s,%s%n", 
+                    i, j, 
+                    c.getId(), 
+                    c.getTipo().name(), 
+                    c.getEstado().name());
             }
         }
     }
 }
 
 public static Juego cargarPartidaTxt(String nombreArchivo) {
-    // Ruta a la carpeta "CargaPartidas" dentro de resources
     File carpeta = new File("src/main/resources/CargaPartidas");
     File archivo = new File(carpeta, nombreArchivo + ".txt");
     
     try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
         Juego juego = new Juego();
         String line;
-        
+        Carta[][] cartas = new Carta[3][4]; // 3 filas, 4 columnas
+
         while ((line = reader.readLine()) != null) {
             if (line.startsWith("Jugador: ")) {
                 juego.nomJugador = new Jugador(line.substring(9));
@@ -204,14 +211,43 @@ public static Juego cargarPartidaTxt(String nombreArchivo) {
                 juego.vidas = Integer.parseInt(line.substring(7));
             } else if (line.startsWith("Tiempo: ")) {
                 App.gameDuration = Integer.parseInt(line.substring(8));
+            } else if (line.startsWith("Terminado: ")) {
+                juego.terminarJuego = Boolean.parseBoolean(line.substring(11).trim());
+            } else if (line.startsWith("Aciertos: ")) {
+                juego.aciertos = Integer.parseInt(line.substring(10).trim());
             } else {
                 String[] parts = line.split(",");
                 int i = Integer.parseInt(parts[0]);
                 int j = Integer.parseInt(parts[1]);
-                Carta carta = juego.tablero.getCarta(i, j);
-                carta.setEstado(Carta.EstadoCarta.valueOf(parts[3]));
+                String id = parts[2];
+                Carta.TipoCarta tipo = Carta.TipoCarta.valueOf(parts[3]);
+                Carta.EstadoCarta estado = Carta.EstadoCarta.valueOf(parts[4]);
+                
+                // Reconstruir carta según tipo
+                Carta carta;
+                switch (tipo) {
+                    case Normal:
+                        carta = new CartaNormal(id);
+                        break;
+                    case Bonus:
+                        carta = new CartaBonus(id, estado, tipo, null);
+                        break;
+                    case Castigo:
+                        carta = new CartaCastigo(id, estado, tipo, null);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Tipo desconocido: " + tipo);
+                }
+                carta.setEstado(estado);
+                cartas[i][j] = carta;
             }
         }
+        
+        // Reconstruir tablero
+        Tablero tablero = new Tablero();
+        tablero.setCartas(cartas);
+        juego.setTablero(tablero);
+        
         return juego;
     } catch (IOException e) {
         System.err.println("Error cargando partida TXT: " + e.getMessage());
