@@ -27,10 +27,13 @@
                <Font name="Kristen ITC" size="18.0" />
             </font>
          </TextArea>
-         <Label contentDisplay="TOP" layoutX="81.0" layoutY="17.0" prefHeight="78.0" prefWidth="419.0" text="Girasoles o Cerebros" textAlignment="CENTER" textFill="#48ff23" textOverrun="CENTER_ELLIPSIS">
+         <Label contentDisplay="TOP" layoutX="82.0" prefHeight="47.0" prefWidth="419.0" text="Girasoles o Cerebros" textAlignment="CENTER" textFill="#48ff23" textOverrun="CENTER_ELLIPSIS">
             <font>
                <Font name="Elephant" size="36.0" />
             </font>
+            <opaqueInsets>
+               <Insets left="4.0" />
+            </opaqueInsets>
          </Label>
          <Button fx:id="BtnEntrar" layoutX="206.0" layoutY="163.0" mnemonicParsing="false" onAction="#switchToSecondary" prefHeight="36.0" prefWidth="128.0" text="Jugar">
             <font>

@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -121,7 +122,7 @@ public class SecondaryController {
     Button btn1 = flippedCards.get(0);
     Button btn2 = flippedCards.get(1);
     
-    PauseTransition initialPause = new PauseTransition(Duration.millis(500));
+    PauseTransition initialPause = new PauseTransition(Duration.millis(300));
     initialPause.setOnFinished(e -> {
         int fila1 = getFila(btn1);
         int columna1 = getColumna(btn1);
@@ -141,6 +142,7 @@ public class SecondaryController {
         LabelScore.setText("Puntos: " + score);
         
         if (juego.isTerminarJuego()) {
+            disableAllCards();
             if (lives <= 0) {
                 gameOver();
             } else {
@@ -194,19 +196,10 @@ public class SecondaryController {
         return -1;
     }
     
-    private void updateScore(int points) {
-        Labelvidas.setText("Puntos: " + score); // Asumiendo que tienes un Label para puntos
-    }
-    
-    private void updateLives() {
-        Labelvidas.setText("Vidas: " + lives);
-        if (lives <= 0) {
-            gameOver();
-        }
-    }
+   
     
     private void applyCombo() {
-        comboCount = 12;
+        comboCount = 5;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("¡Combo!");
         alert.setHeaderText(null);
@@ -215,6 +208,7 @@ public class SecondaryController {
     }
     
     private boolean checkWin() {
+        
         return getAllCardButtons().stream().allMatch(Button::isDisable);
     }
     
@@ -234,12 +228,18 @@ public class SecondaryController {
     
     private void gameOver() {
         gameTimer.stop();
+        Platform.runLater(() -> {
+        showAlert("Game Over", "Se acabó el tiempo o las vidas!\nPuntuación final: " + score);
+        });
         showAlert("Game Over", "Se acabó el tiempo o las vidas!\nPuntuación final: " + score);
         disableAllCards();
     }
 
     private void gameWon() {
         gameTimer.stop();
+         Platform.runLater(() -> {
+        showAlert("¡Felicidades!", "¡Ganaste el juego con " + score + " puntos! ");
+    });
         showAlert("¡Felicidades!", "¡Ganaste el juego con " + score + " puntos!");
         disableAllCards();
     }

@@ -141,7 +141,7 @@ public final class Juego implements Serializable {
                     try {
                         c.voltearCarta(); // Revelar castigos
                     } catch (Excepciones.CartaNoVoltearExcepcion e) {
-                        // Ignorar
+                        
                     }
                 }
             }

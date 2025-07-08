@@ -33,7 +33,7 @@ public abstract class Carta implements Serializable {
             switch(tipo) {
                 case Normal: carpeta = "imgNormal"; break;
                 case Bonus: carpeta = "ImgBonus"; break;
-                case Castigo: carpeta = "Castigo"; break;
+                case Castigo: carpeta = "ImgCastigo"; break;
             }
             
             // Cargar reverso común
