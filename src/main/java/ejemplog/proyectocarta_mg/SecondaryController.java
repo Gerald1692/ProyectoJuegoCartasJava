@@ -113,23 +113,14 @@ private void handleCargar() {
     ////////////////
     ///
     ///
-    private void actualizarUI() {
-    // Actualizar información del jugador
-    if (juego.nomJugador != null) {
-        Labeltxt.setText(juego.nomJugador.getNombreJugador());
-    }
-    
-    // Actualizar estadísticas del juego
-    lives = juego.getVidas();
-    score = juego.getPuntajeJugador();
-    Labelvidas.setText("Vidas: " + lives);
+   private void actualizarUI() {
+    // Actualizar información básica del juego
+    Labeltxt.setText(juego.nomJugador != null ? juego.nomJugador.getNombreJugador() : "Jugador");
+    Labelvidas.setText("Vidas: " + juego.getVidas());
+    LabelScore.setText("Puntos: " + juego.getPuntajeJugador());
     Labeltiempo.setText("Tiempo: " + App.gameDuration);
-    LabelScore.setText("Puntos: " + score);
     
-    // Limpiar cartas volteadas si las hay
-    flippedCards.clear();
-    
-    // Actualizar estado visual de todas las cartas
+    // Actualizar el tablero visualmente
     Tablero tablero = juego.getTablero();
     for (int i = 0; i < tablero.getFilas(); i++) {
         for (int j = 0; j < tablero.getColumnas(); j++) {
@@ -137,35 +128,43 @@ private void handleCargar() {
             Carta carta = tablero.getCarta(i, j);
             ImageView iv = (ImageView) btn.getGraphic();
             
-            // Actualizar imagen según estado actual de la carta
+            // Resetear efectos visuales
+            btn.setDisable(false);
+            btn.setOpacity(1.0);
+            btn.setStyle("");
+            
+            // Manejar los diferentes estados
             switch (carta.getEstado()) {
                 case Oculta:
                     iv.setImage(carta.getImaEspalda());
-                    btn.setDisable(false);
+                    
                     break;
+                    
                 case Revelada:
                     iv.setImage(carta.getImaCara());
-                    btn.setDisable(true);
+                    btn.setDisable(true); // Deshabilitar pero mostrar la carta
                     break;
+                    
                 case Emparejada:
                     iv.setImage(carta.getImaCara());
                     btn.setDisable(true);
+                    btn.setStyle("-fx-border-color: green;");
                     break;
             }
             
-            // Actualizar la asociación botón-carta
             buttonCartaMap.put(btn, carta);
         }
     }
     
-    // Verificar si el juego terminó
+    // Verificar fin del juego
     if (juego.isTerminarJuego()) {
         disableAllCards();
-        if (lives <= 0) {
-            showAlert("Juego Terminado", "Se acabaron las vidas. Puntuación: " + score);
-        } else {
-            showAlert("¡Felicidades!", "¡Completaste el juego! Puntuación: " + score);
-        }
+        showAlert(
+            juego.getVidas() <= 0 ? "Game Over" : "¡Felicidades!",
+            juego.getVidas() <= 0 
+                ? "Se acabaron las vidas. Puntuación: " + score 
+                : "¡Ganaste con " + score + " puntos!"
+        );
     }
 }
     
@@ -277,7 +276,7 @@ private void handleCargar() {
         // Actualizar UI inmediatamente
         Labelvidas.setText("Vidas: " + lives);
         LabelScore.setText("Puntos: " + score);
-        
+        actualizarUI();
         if (juego.isTerminarJuego()) {
             disableAllCards();
             if (lives <= 0) {

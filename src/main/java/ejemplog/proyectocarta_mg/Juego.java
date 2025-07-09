@@ -84,7 +84,7 @@ public final class Juego implements Serializable {
             puntajeJugador += primerSeleccion.obtenerPuntos();
             aciertos++;
             
-            if (aciertos == 4) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
+            if (aciertos == 1) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
                 quitarCastigos();
                 aciertos = 0;
             }
@@ -137,20 +137,22 @@ public final class Juego implements Serializable {
         segundaSeleccion = null;   
     }
   
-    private void quitarCastigos() {
-        for (int i = 0; i < tablero.getFilas(); i++) {
-            for (int j = 0; j < tablero.getColumnas(); j++) {
-                Carta c = tablero.getCarta(i, j);
-                if (c.getTipo() == Carta.TipoCarta.Castigo && c.getEstado() == Carta.EstadoCarta.Oculta) {
-                    try {
-                        c.voltearCarta(); // Revelar castigos
-                    } catch (Excepciones.CartaNoVoltearExcepcion e) {
-                        
-                    }
+   private void quitarCastigos() {
+    for (int i = 0; i < tablero.getFilas(); i++) {
+        for (int j = 0; j < tablero.getColumnas(); j++) {
+            Carta c = tablero.getCarta(i, j);
+            // Solo afecta a cartas de castigo que estén ocultas
+            if (c.getTipo() == Carta.TipoCarta.Castigo && c.getEstado() == Carta.EstadoCarta.Oculta) {
+                try {
+                    c.voltearCarta(); // Revela la carta
+                    c.setEstado(Carta.EstadoCarta.Revelada); // Cambia a estado Revelada
+                } catch (Excepciones.CartaNoVoltearExcepcion e) {
+                    // Manejar excepción si es necesario
                 }
             }
         }
     }
+}
   
     public void guardarPartidaTxt(String nombreArchivo, String nombreJugador) throws FileNotFoundException {
     File carpeta = new File("src/main/resources/CargaPartidas");
