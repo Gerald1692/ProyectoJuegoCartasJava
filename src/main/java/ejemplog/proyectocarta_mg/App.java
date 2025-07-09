@@ -16,10 +16,16 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         soundManager = new SoundManager();
+        soundManager.playBackgroundMusic(); // Iniciar música
+        
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.setTitle("Provigio - Juego de Memoria");
+        
+        // Detener música al cerrar la ventana
+        stage.setOnCloseRequest(event -> soundManager.stopBackgroundMusic());
+        
         stage.show();
     }
 
