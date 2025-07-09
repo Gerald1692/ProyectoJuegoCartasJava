@@ -1,0 +1,21 @@
+Jugador: Marce
+Puntaje: 14
+Vidas: 24
+Tiempo: 42
+Terminado: false
+Aciertos: 0
+--- TABLERO ---
+Filas: 3
+Columnas: 4
+0,0,B0,Bonus,Emparejada
+0,1,N3,Normal,Emparejada
+0,2,N2,Normal,Oculta
+0,3,N0,Normal,Emparejada
+1,0,C0,Castigo,Revelada
+1,1,B0,Bonus,Revelada
+1,2,N1,Normal,Revelada
+1,3,C0,Castigo,Revelada
+2,0,N2,Normal,Oculta
+2,1,N0,Normal,Revelada
+2,2,N3,Normal,Revelada
+2,3,N1,Normal,Emparejada

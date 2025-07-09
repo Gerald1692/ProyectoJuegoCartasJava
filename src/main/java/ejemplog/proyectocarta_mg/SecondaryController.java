@@ -145,7 +145,7 @@ private void handleCargar() {
                     break;
                 case Revelada:
                     iv.setImage(carta.getImaCara());
-                    btn.setDisable(false);
+                    btn.setDisable(true);
                     break;
                 case Emparejada:
                     iv.setImage(carta.getImaCara());
