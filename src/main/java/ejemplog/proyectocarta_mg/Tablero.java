@@ -49,6 +49,73 @@ public class Tablero implements Serializable {
             }
         }
     }
+        /**
+     * Método para obtener una representación completa del tablero para guardar
+     * @return Array bidimensional con información de cada carta
+     */
+    public String[][] obtenerMapeoCompleto() {
+        String[][] mapeo = new String[filas][columnas];
+        
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                Carta carta = cartas[i][j];
+                // Formato: "ID,TIPO,ESTADO"
+                mapeo[i][j] = carta.getId() + "," + 
+                             carta.getTipo().name() + "," + 
+                             carta.getEstado().name();
+            }
+        }
+        
+        return mapeo;
+    }
+    
+    /**
+     * Método para reconstruir el tablero desde un mapeo guardado
+     * @param mapeo Array bidimensional con información de cada carta
+     */
+    public void cargarDesdeMapeo(String[][] mapeo) {
+        int filas = mapeo.length;
+        int columnas = mapeo[0].length;
+        
+        this.filas = filas;
+        this.columnas = columnas;
+        this.cartas = new Carta[filas][columnas];
+        
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                String[] datos = mapeo[i][j].split(",");
+                String id = datos[0];
+                Carta.TipoCarta tipo = Carta.TipoCarta.valueOf(datos[1]);
+                Carta.EstadoCarta estado = Carta.EstadoCarta.valueOf(datos[2]);
+                
+                // Crear la carta según su tipo
+                Carta carta;
+                switch (tipo) {
+                    case Normal:
+                        carta = new CartaNormal(id);
+                        break;
+                    case Bonus:
+                        carta = new CartaBonus(id, estado, tipo, null);
+                        break;
+                    case Castigo:
+                        carta = new CartaCastigo(id, estado, tipo, null);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Tipo de carta desconocido: " + tipo);
+                }
+                
+                // Establecer el estado correcto
+                carta.setEstado(estado);
+                
+                // Si la carta estaba revelada o emparejada, mostrar la cara
+                if (estado == Carta.EstadoCarta.Revelada || estado == Carta.EstadoCarta.Emparejada) {
+                    carta.setImagenCarta(carta.getImaCara());
+                }
+                
+                cartas[i][j] = carta;
+            }
+        }
+    }
     
     public Carta getCarta(int fila, int columna) {
         return cartas[fila][columna];

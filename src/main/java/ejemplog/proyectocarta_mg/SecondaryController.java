@@ -113,34 +113,60 @@ private void handleCargar() {
     ////////////////
     ///
     ///
-    private void actualizarUI() {
-        // Actualizar la interfaz con el estado del juego cargado
-        lives = juego.getVidas();
-        score = juego.getPuntajeJugador();
-        Labelvidas.setText("Vidas: " + lives);
-        LabelScore.setText("Puntos: " + score);
-        
-        // Actualizar estado de las cartas
-        Tablero tablero = juego.getTablero();
-        for (int i = 0; i < tablero.getFilas(); i++) {
-            for (int j = 0; j < tablero.getColumnas(); j++) {
-                Button btn = buttonsGrid[i][j];
-                Carta carta = tablero.getCarta(i, j);
-                ImageView iv = (ImageView) btn.getGraphic();
-                
-                // Actualizar imagen según estado
-                if (carta.getEstado() == Carta.EstadoCarta.Revelada || 
-                    carta.getEstado() == Carta.EstadoCarta.Emparejada) {
-                    iv.setImage(carta.getImaCara());
-                } else {
+   private void actualizarUI() {
+    // Actualizar información básica del juego
+    Labeltxt.setText(juego.nomJugador != null ? juego.nomJugador.getNombreJugador() : "Jugador");
+    Labelvidas.setText("Vidas: " + juego.getVidas());
+    LabelScore.setText("Puntos: " + juego.getPuntajeJugador());
+    Labeltiempo.setText("Tiempo: " + App.gameDuration);
+    
+    // Actualizar el tablero visualmente
+    Tablero tablero = juego.getTablero();
+    for (int i = 0; i < tablero.getFilas(); i++) {
+        for (int j = 0; j < tablero.getColumnas(); j++) {
+            Button btn = buttonsGrid[i][j];
+            Carta carta = tablero.getCarta(i, j);
+            ImageView iv = (ImageView) btn.getGraphic();
+            
+            // Resetear efectos visuales
+            btn.setDisable(false);
+            btn.setOpacity(1.0);
+            btn.setStyle("");
+            
+            // Manejar los diferentes estados
+            switch (carta.getEstado()) {
+                case Oculta:
                     iv.setImage(carta.getImaEspalda());
-                }
-                
-                // Deshabilitar cartas emparejadas
-                btn.setDisable(carta.getEstado() == Carta.EstadoCarta.Emparejada);
+                    
+                    break;
+                    
+                case Revelada:
+                    iv.setImage(carta.getImaCara());
+                    btn.setDisable(true); // Deshabilitar pero mostrar la carta
+                    break;
+                    
+                case Emparejada:
+                    iv.setImage(carta.getImaCara());
+                    btn.setDisable(true);
+                    btn.setStyle("-fx-border-color: green;");
+                    break;
             }
+            
+            buttonCartaMap.put(btn, carta);
         }
     }
+    
+    // Verificar fin del juego
+    if (juego.isTerminarJuego()) {
+        disableAllCards();
+        showAlert(
+            juego.getVidas() <= 0 ? "Game Over" : "¡Felicidades!",
+            juego.getVidas() <= 0 
+                ? "Se acabaron las vidas. Puntuación: " + score 
+                : "¡Ganaste con " + score + " puntos!"
+        );
+    }
+}
     
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -250,7 +276,7 @@ private void handleCargar() {
         // Actualizar UI inmediatamente
         Labelvidas.setText("Vidas: " + lives);
         LabelScore.setText("Puntos: " + score);
-        
+        actualizarUI();
         if (juego.isTerminarJuego()) {
             disableAllCards();
             if (lives <= 0) {

@@ -29,7 +29,7 @@ public final class Juego implements Serializable {
     private int vidas;
     private boolean terminarJuego;
     private int aciertos = 0;
-    private Jugador nomJugador;
+    Jugador nomJugador;
     private final Stack<Movimiento> historialMovimientos;
 
     public Juego(Tablero tablero, int puntajeJugador, Carta primerSeleccion, Carta segundaSeleccion, int vidas, boolean terminarJuego, Jugador nomJugador) {
@@ -84,7 +84,7 @@ public final class Juego implements Serializable {
             puntajeJugador += primerSeleccion.obtenerPuntos();
             aciertos++;
             
-            if (aciertos == 4) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
+            if (aciertos == 1) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
                 quitarCastigos();
                 aciertos = 0;
             }
@@ -137,33 +137,24 @@ public final class Juego implements Serializable {
         segundaSeleccion = null;   
     }
   
-    private void quitarCastigos() {
-        for (int i = 0; i < tablero.getFilas(); i++) {
-            for (int j = 0; j < tablero.getColumnas(); j++) {
-                Carta c = tablero.getCarta(i, j);
-                if (c.getTipo() == Carta.TipoCarta.Castigo && c.getEstado() == Carta.EstadoCarta.Oculta) {
-                    try {
-                        c.voltearCarta(); // Revelar castigos
-                    } catch (Excepciones.CartaNoVoltearExcepcion e) {
-                        
-                    }
+   private void quitarCastigos() {
+    for (int i = 0; i < tablero.getFilas(); i++) {
+        for (int j = 0; j < tablero.getColumnas(); j++) {
+            Carta c = tablero.getCarta(i, j);
+            // Solo afecta a cartas de castigo que estén ocultas
+            if (c.getTipo() == Carta.TipoCarta.Castigo && c.getEstado() == Carta.EstadoCarta.Oculta) {
+                try {
+                    c.voltearCarta(); // Revela la carta
+                    c.setEstado(Carta.EstadoCarta.Revelada); // Cambia a estado Revelada
+                } catch (Excepciones.CartaNoVoltearExcepcion e) {
+                    // Manejar excepción si es necesario
                 }
             }
         }
     }
+}
   
-    public void guardarPartida(String archivo) {
-        
-    }
-  
-    public static Juego cargarPartida(String archivo) {
-        
-        return null;
-        
-    }
-    
-    
-  public void guardarPartidaTxt(String nombreArchivo, String nombreJugador) throws FileNotFoundException {
+    public void guardarPartidaTxt(String nombreArchivo, String nombreJugador) throws FileNotFoundException {
     File carpeta = new File("src/main/resources/CargaPartidas");
     if (!carpeta.exists()) {
         carpeta.mkdirs();
@@ -171,89 +162,118 @@ public final class Juego implements Serializable {
     
     File archivo = new File(carpeta, nombreArchivo + ".txt");
     try (PrintWriter writer = new PrintWriter(archivo)) {
-        // Guardar datos básicos
+        // Guardar datos básicos del juego
         writer.println("Jugador: " + nombreJugador);
         writer.println("Puntaje: " + puntajeJugador);
         writer.println("Vidas: " + vidas);
         writer.println("Tiempo: " + App.gameDuration);
         writer.println("Terminado: " + terminarJuego);
         writer.println("Aciertos: " + aciertos);
+        writer.println("--- TABLERO ---");
         
-        // Guardar estado de cada carta
-        for (int i = 0; i < tablero.getFilas(); i++) {
-            for (int j = 0; j < tablero.getColumnas(); j++) {
-                Carta c = tablero.getCarta(i, j);
-                writer.printf("%d,%d,%s,%s,%s%n", 
-                    i, j, 
-                    c.getId(), 
-                    c.getTipo().name(), 
-                    c.getEstado().name());
+        // Obtener mapeo completo del tablero
+        String[][] mapeoTablero = tablero.obtenerMapeoCompleto();
+        
+        // Guardar dimensiones del tablero
+        writer.println("Filas: " + mapeoTablero.length);
+        writer.println("Columnas: " + mapeoTablero[0].length);
+        
+        // Guardar cada posición del tablero con formato específico
+        for (int i = 0; i < mapeoTablero.length; i++) {
+            for (int j = 0; j < mapeoTablero[i].length; j++) {
+                // Formato: FILA,COLUMNA,DATOS_CARTA
+                writer.println(i + "," + j + "," + mapeoTablero[i][j]);
             }
         }
+        
+        System.out.println("Partida guardada exitosamente: " + nombreArchivo);
+    } catch (IOException e) {
+        System.err.println("Error guardando partida: " + e.getMessage());
+        throw new FileNotFoundException("No se pudo crear el archivo de guardado");
     }
 }
-
-public static Juego cargarPartidaTxt(String nombreArchivo) {
+  
+    public static Juego cargarPartidaTxt(String nombreArchivo) {
     File carpeta = new File("src/main/resources/CargaPartidas");
     File archivo = new File(carpeta, nombreArchivo + ".txt");
+    
+    if (!archivo.exists()) {
+        System.err.println("El archivo de partida no existe: " + nombreArchivo);
+        return null;
+    }
     
     try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
         Juego juego = new Juego();
         String line;
-        Carta[][] cartas = new Carta[3][4]; // 3 filas, 4 columnas
+        boolean leyendoTablero = false;
+        String[][] mapeoTablero = null;
+        int filas = 0, columnas = 0;
 
         while ((line = reader.readLine()) != null) {
-            if (line.startsWith("Jugador: ")) {
-                juego.nomJugador = new Jugador(line.substring(9));
-            } else if (line.startsWith("Puntaje: ")) {
-                juego.puntajeJugador = Integer.parseInt(line.substring(9));
-            } else if (line.startsWith("Vidas: ")) {
-                juego.vidas = Integer.parseInt(line.substring(7));
-            } else if (line.startsWith("Tiempo: ")) {
-                App.gameDuration = Integer.parseInt(line.substring(8));
-            } else if (line.startsWith("Terminado: ")) {
-                juego.terminarJuego = Boolean.parseBoolean(line.substring(11).trim());
-            } else if (line.startsWith("Aciertos: ")) {
-                juego.aciertos = Integer.parseInt(line.substring(10).trim());
-            } else {
-                String[] parts = line.split(",");
-                int i = Integer.parseInt(parts[0]);
-                int j = Integer.parseInt(parts[1]);
-                String id = parts[2];
-                Carta.TipoCarta tipo = Carta.TipoCarta.valueOf(parts[3]);
-                Carta.EstadoCarta estado = Carta.EstadoCarta.valueOf(parts[4]);
-                
-                // Reconstruir carta según tipo
-                Carta carta;
-                switch (tipo) {
-                    case Normal:
-                        carta = new CartaNormal(id);
-                        break;
-                    case Bonus:
-                        carta = new CartaBonus(id, estado, tipo, null);
-                        break;
-                    case Castigo:
-                        carta = new CartaCastigo(id, estado, tipo, null);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Tipo desconocido: " + tipo);
+            if (line.trim().isEmpty()) continue;
+            
+            if (line.equals("--- TABLERO ---")) {
+                leyendoTablero = true;
+                continue;
+            }
+            
+            if (!leyendoTablero) {
+                // Leer datos básicos del juego
+                if (line.startsWith("Jugador: ")) {
+                    juego.nomJugador = new Jugador(line.substring(9));
+                } else if (line.startsWith("Puntaje: ")) {
+                    juego.puntajeJugador = Integer.parseInt(line.substring(9));
+                } else if (line.startsWith("Vidas: ")) {
+                    juego.vidas = Integer.parseInt(line.substring(7));
+                } else if (line.startsWith("Tiempo: ")) {
+                    App.gameDuration = Integer.parseInt(line.substring(8));
+                } else if (line.startsWith("Terminado: ")) {
+                    juego.terminarJuego = Boolean.parseBoolean(line.substring(11).trim());
+                } else if (line.startsWith("Aciertos: ")) {
+                    juego.aciertos = Integer.parseInt(line.substring(10).trim());
                 }
-                carta.setEstado(estado);
-                cartas[i][j] = carta;
+            } else {
+                // Leer datos del tablero
+                if (line.startsWith("Filas: ")) {
+                    filas = Integer.parseInt(line.substring(7));
+                } else if (line.startsWith("Columnas: ")) {
+                    columnas = Integer.parseInt(line.substring(10));
+                    mapeoTablero = new String[filas][columnas];
+                } else {
+                    // Leer posición específica del tablero
+                    String[] partes = line.split(",", 3); // Límite 3 para evitar problemas con datos de carta
+                    int fila = Integer.parseInt(partes[0]);
+                    int columna = Integer.parseInt(partes[1]);
+                    String datosCarta = partes[2];
+                    
+                    mapeoTablero[fila][columna] = datosCarta;
+                }
             }
         }
         
-        // Reconstruir tablero
-        Tablero tablero = new Tablero();
-        tablero.setCartas(cartas);
-        juego.setTablero(tablero);
+        // Reconstruir el tablero desde el mapeo
+        if (mapeoTablero != null) {
+            juego.tablero = new Tablero();
+            juego.tablero.cargarDesdeMapeo(mapeoTablero);
+        } else {
+            System.err.println("Error: No se pudo reconstruir el tablero");
+            return null;
+        }
         
+        System.out.println("Partida cargada exitosamente: " + nombreArchivo);
         return juego;
+        
     } catch (IOException e) {
-        System.err.println("Error cargando partida TXT: " + e.getMessage());
+        System.err.println("Error cargando partida: " + e.getMessage());
+        return null;
+    } catch (NumberFormatException e) {
+        System.err.println("Error en formato de datos: " + e.getMessage());
         return null;
     }
 }
+    
+    
+  
     
     
 
