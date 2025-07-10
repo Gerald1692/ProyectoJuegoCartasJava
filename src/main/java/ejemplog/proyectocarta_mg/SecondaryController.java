@@ -122,6 +122,7 @@ private void handleCargar() {
         return;
     }
     
+<<<<<<< HEAD
     enReplay = true;
     disableAllCards(); // Deshabilitar interacción durante el replay
     
@@ -181,6 +182,13 @@ private void finalizarReplay() {
    
    private void actualizarUI() {
     // Actualizar información básica del juego
+=======
+    ////////////////
+    ///
+    ///
+  private void actualizarUI() {
+    // Actualizar información básica
+>>>>>>> d165c94591be44f4e8f42f1db8af6c2a58763d3c
     Labeltxt.setText(App.playerName);
     Labelvidas.setText("Vidas: " + juego.getVidas());
     LabelScore.setText("Puntos: " + juego.getPuntajeJugador());
@@ -199,7 +207,6 @@ private void finalizarReplay() {
             btn.setOpacity(1.0);
             btn.setStyle("");
             
-            // Manejar los diferentes estados
             switch (carta.getEstado()) {
                 case Oculta:
                     iv.setImage(carta.getImaEspalda());
@@ -207,7 +214,7 @@ private void finalizarReplay() {
                     
                 case Revelada:
                     iv.setImage(carta.getImaCara());
-                    btn.setDisable(true); // Deshabilitar pero mostrar la carta
+                    btn.setDisable(true);
                     break;
                     
                 case Emparejada:
@@ -221,6 +228,7 @@ private void finalizarReplay() {
         }
     }
     
+<<<<<<< HEAD
     // Verificar fin del juego SOLO si no estamos en replay
     if (!enReplay && juego.isTerminarJuego()) {
         disableAllCards();
@@ -230,6 +238,16 @@ private void finalizarReplay() {
                 ? "Se acabaron las vidas. Puntuación: " + juego.getPuntajeJugador()
                 : "¡Ganaste con " + juego.getPuntajeJugador() + " puntos!"
         );
+=======
+    // Verificar fin del juego (¡IMPORTANTE PARA PARTIDAS CARGADAS!)
+    if (juego.isTerminarJuego()) {
+        disableAllCards();
+        if (juego.getVidas() <= 0) {
+            gameOver();
+        } else {
+            gameWon();
+        }
+>>>>>>> d165c94591be44f4e8f42f1db8af6c2a58763d3c
     }
 }
     

@@ -16,8 +16,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
+=======
+import java.text.BreakIterator;
+import java.util.Stack;
+>>>>>>> d165c94591be44f4e8f42f1db8af6c2a58763d3c
 
 public final class Juego implements Serializable {
     private static final long serialVersionUID = 1L; 
@@ -120,23 +125,55 @@ public final class Juego implements Serializable {
         
     }
     
-    private void verificarFinJuego() {
-        boolean todasEmparejadas = true;
-        for (int i = 0; i < tablero.getFilas(); i++) {
-            for (int j = 0; j < tablero.getColumnas(); j++) {
-                Carta c = tablero.getCarta(i, j);
-                if (c.getEstado() != Carta.EstadoCarta.Emparejada) {
-                    todasEmparejadas = false;
-                    break;
-                }
+   public void verificarFinJuego() {
+    boolean todasEmparejadas = true;
+    for (int i = 0; i < tablero.getFilas(); i++) {
+        for (int j = 0; j < tablero.getColumnas(); j++) {
+            Carta c = tablero.getCarta(i, j);
+            if (c.getEstado() != Carta.EstadoCarta.Emparejada) {
+                todasEmparejadas = false;
+                break;
             }
         }
-        if (todasEmparejadas) {
-            terminarJuego = true;
-        }
+        if (!todasEmparejadas) break;
     }
     
+<<<<<<< HEAD
    
+=======
+    terminarJuego = todasEmparejadas || vidas <= 0;
+}
+    
+    public void retroceder() {
+    if (historialMovimientos.isEmpty()) {
+        throw new Excepciones.sinMovimientosAnt("No hay movimientos anteriores");
+    }
+    Movimiento ultimo = historialMovimientos.pop();
+    
+    // Restaurar primera carta (estado + imagen)
+    ultimo.getCarta1().setEstado(ultimo.getEstadoAnterior1());
+    ultimo.getCarta1().setImagenCarta(
+        ultimo.getEstadoAnterior1() == Carta.EstadoCarta.Oculta 
+            ? ultimo.getCarta1().getImaEspalda() 
+            : ultimo.getCarta1().getImaCara()
+    );
+    
+    // Restaurar segunda carta (estado + imagen)
+    if (ultimo.getCarta2() != null) {
+        ultimo.getCarta2().setEstado(ultimo.getEstadoAnterior2());
+        ultimo.getCarta2().setImagenCarta(
+            ultimo.getEstadoAnterior2() == Carta.EstadoCarta.Oculta 
+                ? ultimo.getCarta2().getImaEspalda() 
+                : ultimo.getCarta2().getImaCara()
+        );
+    }
+    
+    puntajeJugador = ultimo.getPuntajeAnterior();
+    vidas = ultimo.getVidaAterior();
+    primerSeleccion = null;
+    segundaSeleccion = null;
+}
+>>>>>>> d165c94591be44f4e8f42f1db8af6c2a58763d3c
   
    private void quitarCastigos() {
     for (int i = 0; i < tablero.getFilas(); i++) {
@@ -257,6 +294,7 @@ public final class Juego implements Serializable {
         if (mapeoTablero != null) {
             juego.tablero = new Tablero();
             juego.tablero.cargarDesdeMapeo(mapeoTablero);
+            juego.verificarFinJuego();
         } else {
             System.err.println("Error: No se pudo reconstruir el tablero");
             return null;

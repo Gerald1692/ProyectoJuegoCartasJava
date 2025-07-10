@@ -1,0 +1,21 @@
+Jugador: ews
+Puntaje: 6
+Vidas: 24
+Tiempo: 69
+Terminado: false
+Aciertos: 0
+--- TABLERO ---
+Filas: 3
+Columnas: 4
+0,0,N1,Normal,Oculta
+0,1,N0,Normal,Emparejada
+0,2,N2,Normal,Oculta
+0,3,N3,Normal,Oculta
+1,0,N2,Normal,Oculta
+1,1,B0,Bonus,Emparejada
+1,2,N0,Normal,Emparejada
+1,3,N3,Normal,Oculta
+2,0,C0,Castigo,Emparejada
+2,1,B0,Bonus,Emparejada
+2,2,C0,Castigo,Emparejada
+2,3,N1,Normal,Oculta
