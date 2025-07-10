@@ -258,7 +258,7 @@ private void checkMatch() {
     Button btn1 = flippedCards.get(0);
     Button btn2 = flippedCards.get(1);
     
-    PauseTransition inicioPause = new PauseTransition(Duration.millis(300));
+    PauseTransition inicioPause = new PauseTransition(Duration.millis(500));
     inicioPause.setOnFinished(e -> {
         int fila1 = getFila(btn1);
         int columna1 = getColumna(btn1);
@@ -284,18 +284,22 @@ private void checkMatch() {
             if (checkWin()) gameWon();
         } else {
             // 2. Mostrar cartas por 1 segundo ANTES de procesar
-            PauseTransition mostrarPareja = new PauseTransition(Duration.seconds(1));
+            PauseTransition mostrarPareja = new PauseTransition(Duration.millis(500));
             mostrarPareja.setOnFinished(ev -> {
                 // Procesar pareja fallida
                 juego.seleccionarCarta(fila1, columna1);
                 juego.seleccionarCarta(fila2, columna2);
                 
-                // Actualizar UI
+                
               
                 
                 // Voltear cartas de vuelta
                 flipCard(btn1, false);
                 flipCard(btn2, false);
+                
+                btn1.setDisable(false);
+                btn2.setDisable(false);
+
                 flippedCards.clear();
             });
             mostrarPareja.play();
