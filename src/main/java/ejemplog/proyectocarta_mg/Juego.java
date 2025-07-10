@@ -16,6 +16,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.text.BreakIterator;
 import java.util.Stack;
 
 public final class Juego implements Serializable {
@@ -112,21 +113,21 @@ public final class Juego implements Serializable {
         
     }
     
-    private void verificarFinJuego() {
-        boolean todasEmparejadas = true;
-        for (int i = 0; i < tablero.getFilas(); i++) {
-            for (int j = 0; j < tablero.getColumnas(); j++) {
-                Carta c = tablero.getCarta(i, j);
-                if (c.getEstado() != Carta.EstadoCarta.Emparejada) {
-                    todasEmparejadas = false;
-                    break;
-                }
+   public void verificarFinJuego() {
+    boolean todasEmparejadas = true;
+    for (int i = 0; i < tablero.getFilas(); i++) {
+        for (int j = 0; j < tablero.getColumnas(); j++) {
+            Carta c = tablero.getCarta(i, j);
+            if (c.getEstado() != Carta.EstadoCarta.Emparejada) {
+                todasEmparejadas = false;
+                break;
             }
         }
-        if (todasEmparejadas) {
-            terminarJuego = true;
-        }
+        if (!todasEmparejadas) break;
     }
+    
+    terminarJuego = todasEmparejadas || vidas <= 0;
+}
     
     public void retroceder() {
     if (historialMovimientos.isEmpty()) {
@@ -291,6 +292,7 @@ private void guardarMovimiento() {
         if (mapeoTablero != null) {
             juego.tablero = new Tablero();
             juego.tablero.cargarDesdeMapeo(mapeoTablero);
+            juego.verificarFinJuego();
         } else {
             System.err.println("Error: No se pudo reconstruir el tablero");
             return null;

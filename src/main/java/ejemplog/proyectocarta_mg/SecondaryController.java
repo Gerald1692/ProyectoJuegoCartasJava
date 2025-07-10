@@ -116,8 +116,8 @@ private void handleCargar() {
     ////////////////
     ///
     ///
-   private void actualizarUI() {
-    // Actualizar información básica del juego
+  private void actualizarUI() {
+    // Actualizar información básica
     Labeltxt.setText(App.playerName);
     Labelvidas.setText("Vidas: " + juego.getVidas());
     LabelScore.setText("Puntos: " + juego.getPuntajeJugador());
@@ -136,16 +136,14 @@ private void handleCargar() {
             btn.setOpacity(1.0);
             btn.setStyle("");
             
-            // Manejar los diferentes estados
             switch (carta.getEstado()) {
                 case Oculta:
                     iv.setImage(carta.getImaEspalda());
-                    
                     break;
                     
                 case Revelada:
                     iv.setImage(carta.getImaCara());
-                    btn.setDisable(true); // Deshabilitar pero mostrar la carta
+                    btn.setDisable(true);
                     break;
                     
                 case Emparejada:
@@ -159,15 +157,14 @@ private void handleCargar() {
         }
     }
     
-    // Verificar fin del juego
+    // Verificar fin del juego (¡IMPORTANTE PARA PARTIDAS CARGADAS!)
     if (juego.isTerminarJuego()) {
         disableAllCards();
-        showAlert(
-            juego.getVidas() <= 0 ? "Game Over" : "¡Felicidades!",
-            juego.getVidas() <= 0 
-                ? "Se acabaron las vidas. Puntuación: " + score 
-                : "¡Ganaste con " + score + " puntos!"
-        );
+        if (juego.getVidas() <= 0) {
+            gameOver();
+        } else {
+            gameWon();
+        }
     }
 }
     
