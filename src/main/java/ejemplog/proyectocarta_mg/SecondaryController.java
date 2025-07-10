@@ -380,11 +380,12 @@ private void checkMatch() {
         gameTimer.play();
     }
     
-   private void gameOver() {
+  private void gameOver() {
     gameTimer.stop();
-    // Obtener puntaje actualizado del modelo
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
+        // Reproducir sonido de fin de juego
+        App.getSoundManager().playGameEndSound();
         showAlert("Game Over", "Se acabó el tiempo o las vidas!\nPuntuación final: " + puntajeFinal);
         disableAllCards();
     });
@@ -392,9 +393,10 @@ private void checkMatch() {
 
 private void gameWon() {
     gameTimer.stop();
-    // Obtener puntaje actualizado del modelo
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
+        // Reproducir sonido de fin de juego
+        App.getSoundManager().playGameEndSound();
         showAlert("¡Felicidades!", "¡Ganaste el juego con " + puntajeFinal + " puntos! ");
         disableAllCards();
     });

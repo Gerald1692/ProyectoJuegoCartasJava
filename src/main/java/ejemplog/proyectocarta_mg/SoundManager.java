@@ -22,6 +22,23 @@ public class SoundManager {
             System.err.println("Error al cargar la música: " + e.getMessage());
         }
     }
+    
+   public void playGameEndSound() {
+    try {
+        URL resource = getClass().getResource("/musica/plants-vs-zombies-victory-jingle.mp3");
+        if (resource != null) {
+            Media sound = new Media(resource.toString());
+            MediaPlayer endPlayer = new MediaPlayer(sound);
+            endPlayer.setVolume(volume);
+            endPlayer.play();
+        }
+    } catch (Exception e) {
+        System.err.println("Error al reproducir sonido de fin de juego: " + e.getMessage());
+    }
+}
+
+
+  
     public void playFlipSound() {
     try {
         URL resource = getClass().getResource("/musica/plants-vs-zombies-sun-pickup.mp3"); // Cambia al nombre de tu archivo

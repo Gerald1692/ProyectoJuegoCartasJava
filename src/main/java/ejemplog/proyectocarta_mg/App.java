@@ -11,11 +11,7 @@ public class App extends Application {
     public static String playerName;
     public static int gameDuration = 120; // Tiempo predeterminado (segundos)
     private static Scene scene;
-    public static SoundManager getSoundManager() {
-        return soundManager;
-    }
     private static SoundManager soundManager;
-    
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -46,5 +42,7 @@ public class App extends Application {
         launch();
     }
     
-
+    public static SoundManager getSoundManager() {
+        return soundManager;
+    }
 }
