@@ -16,13 +16,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Juego implements Serializable {
-    private static final long serialVersionUID = 1L; // Corregido: serialVersionUID
+    private static final long serialVersionUID = 1L; 
     private static final int VidasI = 30;
-
-    
+    private final List <MovimientoReplay> historialReplay = new ArrayList<>();
+    private long tiempoInicio;
     private Tablero tablero;
     private int puntajeJugador;
     private Carta primerSeleccion;
@@ -31,10 +32,10 @@ public final class Juego implements Serializable {
     private boolean terminarJuego;
     private int aciertos = 0;
     Jugador nomJugador;
-    private final Stack<Movimiento> historialMovimientos;
+    
 
     public Juego(Tablero tablero, int puntajeJugador, Carta primerSeleccion, Carta segundaSeleccion, int vidas, boolean terminarJuego, Jugador nomJugador) {
-        this.historialMovimientos = new Stack<>();
+       
         this.tablero = tablero;
         this.puntajeJugador = puntajeJugador;
         this.primerSeleccion = primerSeleccion;
@@ -45,7 +46,7 @@ public final class Juego implements Serializable {
     }
 
     public Juego() {
-        this.historialMovimientos = new Stack<>();
+        
         iniciarJuego();
     }
     
@@ -56,7 +57,9 @@ public final class Juego implements Serializable {
         terminarJuego = false;
         primerSeleccion = null;
         segundaSeleccion = null;
-        aciertos = 0;        
+        aciertos = 0; 
+        tiempoInicio = System.currentTimeMillis();
+        historialReplay.clear();
     }
 
    public void seleccionarCarta(int fila, int columna) {
@@ -72,13 +75,18 @@ public final class Juego implements Serializable {
             primerSeleccion = cartaSelect;
         } else if (segundaSeleccion == null) {
             segundaSeleccion = cartaSelect;
-            guardarMovimiento();
+            
             verificarPareja();
         }
+        long tiempoTranscurrido = System.currentTimeMillis() - tiempoInicio;
+        historialReplay.add(new MovimientoReplay(fila, columna, tiempoTranscurrido));
     } catch (Excepciones.CartaNoVoltearExcepcion e) {
         System.out.println("No se puede voltear: " + e.getMessage());
     }
 }
+   public List <MovimientoReplay> geMovimientoReplays(){
+       return historialReplay;
+   }
     
     private void verificarPareja() {
         if (primerSeleccion.getId().equals(segundaSeleccion.getId())) {
@@ -128,35 +136,7 @@ public final class Juego implements Serializable {
         }
     }
     
-    public void retroceder() {
-    if (historialMovimientos.isEmpty()) {
-        throw new Excepciones.sinMovimientosAnt("No hay movimientos anteriores");
-    }
-    Movimiento ultimo = historialMovimientos.pop();
-    
-    // Restaurar primera carta (estado + imagen)
-    ultimo.getCarta1().setEstado(ultimo.getEstadoAnterior1());
-    ultimo.getCarta1().setImagenCarta(
-        ultimo.getEstadoAnterior1() == Carta.EstadoCarta.Oculta 
-            ? ultimo.getCarta1().getImaEspalda() 
-            : ultimo.getCarta1().getImaCara()
-    );
-    
-    // Restaurar segunda carta (estado + imagen)
-    if (ultimo.getCarta2() != null) {
-        ultimo.getCarta2().setEstado(ultimo.getEstadoAnterior2());
-        ultimo.getCarta2().setImagenCarta(
-            ultimo.getEstadoAnterior2() == Carta.EstadoCarta.Oculta 
-                ? ultimo.getCarta2().getImaEspalda() 
-                : ultimo.getCarta2().getImaCara()
-        );
-    }
-    
-    puntajeJugador = ultimo.getPuntajeAnterior();
-    vidas = ultimo.getVidaAterior();
-    primerSeleccion = null;
-    segundaSeleccion = null;
-}
+   
   
    private void quitarCastigos() {
     for (int i = 0; i < tablero.getFilas(); i++) {
@@ -174,21 +154,7 @@ public final class Juego implements Serializable {
         }
     }
 }
-private void guardarMovimiento() {
-    // Solo guardar movimiento si hay dos cartas seleccionadas
-    if (primerSeleccion != null && segundaSeleccion != null) {
-        // Crear movimiento con los estados ACTUALES (antes de cambiar)
-        Movimiento movimiento = new Movimiento(
-            primerSeleccion, 
-            segundaSeleccion,
-            primerSeleccion.getEstado(),  // Estado antes de verificación
-            segundaSeleccion.getEstado(), // Estado antes de verificación
-            puntajeJugador,
-            vidas
-        );
-        historialMovimientos.push(movimiento);
-    }
-}
+
 
     public void guardarPartidaTxt(String nombreArchivo, String nombreJugador) throws FileNotFoundException {
     File carpeta = new File("src/main/resources/CargaPartidas");
@@ -368,6 +334,26 @@ private void guardarMovimiento() {
 
     public void setAciertos(int aciertos) {
         this.aciertos = aciertos;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public static int getVidasI() {
+        return VidasI;
+    }
+
+    public List<MovimientoReplay> getHistorialReplay() {
+        return historialReplay;
+    }
+
+    public long getTiempoInicio() {
+        return tiempoInicio;
+    }
+
+    public Jugador getNomJugador() {
+        return nomJugador;
     }
     
     

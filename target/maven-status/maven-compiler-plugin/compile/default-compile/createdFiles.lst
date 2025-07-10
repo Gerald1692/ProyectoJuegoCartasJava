@@ -2,7 +2,6 @@ ejemplog\proyectocarta_mg\Jugador.class
 ejemplog\proyectocarta_mg\PrimaryController.class
 ejemplog\proyectocarta_mg\SettingsController.class
 ejemplog\proyectocarta_mg\CartaBonus.class
-ejemplog\proyectocarta_mg\CargarPartida.class
 module-info.class
 ejemplog\proyectocarta_mg\controller\Controller.class
 ejemplog\proyectocarta_mg\controller\ControladorJuego.class
@@ -15,8 +14,6 @@ ejemplog\proyectocarta_mg\Carta$TipoCarta.class
 ejemplog\proyectocarta_mg\Tablero$1.class
 ejemplog\proyectocarta_mg\CartaCastigo.class
 ejemplog\proyectocarta_mg\SoundManager.class
-ejemplog\proyectocarta_mg\GuardarPartida.class
-ejemplog\proyectocarta_mg\CargadorImagenes.class
 ejemplog\proyectocarta_mg\App.class
 ejemplog\proyectocarta_mg\Juego.class
 ejemplog\proyectocarta_mg\Carta.class
@@ -24,3 +21,4 @@ ejemplog\proyectocarta_mg\Excepciones$CartaNoVoltearExcepcion.class
 ejemplog\proyectocarta_mg\SecondaryController$1.class
 ejemplog\proyectocarta_mg\CartaNormal.class
 ejemplog\proyectocarta_mg\Excepciones$sinMovimientosAnt.class
+ejemplog\proyectocarta_mg\MovimientoReplay.class

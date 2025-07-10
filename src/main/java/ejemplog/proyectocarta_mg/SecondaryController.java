@@ -27,7 +27,10 @@ import java.util.Optional;
 
 public class SecondaryController {
     
-    
+    private Timeline replayTimeline;
+    private boolean enReplay = false;
+    @FXML
+    private Button btnReplay; // Añade esto si quieres un botón manual
     
     @FXML private Label Labeltxt;
     @FXML private Label Labeltiempo;
@@ -41,7 +44,7 @@ public class SecondaryController {
     @FXML
     private Button Btn_Guardar;
     @FXML
-    private Button btn_RetrocederPaso;
+    private Button Btn_Guardar11;
     
     ////////////////////////////////////////////////
    @FXML
@@ -112,10 +115,70 @@ private void handleCargar() {
     private Label LabelScore;
 
     
+    @FXML
+   private void iniciarReplay() {
+    if (juego == null || juego.getHistorialReplay().isEmpty()) {
+        mostrarAlerta("Replay", "No hay historial para reproducir");
+        return;
+    }
     
-    ////////////////
-    ///
-    ///
+    enReplay = true;
+    disableAllCards(); // Deshabilitar interacción durante el replay
+    
+    // 1. Reiniciar vista del tablero
+    reiniciarTableroParaReplay();
+    
+    // 2. Crear timeline
+    replayTimeline = new Timeline();
+    
+    // Añadir un KeyFrame inicial para sincronizar
+    replayTimeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, e -> {}));
+    
+    // 3. Añadir cada movimiento al timeline
+    for (MovimientoReplay movimiento : juego.getHistorialReplay()) {
+        KeyFrame frame = new KeyFrame(
+            Duration.millis(movimiento.getTiempoTranscurrido()),
+            e -> reproducirMovimiento(movimiento)
+        );
+        replayTimeline.getKeyFrames().add(frame);
+    }
+    
+    // 4. Frame final para mostrar estado completo
+    long ultimoTiempo = juego.getHistorialReplay().get(juego.getHistorialReplay().size() - 1)
+                         .getTiempoTranscurrido();
+    KeyFrame finalFrame = new KeyFrame(
+        Duration.millis(ultimoTiempo + 1000),
+        e -> finalizarReplay()
+    );
+    replayTimeline.getKeyFrames().add(finalFrame);
+    
+    // 5. Iniciar reproducción
+    replayTimeline.play();
+}
+
+private void reiniciarTableroParaReplay() {
+    for (Button[] fila : buttonsGrid) {
+        for (Button btn : fila) {
+            ImageView iv = (ImageView) btn.getGraphic();
+            Carta carta = buttonCartaMap.get(btn);
+            iv.setImage(carta.getImaEspalda());
+            btn.setDisable(false); // Habilitar para la animación
+            btn.setStyle("");
+        }
+    }
+}
+
+private void reproducirMovimiento(MovimientoReplay movimiento) {
+    Button btn = buttonsGrid[movimiento.getFila()][movimiento.getColumna()];
+    flipCard(btn, true);
+}
+
+private void finalizarReplay() {
+    enReplay = false;
+    // Mostrar el estado final del tablero
+    actualizarUI();
+} 
+   
    private void actualizarUI() {
     // Actualizar información básica del juego
     Labeltxt.setText(App.playerName);
@@ -140,7 +203,6 @@ private void handleCargar() {
             switch (carta.getEstado()) {
                 case Oculta:
                     iv.setImage(carta.getImaEspalda());
-                    
                     break;
                     
                 case Revelada:
@@ -159,39 +221,19 @@ private void handleCargar() {
         }
     }
     
-    // Verificar fin del juego
-    if (juego.isTerminarJuego()) {
+    // Verificar fin del juego SOLO si no estamos en replay
+    if (!enReplay && juego.isTerminarJuego()) {
         disableAllCards();
         showAlert(
             juego.getVidas() <= 0 ? "Game Over" : "¡Felicidades!",
             juego.getVidas() <= 0 
-                ? "Se acabaron las vidas. Puntuación: " + score 
-                : "¡Ganaste con " + score + " puntos!"
+                ? "Se acabaron las vidas. Puntuación: " + juego.getPuntajeJugador()
+                : "¡Ganaste con " + juego.getPuntajeJugador() + " puntos!"
         );
     }
 }
     
-    @FXML
-    private void handleRetrocederPaso() {
-    try {
-        // 1. Ejecutar la lógica de retroceso en el modelo
-        juego.retroceder();
-        
-        // 2. Actualizar la interfaz de usuario
-        actualizarUI();
-        
-        // 3. Dar feedback visual al usuario
-        RotateTransition rt = new RotateTransition(Duration.millis(200), btnRetrocederPaso);
-        rt.setByAngle(10);
-        rt.setCycleCount(4);
-        rt.setAutoReverse(true);
-        rt.play();
-        
-    } catch (Excepciones.sinMovimientosAnt ex) {
-        // 4. Manejar caso sin movimientos
-        mostrarAlerta("Aviso", ex.getMessage());
-    }
-}
+   
 
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -253,7 +295,11 @@ private void handleCargar() {
     }
     
     private void flipCard(Button card, boolean showFront) {
+    // Solo reproducir sonido si NO estamos en replay
+    if (!enReplay) {
         App.getSoundManager().playFlipSound();
+    }
+    
     ImageView iv = (ImageView) card.getGraphic();
     RotateTransition rt = new RotateTransition(Duration.millis(500), iv);
     
@@ -267,7 +313,6 @@ private void handleCargar() {
     rt.setOnFinished(e -> {
         Carta carta = buttonCartaMap.get(card);
         try {
-            // SOLO cambiar imagen, NO estado
             if (showFront) {
                 iv.setImage(carta.getImaCara());
             } else {
@@ -276,8 +321,11 @@ private void handleCargar() {
         } catch (Exception ex) {
             System.err.println("Error cambiando imagen: " + ex.getMessage());
         }
-        // Rehabilitar solo si no está emparejada
-        card.setDisable(carta.getEstado() == Carta.EstadoCarta.Emparejada);
+        
+        // Solo actualizar estado si NO estamos en replay
+        if (!enReplay) {
+            card.setDisable(carta.getEstado() == Carta.EstadoCarta.Emparejada);
+        }
     });
     
     rt.play();
@@ -384,17 +432,15 @@ private void checkMatch() {
     gameTimer.stop();
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
-        // Reproducir sonido de derrota (detendrá música de fondo)
         App.getSoundManager().playLoseSound();
-        
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game Over");
         alert.setHeaderText(null);
         alert.setContentText("Se acabó el tiempo o las vidas!\nPuntuación final: " + puntajeFinal);
         
-        // Reanudar música de fondo al cerrar la alerta
         alert.setOnHidden(event -> {
             App.getSoundManager().resumeBackgroundMusic();
+            iniciarReplay(); // ACTIVAR REPLAY
         });
         
         alert.showAndWait();
@@ -406,17 +452,15 @@ private void gameWon() {
     gameTimer.stop();
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
-        // Reproducir sonido de victoria (detendrá música de fondo)
         App.getSoundManager().playGameEndSound();
-        
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("¡Felicidades!");
         alert.setHeaderText(null);
         alert.setContentText("¡Ganaste el juego con " + puntajeFinal + " puntos! ");
         
-        // Reanudar música de fondo al cerrar la alerta
         alert.setOnHidden(event -> {
             App.getSoundManager().resumeBackgroundMusic();
+            iniciarReplay(); // ACTIVAR REPLAY
         });
         
         alert.showAndWait();

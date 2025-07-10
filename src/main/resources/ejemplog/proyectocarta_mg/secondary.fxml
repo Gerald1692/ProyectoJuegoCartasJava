@@ -98,6 +98,11 @@
                       <Font name="Bauhaus 93" size="20.0" />
                   </font>
               </Label>
+            <Button fx:id="btnReplay" mnemonicParsing="false" onAction="#iniciarReplay" prefHeight="38.0" prefWidth="135.0" text="Ajustes" textFill="#18ab1d" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Bauhaus 93" size="15.0" />
+               </font>
+            </Button>
             </children>
         </GridPane>
     </StackPane>
