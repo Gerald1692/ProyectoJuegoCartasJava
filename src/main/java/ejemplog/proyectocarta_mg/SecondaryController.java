@@ -380,13 +380,24 @@ private void checkMatch() {
         gameTimer.play();
     }
     
-  private void gameOver() {
+ private void gameOver() {
     gameTimer.stop();
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
+        // Reproducir sonido de derrota (detendrá música de fondo)
         App.getSoundManager().playLoseSound();
         
-        showAlert("Game Over", "Se acabó el tiempo o las vidas!\nPuntuación final: " + puntajeFinal);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText(null);
+        alert.setContentText("Se acabó el tiempo o las vidas!\nPuntuación final: " + puntajeFinal);
+        
+        // Reanudar música de fondo al cerrar la alerta
+        alert.setOnHidden(event -> {
+            App.getSoundManager().resumeBackgroundMusic();
+        });
+        
+        alert.showAndWait();
         disableAllCards();
     });
 }
@@ -395,9 +406,20 @@ private void gameWon() {
     gameTimer.stop();
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
-        // Reproducir sonido de fin de juego
+        // Reproducir sonido de victoria (detendrá música de fondo)
         App.getSoundManager().playGameEndSound();
-        showAlert("¡Felicidades!", "¡Ganaste el juego con " + puntajeFinal + " puntos! ");
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("¡Felicidades!");
+        alert.setHeaderText(null);
+        alert.setContentText("¡Ganaste el juego con " + puntajeFinal + " puntos! ");
+        
+        // Reanudar música de fondo al cerrar la alerta
+        alert.setOnHidden(event -> {
+            App.getSoundManager().resumeBackgroundMusic();
+        });
+        
+        alert.showAndWait();
         disableAllCards();
     });
 }

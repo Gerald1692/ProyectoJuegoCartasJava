@@ -9,22 +9,28 @@ import java.io.IOException;
 
 public class App extends Application {
     public static String playerName;
-    public static int gameDuration = 120; // Tiempo predeterminado (segundos)
+    public static int gameDuration = 100;
     private static Scene scene;
     private static SoundManager soundManager;
+    
+    public static SoundManager getSoundManager() {
+        return soundManager;
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
         soundManager = new SoundManager();
-        soundManager.playBackgroundMusic(); // Iniciar música
+        soundManager.playBackgroundMusic();
         
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.setTitle("Provigio - Juego de Memoria");
         
-        // Detener música al cerrar la ventana
-        stage.setOnCloseRequest(event -> soundManager.stopBackgroundMusic());
+        // Detener todos los sonidos al cerrar la ventana
+        stage.setOnCloseRequest(event -> {
+            soundManager.stopAllSounds();
+        });
         
         stage.show();
     }
@@ -40,9 +46,5 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-    
-    public static SoundManager getSoundManager() {
-        return soundManager;
     }
 }

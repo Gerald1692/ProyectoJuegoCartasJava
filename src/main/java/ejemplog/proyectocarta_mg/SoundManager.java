@@ -5,91 +5,113 @@ import javafx.scene.media.MediaPlayer;
 import java.net.URL;
 
 public class SoundManager {
-    private MediaPlayer mediaPlayer;
-    private double volume = 0.5; // Volumen predeterminado (50%)
+    private MediaPlayer backgroundPlayer;
+    private MediaPlayer endGamePlayer;
+    private double volume = 0.5;
     
     public void playBackgroundMusic() {
         try {
+            // Detener cualquier sonido de fin de juego que esté reproduciéndose
+            stopEndGameSound();
+            
+            if (backgroundPlayer != null && backgroundPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                return; // Ya está reproduciéndose
+            }
+            
             URL resource = getClass().getResource("/musica/Plants vs. Zombies (Main Theme)-yt.savetube.me.mp3");
             if (resource != null) {
                 Media media = new Media(resource.toString());
-                mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-                mediaPlayer.setVolume(volume); // Usar el volumen almacenado
-                mediaPlayer.play();
+                backgroundPlayer = new MediaPlayer(media);
+                backgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                backgroundPlayer.setVolume(volume);
+                backgroundPlayer.play();
             }
         } catch (Exception e) {
             System.err.println("Error al cargar la música: " + e.getMessage());
         }
     }
     
-   public void playGameEndSound() {
-    try {
-        URL resource = getClass().getResource("/musica/plants-vs-zombies-victory-jingle.mp3");
-        if (resource != null) {
-            Media sound = new Media(resource.toString());
-            MediaPlayer endPlayer = new MediaPlayer(sound);
-            endPlayer.setVolume(volume);
-            endPlayer.play();
+    public void playGameEndSound() {
+        try {
+            // Detener música de fondo primero
+            stopBackgroundMusic();
+            
+            URL resource = getClass().getResource("/musica/plants-vs-zombies-victory-jingle.mp3");
+            if (resource != null) {
+                Media sound = new Media(resource.toString());
+                endGamePlayer = new MediaPlayer(sound);
+                endGamePlayer.setVolume(volume);
+                endGamePlayer.play();
+            }
+        } catch (Exception e) {
+            System.err.println("Error al reproducir sonido de fin de juego: " + e.getMessage());
         }
-    } catch (Exception e) {
-        System.err.println("Error al reproducir sonido de fin de juego: " + e.getMessage());
     }
-}
-
-
-
-
-public void playLoseSound() {
-    playSound("/musica/plants-vs.mp3");
     
-}
-
-private void playSound(String path) {
-    try {
-        URL resource = getClass().getResource(path);
-        if (resource != null) {
-            Media sound = new Media(resource.toString());
-            MediaPlayer player = new MediaPlayer(sound);
-            player.setVolume(volume);
-            player.play();
+    public void playLoseSound() {
+        try {
+            // Detener música de fondo primero
+            stopBackgroundMusic();
+            
+            URL resource = getClass().getResource("/musica/plants-vs.mp3");
+            if (resource != null) {
+                Media sound = new Media(resource.toString());
+                endGamePlayer = new MediaPlayer(sound);
+                endGamePlayer.setVolume(volume);
+                endGamePlayer.play();
+            }
+        } catch (Exception e) {
+            System.err.println("Error al reproducir sonido de derrota: " + e.getMessage());
         }
-    } catch (Exception e) {
-        System.err.println("Error al reproducir sonido: " + e.getMessage());
     }
-}
-
-
-
-  
+    
     public void playFlipSound() {
-    try {
-        URL resource = getClass().getResource("/musica/plants-vs-zombies-sun-pickup.mp3"); // Cambia al nombre de tu archivo
-        if (resource != null) {
-            Media sound = new Media(resource.toString());
-            MediaPlayer flipPlayer = new MediaPlayer(sound);
-            flipPlayer.setVolume(volume);
-            flipPlayer.play();
+        try {
+            URL resource = getClass().getResource("/musica/girarCarta.mp3");
+            if (resource != null) {
+                Media sound = new Media(resource.toString());
+                MediaPlayer flipPlayer = new MediaPlayer(sound);
+                flipPlayer.setVolume(volume);
+                flipPlayer.play();
+            }
+        } catch (Exception e) {
+            System.err.println("Error al reproducir sonido de volteo: " + e.getMessage());
         }
-    } catch (Exception e) {
-        System.err.println("Error al reproducir sonido de volteo: " + e.getMessage());
     }
-}
     
     public void stopBackgroundMusic() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
+        if (backgroundPlayer != null) {
+            backgroundPlayer.stop();
         }
+    }
+    
+    public void stopEndGameSound() {
+        if (endGamePlayer != null) {
+            endGamePlayer.stop();
+        }
+    }
+    
+    public void resumeBackgroundMusic() {
+        stopEndGameSound();
+        playBackgroundMusic();
     }
     
     public void setVolume(double volume) {
         this.volume = volume;
-        if (mediaPlayer != null) {
-            mediaPlayer.setVolume(volume);
+        if (backgroundPlayer != null) {
+            backgroundPlayer.setVolume(volume);
+        }
+        if (endGamePlayer != null) {
+            endGamePlayer.setVolume(volume);
         }
     }
     
     public double getVolume() {
         return volume;
+    }
+    
+    public void stopAllSounds() {
+        stopBackgroundMusic();
+        stopEndGameSound();
     }
 }
