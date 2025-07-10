@@ -22,6 +22,19 @@ public class SoundManager {
             System.err.println("Error al cargar la música: " + e.getMessage());
         }
     }
+    public void playFlipSound() {
+    try {
+        URL resource = getClass().getResource("/musica/plants-vs-zombies-sun-pickup.mp3"); // Cambia al nombre de tu archivo
+        if (resource != null) {
+            Media sound = new Media(resource.toString());
+            MediaPlayer flipPlayer = new MediaPlayer(sound);
+            flipPlayer.setVolume(volume);
+            flipPlayer.play();
+        }
+    } catch (Exception e) {
+        System.err.println("Error al reproducir sonido de volteo: " + e.getMessage());
+    }
+}
     
     public void stopBackgroundMusic() {
         if (mediaPlayer != null) {

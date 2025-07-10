@@ -253,6 +253,7 @@ private void handleCargar() {
     }
     
     private void flipCard(Button card, boolean showFront) {
+        App.getSoundManager().playFlipSound();
     ImageView iv = (ImageView) card.getGraphic();
     RotateTransition rt = new RotateTransition(Duration.millis(500), iv);
     
