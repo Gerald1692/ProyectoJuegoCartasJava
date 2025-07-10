@@ -115,48 +115,43 @@ private void handleCargar() {
     private Label LabelScore;
 
     
-    @FXML
-   private void iniciarReplay() {
-    if (juego == null || juego.getHistorialReplay().isEmpty()) {
+   @FXML
+private void iniciarReplay() {
+    List<MovimientoReplay> historial = juego != null ? juego.getHistorialReplay() : null;
+    
+    if (historial == null || historial.isEmpty()) {
         mostrarAlerta("Replay", "No hay historial para reproducir");
         return;
     }
-    
-<<<<<<< HEAD
+
     enReplay = true;
-    disableAllCards(); // Deshabilitar interacción durante el replay
-    
-    // 1. Reiniciar vista del tablero
+    disableAllCards();
     reiniciarTableroParaReplay();
     
-    // 2. Crear timeline
     replayTimeline = new Timeline();
-    
-    // Añadir un KeyFrame inicial para sincronizar
     replayTimeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, e -> {}));
     
-    // 3. Añadir cada movimiento al timeline
-    for (MovimientoReplay movimiento : juego.getHistorialReplay()) {
-        KeyFrame frame = new KeyFrame(
-            Duration.millis(movimiento.getTiempoTranscurrido()),
-            e -> reproducirMovimiento(movimiento)
-        );
-        replayTimeline.getKeyFrames().add(frame);
+    for (MovimientoReplay movimiento : historial) {
+        if (movimiento != null) {
+            KeyFrame frame = new KeyFrame(
+                Duration.millis(movimiento.getTiempoTranscurrido()),
+                e -> reproducirMovimiento(movimiento)
+            );
+            replayTimeline.getKeyFrames().add(frame);
+        }
     }
     
-    // 4. Frame final para mostrar estado completo
-    long ultimoTiempo = juego.getHistorialReplay().get(juego.getHistorialReplay().size() - 1)
-                         .getTiempoTranscurrido();
-    KeyFrame finalFrame = new KeyFrame(
-        Duration.millis(ultimoTiempo + 1000),
-        e -> finalizarReplay()
-    );
-    replayTimeline.getKeyFrames().add(finalFrame);
+    MovimientoReplay ultimoMovimiento = historial.get(historial.size() - 1);
+    if (ultimoMovimiento != null) {
+        KeyFrame finalFrame = new KeyFrame(
+            Duration.millis(ultimoMovimiento.getTiempoTranscurrido() + 1000),
+            e -> finalizarReplay()
+        );
+        replayTimeline.getKeyFrames().add(finalFrame);
+    }
     
-    // 5. Iniciar reproducción
     replayTimeline.play();
 }
-
 private void reiniciarTableroParaReplay() {
     for (Button[] fila : buttonsGrid) {
         for (Button btn : fila) {
@@ -180,21 +175,12 @@ private void finalizarReplay() {
     actualizarUI();
 } 
    
-   private void actualizarUI() {
-    // Actualizar información básica del juego
-=======
-    ////////////////
-    ///
-    ///
-  private void actualizarUI() {
-    // Actualizar información básica
->>>>>>> d165c94591be44f4e8f42f1db8af6c2a58763d3c
+private void actualizarUI() {
     Labeltxt.setText(App.playerName);
     Labelvidas.setText("Vidas: " + juego.getVidas());
     LabelScore.setText("Puntos: " + juego.getPuntajeJugador());
     Labeltiempo.setText("Tiempo: " + App.gameDuration);
     
-    // Actualizar el tablero visualmente
     Tablero tablero = juego.getTablero();
     for (int i = 0; i < tablero.getFilas(); i++) {
         for (int j = 0; j < tablero.getColumnas(); j++) {
@@ -202,7 +188,6 @@ private void finalizarReplay() {
             Carta carta = tablero.getCarta(i, j);
             ImageView iv = (ImageView) btn.getGraphic();
             
-            // Resetear efectos visuales
             btn.setDisable(false);
             btn.setOpacity(1.0);
             btn.setStyle("");
@@ -211,58 +196,43 @@ private void finalizarReplay() {
                 case Oculta:
                     iv.setImage(carta.getImaEspalda());
                     break;
-                    
                 case Revelada:
                     iv.setImage(carta.getImaCara());
                     btn.setDisable(true);
                     break;
-                    
                 case Emparejada:
                     iv.setImage(carta.getImaCara());
                     btn.setDisable(true);
                     btn.setStyle("-fx-border-color: green;");
                     break;
             }
-            
             buttonCartaMap.put(btn, carta);
         }
     }
     
-<<<<<<< HEAD
-    // Verificar fin del juego SOLO si no estamos en replay
     if (!enReplay && juego.isTerminarJuego()) {
-        disableAllCards();
-        showAlert(
-            juego.getVidas() <= 0 ? "Game Over" : "¡Felicidades!",
-            juego.getVidas() <= 0 
-                ? "Se acabaron las vidas. Puntuación: " + juego.getPuntajeJugador()
-                : "¡Ganaste con " + juego.getPuntajeJugador() + " puntos!"
-        );
-=======
-    // Verificar fin del juego (¡IMPORTANTE PARA PARTIDAS CARGADAS!)
-    if (juego.isTerminarJuego()) {
         disableAllCards();
         if (juego.getVidas() <= 0) {
             gameOver();
         } else {
             gameWon();
         }
->>>>>>> d165c94591be44f4e8f42f1db8af6c2a58763d3c
     }
 }
     
-   
+  private void mostrarAlerta(String titulo, String mensaje) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle(titulo);
+    alert.setHeaderText(null);
+    alert.setContentText(mensaje);
+    alert.showAndWait();
 
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
+}
+
     
     
-    ////////////////////////////
+
+  
     
     public void initialize() {
         juego = new Juego();
