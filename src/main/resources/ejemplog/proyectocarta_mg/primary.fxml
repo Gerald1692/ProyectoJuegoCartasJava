@@ -17,32 +17,38 @@
     </padding>
    <AnchorPane prefHeight="340.0" prefWidth="461.0">
       <children>
-         <ImageView fitHeight="456.0" fitWidth="540.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="429.0" fitWidth="575.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../../imagenes/tumba_Inicio.png" />
             </image>
          </ImageView>
-         <TextArea fx:id="textonombre" layoutX="179.0" layoutY="100.0" prefHeight="55.0" prefWidth="182.0" promptText="Ingrese su nombre">
+         <TextArea fx:id="textonombre" layoutX="177.0" layoutY="113.0" prefHeight="43.0" prefWidth="218.0" promptText="Ingrese su nombre">
             <font>
                <Font name="Kristen ITC" size="18.0" />
             </font>
          </TextArea>
-         <Label contentDisplay="TOP" layoutX="82.0" prefHeight="47.0" prefWidth="419.0" text="Girasoles o Cerebros" textAlignment="CENTER" textFill="#48ff23" textOverrun="CENTER_ELLIPSIS">
+         <Label contentDisplay="TOP" layoutX="18.0" layoutY="334.0" prefHeight="103.0" prefWidth="551.0" text="Girasoles o Cerebros" textAlignment="CENTER" textFill="#50c878" textOverrun="CENTER_ELLIPSIS">
             <font>
-               <Font name="Elephant" size="36.0" />
+               <Font name="Comic Sans MS" size="56.0" />
             </font>
             <opaqueInsets>
                <Insets left="4.0" />
             </opaqueInsets>
          </Label>
-         <Button fx:id="BtnEntrar" layoutX="206.0" layoutY="163.0" mnemonicParsing="false" onAction="#switchToSecondary" prefHeight="36.0" prefWidth="128.0" text="Jugar">
+         <Button fx:id="BtnEntrar" layoutX="183.0" layoutY="177.0" mnemonicParsing="false" onAction="#switchToSecondary" prefHeight="43.0" prefWidth="206.0" text="Jugar ahora" textAlignment="CENTER">
             <font>
                <Font name="Comic Sans MS" size="18.0" />
             </font>
          </Button>
          <HBox layoutX="150.0" layoutY="220.0" spacing="10.0" />
-         <Button fx:id="btnSettings" layoutX="210.0" layoutY="250.0" mnemonicParsing="false" onAction="#showSettings" prefHeight="30.0" prefWidth="120.0" text="Ajustes" />
-         <Button fx:id="btnReplays" layoutX="210.0" layoutY="212.0" mnemonicParsing="false" onAction="#showReplays" prefHeight="30.0" prefWidth="120.0" text="Repeticiones" />
+         <Button fx:id="btnSettings" layoutX="192.0" layoutY="238.0" mnemonicParsing="false" onAction="#showSettings" prefHeight="37.0" prefWidth="94.0" text="Ajustes">
+            <font>
+               <Font name="Comic Sans MS" size="18.0" />
+            </font></Button>
+         <Button fx:id="btnReplays" layoutX="293.0" layoutY="238.0" mnemonicParsing="false" onAction="#showReplays" prefHeight="37.0" prefWidth="88.0" text="Salir">
+            <font>
+               <Font name="Comic Sans MS" size="18.0" />
+            </font></Button>
       </children>
    </AnchorPane>
 </VBox>

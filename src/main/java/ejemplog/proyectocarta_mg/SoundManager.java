@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ejemplog.proyectocarta_mg;
 
 import javafx.scene.media.Media;
@@ -10,15 +6,16 @@ import java.net.URL;
 
 public class SoundManager {
     private MediaPlayer mediaPlayer;
+    private double volume = 0.5; // Volumen predeterminado (50%)
     
     public void playBackgroundMusic() {
         try {
-            // Cargar la canción desde recursos
             URL resource = getClass().getResource("/musica/Plants vs. Zombies (Main Theme)-yt.savetube.me.mp3");
             if (resource != null) {
                 Media media = new Media(resource.toString());
                 mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Repetir infinitamente
+                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                mediaPlayer.setVolume(volume); // Usar el volumen almacenado
                 mediaPlayer.play();
             }
         } catch (Exception e) {
@@ -30,5 +27,16 @@ public class SoundManager {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
-    }   
+    }
+    
+    public void setVolume(double volume) {
+        this.volume = volume;
+        if (mediaPlayer != null) {
+            mediaPlayer.setVolume(volume);
+        }
+    }
+    
+    public double getVolume() {
+        return volume;
+    }
 }

@@ -1,5 +1,6 @@
 ejemplog\proyectocarta_mg\Jugador.class
 ejemplog\proyectocarta_mg\PrimaryController.class
+ejemplog\proyectocarta_mg\SettingsController.class
 ejemplog\proyectocarta_mg\CartaBonus.class
 ejemplog\proyectocarta_mg\CargarPartida.class
 module-info.class

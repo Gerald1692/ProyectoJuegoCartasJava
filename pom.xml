@@ -28,7 +28,6 @@
             <artifactId>javafx-media</artifactId>  <!-- Audio -->
             <version>${javafx.version}</version>
         </dependency>
-        
         <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

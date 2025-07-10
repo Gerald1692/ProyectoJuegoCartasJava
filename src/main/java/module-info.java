@@ -7,4 +7,5 @@ module ejemplog.proyectocarta_mg {
     opens ejemplog.proyectocarta_mg to javafx.fxml, com.google.gson;
     exports ejemplog.proyectocarta_mg;
     requires javafx.mediaEmpty;
+    requires java.base;
 }
