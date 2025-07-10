@@ -55,49 +55,54 @@
                 
                 <HBox layoutX="50.0" layoutY="466.0" spacing="20.0" />
                 
-                <Label fx:id="Labeltiempo" layoutX="446.0" layoutY="378.0" text="tiempo" textFill="RED">
+                <Label fx:id="Labeltiempo" layoutX="446.0" layoutY="378.0" text="tiempo" textFill="#18ab1d">
                     <font>
                         <Font name="Bauhaus 93" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="Labeltxt" layoutX="108.0" layoutY="378.0" prefHeight="14.0" prefWidth="135.0" text="nombre" textFill="#fc0101">
+                <Label fx:id="Labeltxt" layoutX="108.0" layoutY="378.0" prefHeight="14.0" prefWidth="135.0" text="nombre" textFill="#18ab1d">
                     <font>
                         <Font name="Bauhaus 93" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="Labelvidas" layoutX="337.0" layoutY="378.0" prefHeight="24.0" prefWidth="90.0" text="vidas" textFill="#ff0606">
+                <Label fx:id="Labelvidas" layoutX="337.0" layoutY="378.0" prefHeight="24.0" prefWidth="90.0" text="vidas" textFill="#18ab1d">
                     <font>
                         <Font name="Bauhaus 93" size="20.0" />
                     </font>
                 </Label>
-                <Label fx:id="LabelScore" layoutX="220.0" layoutY="376.0" prefHeight="29.0" prefWidth="143.0" text="Puntos" textFill="RED">
+                <Label fx:id="LabelScore" layoutX="220.0" layoutY="376.0" prefHeight="29.0" prefWidth="143.0" text="Puntos" textFill="#18ab1d">
                     <font>
                         <Font name="Bauhaus 93" size="20.0" />
                     </font>
                 </Label>
                  
-                    <Button fx:id="Btn_Guardar" layoutX="26.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleGuardar" prefHeight="38.0" prefWidth="122.0" text="Guardar" textFill="RED">
+                    <Button fx:id="Btn_Guardar" layoutX="21.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleGuardar" prefHeight="38.0" prefWidth="122.0" text="Guardar" textFill="#18ab1d">
                      <font>
                          <Font name="Bauhaus 93" size="20.0" />
                      </font>
                  </Button>
-                 <Button fx:id="btn_RetrocederPaso" layoutX="14.0" layoutY="191.0" mnemonicParsing="false" onAction="#handleRetrocederPaso" prefHeight="38.0" prefWidth="135.0" text="Retroceder Paso" textFill="RED">
+                 <Button fx:id="btn_RetrocederPaso" layoutX="25.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleRetrocederPaso" prefHeight="38.0" prefWidth="135.0" text="Retroceder Paso" textFill="#18ab1d">
                      <font>
                          <Font name="Bauhaus 93" size="15.0" />
                      </font>
                  </Button>
                  
-                    <Button fx:id="secondaryButton" layoutX="25.0" layoutY="115.0" onAction="#switchToPrimary" prefHeight="38.0" prefWidth="124.0" text="Volver al Inicio" textFill="#ff0202">
+                    <Button fx:id="secondaryButton" layoutX="25.0" layoutY="100.0" onAction="#switchToPrimary" prefHeight="38.0" prefWidth="124.0" text="Volver al Inicio" textFill="#18ab1d">
                      <font>
                          <Font name="Bauhaus 93" size="15.0" />
                      </font>
                  </Button>
                  
-                    <Button fx:id="Btn_Guardar1" layoutX="14.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Cargar Partida" textFill="RED">
+                    <Button fx:id="Btn_Guardar1" layoutX="25.0" layoutY="253.0" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Cargar Partida" textFill="#18ab1d">
                      <font>
                          <Font name="Bauhaus 93" size="15.0" />
                      </font>
                  </Button>
+            <Button fx:id="Btn_Guardar11" layoutX="25.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Ajustes" textFill="#18ab1d">
+               <font>
+                  <Font name="Bauhaus 93" size="15.0" />
+               </font>
+            </Button>
             </children>
         </AnchorPane>
     </children>

@@ -38,6 +38,29 @@ public class SoundManager {
 }
 
 
+
+
+public void playLoseSound() {
+    playSound("/musica/plants-vs.mp3");
+    
+}
+
+private void playSound(String path) {
+    try {
+        URL resource = getClass().getResource(path);
+        if (resource != null) {
+            Media sound = new Media(resource.toString());
+            MediaPlayer player = new MediaPlayer(sound);
+            player.setVolume(volume);
+            player.play();
+        }
+    } catch (Exception e) {
+        System.err.println("Error al reproducir sonido: " + e.getMessage());
+    }
+}
+
+
+
   
     public void playFlipSound() {
     try {

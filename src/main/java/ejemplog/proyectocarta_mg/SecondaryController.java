@@ -384,8 +384,8 @@ private void checkMatch() {
     gameTimer.stop();
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
-        // Reproducir sonido de fin de juego
-        App.getSoundManager().playGameEndSound();
+        App.getSoundManager().playLoseSound();
+        
         showAlert("Game Over", "Se acabó el tiempo o las vidas!\nPuntuación final: " + puntajeFinal);
         disableAllCards();
     });
