@@ -4,6 +4,7 @@
  */
 package ejemplog.proyectocarta_mg;
 
+import ejemplog.proyectocarta_mg.Carta.EstadoCarta;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -62,16 +63,16 @@ public final class Juego implements Serializable {
     if (terminarJuego) return;
     
     Carta cartaSelect = tablero.getCarta(fila, columna);
+    EstadoCarta estadoPrevio = cartaSelect.getEstado(); // Guardar estado previo
     
     try {
-        // Eliminamos la captura de estadoPrevio (no es necesaria aquí)
         cartaSelect.voltearCarta();
         
         if (primerSeleccion == null) {
             primerSeleccion = cartaSelect;
         } else if (segundaSeleccion == null) {
             segundaSeleccion = cartaSelect;
-            guardarMovimiento(); // Guardar ANTES de verificar pareja
+            guardarMovimiento();
             verificarPareja();
         }
     } catch (Excepciones.CartaNoVoltearExcepcion e) {

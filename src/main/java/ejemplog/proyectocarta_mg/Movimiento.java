@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ejemplog.proyectocarta_mg;
+import ejemplog.proyectocarta_mg.Carta.EstadoCarta;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
@@ -14,24 +15,24 @@ import java.io.IOException;
  *
  * @author admar
  */
-public class Movimiento implements Serializable{
-    private Carta carta1;
-    private Carta carta2;
-    private Carta.EstadoCarta estadoAnterior1;
-    private Carta.EstadoCarta estadoAnterior2;
-    private int puntajeAnterior;
-    private int vidaAterior;
+public class Movimiento {
+    private final Carta carta1;
+    private final Carta carta2;
+    private final EstadoCarta estadoAnterior1;
+    private final EstadoCarta estadoAnterior2;
+    private final int puntajeAnterior;
+    private final int vidaAterior;
 
-    public Movimiento(Carta carta1, Carta carta2, Carta.EstadoCarta estadoAnterior1, Carta.EstadoCarta estadoAnterior2, int puntajeAnterior, int vidaAterior) {
-        this.carta1 = carta1;
-        this.carta2 = carta2;
-        this.estadoAnterior1 = estadoAnterior1;
-        this.estadoAnterior2 = estadoAnterior2;
-        this.puntajeAnterior = puntajeAnterior;
-        this.vidaAterior = vidaAterior;
+    public Movimiento(Carta c1, Carta c2, EstadoCarta est1, EstadoCarta est2, int score, int vidas) {
+        this.carta1 = c1;
+        this.carta2 = c2;
+        this.estadoAnterior1 = est1;
+        this.estadoAnterior2 = est2;
+        this.puntajeAnterior = score;
+        this.vidaAterior = vidas;
     }
 
-    public Carta getCarta1() {
+     public Carta getCarta1() {
         return carta1;
     }
 
@@ -55,30 +56,7 @@ public class Movimiento implements Serializable{
         return vidaAterior;
     }
 
-    public void setCarta1(Carta carta1) {
-        this.carta1 = carta1;
-    }
-
-    public void setCarta2(Carta carta2) {
-        this.carta2 = carta2;
-    }
-
-    public void setEstadoAnterior1(Carta.EstadoCarta estadoAnterior1) {
-        this.estadoAnterior1 = estadoAnterior1;
-    }
-
-    public void setEstadoAnterior2(Carta.EstadoCarta estadoAnterior2) {
-        this.estadoAnterior2 = estadoAnterior2;
-    }
-
-    public void setPuntajeAnterior(int puntajeAnterior) {
-        this.puntajeAnterior = puntajeAnterior;
-    }
-
-    public void setVidaAterior(int vidaAterior) {
-        this.vidaAterior = vidaAterior;
-    }
-    
+ 
     
     
 }

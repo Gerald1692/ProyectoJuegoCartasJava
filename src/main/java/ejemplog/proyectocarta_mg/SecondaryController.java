@@ -36,6 +36,12 @@ public class SecondaryController {
     @FXML private Button BtnX2_Y0, BtnX0_Y1, BtnX0_Y3, BtnX0_Y2, BtnX2_Y2;
     @FXML private Button BtnX2_Y3, BtnX2_Y1, BtnX1_Y1, BtnX1_Y0, BtnX1_Y3;
     @FXML private Button BtnX1_Y2, BtnX0_Y0;
+    @FXML
+    private Button Btn_Guardar1;
+    @FXML
+    private Button Btn_Guardar;
+    @FXML
+    private Button btn_RetrocederPaso;
     
     ////////////////////////////////////////////////
    @FXML
@@ -101,9 +107,6 @@ private void handleCargar() {
     private static final int COMBO_REQUIRED = 3;
     private Timeline gameTimer;
     private Button[][] buttonsGrid;
-    @FXML
-    private Button BtnGuardar;
-    @FXML
     private Button btnRetrocederPaso;
     @FXML
     private Label LabelScore;
@@ -168,6 +171,28 @@ private void handleCargar() {
     }
 }
     
+    @FXML
+    private void handleRetrocederPaso() {
+    try {
+        // 1. Ejecutar la lógica de retroceso en el modelo
+        juego.retroceder();
+        
+        // 2. Actualizar la interfaz de usuario
+        actualizarUI();
+        
+        // 3. Dar feedback visual al usuario
+        RotateTransition rt = new RotateTransition(Duration.millis(200), btnRetrocederPaso);
+        rt.setByAngle(10);
+        rt.setCycleCount(4);
+        rt.setAutoReverse(true);
+        rt.play();
+        
+    } catch (Excepciones.sinMovimientosAnt ex) {
+        // 4. Manejar caso sin movimientos
+        mostrarAlerta("Aviso", ex.getMessage());
+    }
+}
+
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -228,31 +253,34 @@ private void handleCargar() {
     }
     
     private void flipCard(Button card, boolean showFront) {
-        ImageView iv = (ImageView) card.getGraphic();
-        RotateTransition rt = new RotateTransition(Duration.millis(500), iv);
-        
-        rt.setAxis(Rotate.Y_AXIS);
-        rt.setFromAngle(showFront ? 0 : 180);
-        rt.setToAngle(showFront ? 180 : 0);
-        
-        rt.setOnFinished(e -> {
-            Carta carta = buttonCartaMap.get(card);
-            try {
-                if (showFront) {
-                    carta.voltearCarta(); // Usa el método de la carta
-                    iv.setImage(carta.getImagenCarta());
-                } else {
-                    carta.setEstado(Carta.EstadoCarta.Oculta);
-                    carta.setImagenCarta(carta.getImaEspalda());
-                    iv.setImage(carta.getImagenCarta());
-                }
-            } catch (Exception ex) {
-                System.err.println("Error cambiando imagen: " + ex.getMessage());
+    ImageView iv = (ImageView) card.getGraphic();
+    RotateTransition rt = new RotateTransition(Duration.millis(500), iv);
+    
+    rt.setAxis(Rotate.Y_AXIS);
+    rt.setFromAngle(showFront ? 0 : 180);
+    rt.setToAngle(showFront ? 180 : 0);
+    
+    // Deshabilitar durante animación
+    card.setDisable(true);
+    
+    rt.setOnFinished(e -> {
+        Carta carta = buttonCartaMap.get(card);
+        try {
+            // SOLO cambiar imagen, NO estado
+            if (showFront) {
+                iv.setImage(carta.getImaCara());
+            } else {
+                iv.setImage(carta.getImaEspalda());
             }
-        });
-        
-        rt.play();
-    }
+        } catch (Exception ex) {
+            System.err.println("Error cambiando imagen: " + ex.getMessage());
+        }
+        // Rehabilitar solo si no está emparejada
+        card.setDisable(carta.getEstado() == Carta.EstadoCarta.Emparejada);
+    });
+    
+    rt.play();
+}
     
 private void checkMatch() {
     Button btn1 = flippedCards.get(0);
@@ -265,48 +293,38 @@ private void checkMatch() {
         int fila2 = getFila(btn2);
         int columna2 = getColumna(btn2);
 
-        // 1. Primero verificar si son pareja
         boolean sonPareja = buttonCartaMap.get(btn1).getId().equals(buttonCartaMap.get(btn2).getId());
         
         if (sonPareja) {
-            // Procesar pareja exitosa
             juego.seleccionarCarta(fila1, columna1);
             juego.seleccionarCarta(fila2, columna2);
             
-            // Actualizar UI
+            // ACTUALIZAR UI DESPUÉS DE CAMBIOS
+            actualizarUI();
             
-            
-            // Deshabilitar cartas emparejadas
-            btn1.setDisable(true);
-            btn2.setDisable(true);
             flippedCards.clear();
             
             if (checkWin()) gameWon();
         } else {
-            // 2. Mostrar cartas por 1 segundo ANTES de procesar
             PauseTransition mostrarPareja = new PauseTransition(Duration.millis(500));
             mostrarPareja.setOnFinished(ev -> {
-                // Procesar pareja fallida
                 juego.seleccionarCarta(fila1, columna1);
                 juego.seleccionarCarta(fila2, columna2);
                 
+                // ACTUALIZAR UI DESPUÉS DE CAMBIOS
+                actualizarUI();
                 
-              
-                
-                // Voltear cartas de vuelta
                 flipCard(btn1, false);
                 flipCard(btn2, false);
                 
-                btn1.setDisable(false);
-                btn2.setDisable(false);
-
                 flippedCards.clear();
             });
             mostrarPareja.play();
         }
     });
+    
     inicioPause.play();
-    actualizarUI();
+    // ELIMINAR actualizarUI() de aquí
 }
     
     private int getFila(Button btn) {
@@ -361,23 +379,25 @@ private void checkMatch() {
         gameTimer.play();
     }
     
-    private void gameOver() {
-        gameTimer.stop();
-        Platform.runLater(() -> {
-        showAlert("Game Over", "Se acabó el tiempo o las vidas!\nPuntuación final: " + score);
-        });
-        showAlert("Game Over", "Se acabó el tiempo o las vidas!\nPuntuación final: " + score);
+   private void gameOver() {
+    gameTimer.stop();
+    // Obtener puntaje actualizado del modelo
+    int puntajeFinal = juego.getPuntajeJugador();
+    Platform.runLater(() -> {
+        showAlert("Game Over", "Se acabó el tiempo o las vidas!\nPuntuación final: " + puntajeFinal);
         disableAllCards();
-    }
-
-    private void gameWon() {
-        gameTimer.stop();
-         Platform.runLater(() -> {
-        showAlert("¡Felicidades!", "¡Ganaste el juego con " + score + " puntos! ");
     });
-        showAlert("¡Felicidades!", "¡Ganaste el juego con " + score + " puntos!");
+}
+
+private void gameWon() {
+    gameTimer.stop();
+    // Obtener puntaje actualizado del modelo
+    int puntajeFinal = juego.getPuntajeJugador();
+    Platform.runLater(() -> {
+        showAlert("¡Felicidades!", "¡Ganaste el juego con " + puntajeFinal + " puntos! ");
         disableAllCards();
-    }
+    });
+}
 
     private void disableAllCards() {
         for (Button btn : getAllCardButtons()) {
@@ -403,6 +423,7 @@ private void checkMatch() {
 
     @FXML
     private void switchToPrimary() throws IOException {
+        gameTimer.stop();
         if (gameTimer != null) {
             gameTimer.stop();
         }
