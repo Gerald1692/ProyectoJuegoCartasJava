@@ -6,49 +6,56 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="394.0" prefWidth="556.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ejemplog.proyectocarta_mg.PrimaryController">
+<VBox alignment="CENTER" prefHeight="714.0" prefWidth="972.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ejemplog.proyectocarta_mg.PrimaryController">
+    
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-   <AnchorPane prefHeight="340.0" prefWidth="461.0">
-      <children>
-         <ImageView fitHeight="429.0" fitWidth="575.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+    
+    <!-- StackPane para la imagen de fondo -->
+    <StackPane>
+        <!-- Imagen de fondo -->
+        <ImageView fitHeight="429.0" fitWidth="575.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@../../imagenes/tumba_Inicio.png" />
+                <Image url="@../../imagenes/tumba_Inicio.png" />
             </image>
-         </ImageView>
-         <TextArea fx:id="textonombre" layoutX="177.0" layoutY="113.0" prefHeight="43.0" prefWidth="218.0" promptText="Ingrese su nombre">
+        </ImageView>
+        
+        <!-- Contenedor para los controles centrados -->
+        <VBox alignment="CENTER" prefHeight="711.0" prefWidth="955.0" spacing="20.0">
+         <Label contentDisplay="TOP" prefHeight="103.0" prefWidth="551.0" text="Bienvenido al juego de" textAlignment="CENTER" textFill="#50c878" textOverrun="CENTER_ELLIPSIS">
             <font>
-               <Font name="Kristen ITC" size="18.0" />
+               <Font name="Comic Sans MS" size="52.0" />
             </font>
-         </TextArea>
-         <Label contentDisplay="TOP" layoutX="18.0" layoutY="334.0" prefHeight="103.0" prefWidth="551.0" text="Girasoles o Cerebros" textAlignment="CENTER" textFill="#50c878" textOverrun="CENTER_ELLIPSIS">
-            <font>
-               <Font name="Comic Sans MS" size="56.0" />
-            </font>
-            <opaqueInsets>
-               <Insets left="4.0" />
-            </opaqueInsets>
          </Label>
-         <Button fx:id="BtnEntrar" layoutX="183.0" layoutY="177.0" mnemonicParsing="false" onAction="#switchToSecondary" prefHeight="43.0" prefWidth="206.0" text="Jugar ahora" textAlignment="CENTER">
+            <TextArea fx:id="textonombre" cacheShape="false" centerShape="false" focusTraversable="false" maxWidth="200.0" minHeight="50.0" minWidth="50.0" opacity="0.73" prefHeight="50.0" prefWidth="200.0" promptText="Ingrese su nombre" scaleShape="false">
+                <font>
+                    <Font name="Kristen ITC" size="18.0" />
+                </font>
+            </TextArea>
+         <Button fx:id="BtnEntrar1" mnemonicParsing="false" onAction="#switchToSecondary" prefHeight="35.0" prefWidth="186.0" text="Jugar ahora" textAlignment="CENTER">
             <font>
                <Font name="Comic Sans MS" size="18.0" />
             </font>
          </Button>
-         <HBox layoutX="150.0" layoutY="220.0" spacing="10.0" />
-         <Button fx:id="btnSettings" layoutX="192.0" layoutY="238.0" mnemonicParsing="false" onAction="#showSettings" prefHeight="37.0" prefWidth="94.0" text="Ajustes">
-            <font>
-               <Font name="Comic Sans MS" size="18.0" />
-            </font></Button>
-         <Button fx:id="btnReplays" layoutX="293.0" layoutY="238.0" mnemonicParsing="false" onAction="#showReplays" prefHeight="37.0" prefWidth="88.0" text="Salir">
-            <font>
-               <Font name="Comic Sans MS" size="18.0" />
-            </font></Button>
-      </children>
-   </AnchorPane>
+            
+            <Button fx:id="BtnEntrar" mnemonicParsing="false" onAction="#showSettings" prefHeight="27.0" prefWidth="191.0" text="Ajustes" textAlignment="CENTER">
+                <font>
+                    <Font name="Comic Sans MS" size="18.0" />
+                </font>
+            </Button>
+            
+            
+          
+          <Label contentDisplay="TOP" prefHeight="102.0" prefWidth="549.0" text="Girasoles o Cerebros" textAlignment="CENTER" textFill="#50c878" textOverrun="CENTER_ELLIPSIS">
+              <font>
+                  <Font name="Comic Sans MS" size="56.0" />
+              </font>
+          </Label>
+        </VBox>
+    </StackPane>
 </VBox>
