@@ -58,24 +58,26 @@ public final class Juego implements Serializable {
         aciertos = 0;        
     }
 
-    public void seleccionarCarta(int fila, int columna) {
-        if (terminarJuego) return;
+   public void seleccionarCarta(int fila, int columna) {
+    if (terminarJuego) return;
+    
+    Carta cartaSelect = tablero.getCarta(fila, columna);
+    
+    try {
+        // Eliminamos la captura de estadoPrevio (no es necesaria aquí)
+        cartaSelect.voltearCarta();
         
-        Carta cartaSelect = tablero.getCarta(fila, columna);
-        
-        try {
-            cartaSelect.voltearCarta();
-            
-            if (primerSeleccion == null) {
-                primerSeleccion = cartaSelect;
-            } else if (segundaSeleccion == null) {
-                segundaSeleccion = cartaSelect;
-                verificarPareja();
-            }
-        } catch (Excepciones.CartaNoVoltearExcepcion e) {
-            System.out.println("No se puede voltear: " + e.getMessage());
+        if (primerSeleccion == null) {
+            primerSeleccion = cartaSelect;
+        } else if (segundaSeleccion == null) {
+            segundaSeleccion = cartaSelect;
+            guardarMovimiento(); // Guardar ANTES de verificar pareja
+            verificarPareja();
         }
+    } catch (Excepciones.CartaNoVoltearExcepcion e) {
+        System.out.println("No se puede voltear: " + e.getMessage());
     }
+}
     
     private void verificarPareja() {
         if (primerSeleccion.getId().equals(segundaSeleccion.getId())) {
@@ -84,7 +86,7 @@ public final class Juego implements Serializable {
             puntajeJugador += primerSeleccion.obtenerPuntos();
             aciertos++;
             
-            if (aciertos == 1) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
+            if (aciertos == 3) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
                 quitarCastigos();
                 aciertos = 0;
             }
@@ -104,6 +106,9 @@ public final class Juego implements Serializable {
         primerSeleccion = null;
         segundaSeleccion = null;
         verificarFinJuego();
+        
+        
+        
     }
     
     private void verificarFinJuego() {
@@ -153,7 +158,22 @@ public final class Juego implements Serializable {
         }
     }
 }
-  
+private void guardarMovimiento() {
+    // Solo guardar movimiento si hay dos cartas seleccionadas
+    if (primerSeleccion != null && segundaSeleccion != null) {
+        // Crear movimiento con los estados ACTUALES (antes de cambiar)
+        Movimiento movimiento = new Movimiento(
+            primerSeleccion, 
+            segundaSeleccion,
+            primerSeleccion.getEstado(),  // Estado antes de verificación
+            segundaSeleccion.getEstado(), // Estado antes de verificación
+            puntajeJugador,
+            vidas
+        );
+        historialMovimientos.push(movimiento);
+    }
+}
+
     public void guardarPartidaTxt(String nombreArchivo, String nombreJugador) throws FileNotFoundException {
     File carpeta = new File("src/main/resources/CargaPartidas");
     if (!carpeta.exists()) {

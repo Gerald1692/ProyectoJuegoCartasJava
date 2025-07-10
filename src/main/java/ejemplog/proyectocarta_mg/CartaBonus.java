@@ -38,6 +38,7 @@ public class CartaBonus extends Carta implements Serializable {
     @Override
     public void voltearCarta() throws Excepciones.CartaNoVoltearExcepcion {
         
+            
             setEstado(EstadoCarta.Revelada);
             setImagenCarta(getImaCara());
         

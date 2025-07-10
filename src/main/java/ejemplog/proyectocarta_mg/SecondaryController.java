@@ -115,7 +115,7 @@ private void handleCargar() {
     ///
    private void actualizarUI() {
     // Actualizar información básica del juego
-    Labeltxt.setText(juego.nomJugador != null ? juego.nomJugador.getNombreJugador() : "Jugador");
+    Labeltxt.setText(App.playerName);
     Labelvidas.setText("Vidas: " + juego.getVidas());
     LabelScore.setText("Puntos: " + juego.getPuntajeJugador());
     Labeltiempo.setText("Tiempo: " + App.gameDuration);
@@ -254,60 +254,55 @@ private void handleCargar() {
         rt.play();
     }
     
-   private void checkMatch() {
+private void checkMatch() {
     Button btn1 = flippedCards.get(0);
     Button btn2 = flippedCards.get(1);
     
-    PauseTransition initialPause = new PauseTransition(Duration.millis(300));
-    initialPause.setOnFinished(e -> {
+    PauseTransition inicioPause = new PauseTransition(Duration.millis(300));
+    inicioPause.setOnFinished(e -> {
         int fila1 = getFila(btn1);
         int columna1 = getColumna(btn1);
         int fila2 = getFila(btn2);
         int columna2 = getColumna(btn2);
 
-        // Procesar selección de cartas
-        juego.seleccionarCarta(fila1, columna1);
-        juego.seleccionarCarta(fila2, columna2);
+        // 1. Primero verificar si son pareja
+        boolean sonPareja = buttonCartaMap.get(btn1).getId().equals(buttonCartaMap.get(btn2).getId());
         
-        // Actualizar estado del juego
-        score = juego.getPuntajeJugador();
-        lives = juego.getVidas();
-        
-        // Actualizar UI inmediatamente
-        Labelvidas.setText("Vidas: " + lives);
-        LabelScore.setText("Puntos: " + score);
-        actualizarUI();
-        if (juego.isTerminarJuego()) {
-            disableAllCards();
-            if (lives <= 0) {
-                gameOver();
-            } else {
-                gameWon();
-            }
+        if (sonPareja) {
+            // Procesar pareja exitosa
+            juego.seleccionarCarta(fila1, columna1);
+            juego.seleccionarCarta(fila2, columna2);
+            
+            // Actualizar UI
+            
+            
+            // Deshabilitar cartas emparejadas
+            btn1.setDisable(true);
+            btn2.setDisable(true);
+            flippedCards.clear();
+            
+            if (checkWin()) gameWon();
         } else {
-            // Si no es pareja, voltear de nuevo
-            if (!buttonCartaMap.get(btn1).getId().equals(buttonCartaMap.get(btn2).getId())) {
-                PauseTransition flipBackPause = new PauseTransition(Duration.seconds(1));
-                flipBackPause.setOnFinished(ev -> {
-                    flipCard(btn1, false);
-                    flipCard(btn2, false);
-                    flippedCards.clear();
-                });
-                flipBackPause.play();
-            } else {
-                // Si es pareja, deshabilitar
-                btn1.setDisable(true);
-                btn2.setDisable(true);
-                flippedCards.clear();
+            // 2. Mostrar cartas por 1 segundo ANTES de procesar
+            PauseTransition mostrarPareja = new PauseTransition(Duration.seconds(1));
+            mostrarPareja.setOnFinished(ev -> {
+                // Procesar pareja fallida
+                juego.seleccionarCarta(fila1, columna1);
+                juego.seleccionarCarta(fila2, columna2);
                 
-                // Verificar si el jugador ganó
-                if (checkWin()) {
-                    gameWon();
-                }
-            }
+                // Actualizar UI
+              
+                
+                // Voltear cartas de vuelta
+                flipCard(btn1, false);
+                flipCard(btn2, false);
+                flippedCards.clear();
+            });
+            mostrarPareja.play();
         }
     });
-    initialPause.play();
+    inicioPause.play();
+    actualizarUI();
 }
     
     private int getFila(Button btn) {

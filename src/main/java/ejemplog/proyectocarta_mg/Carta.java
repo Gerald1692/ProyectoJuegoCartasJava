@@ -25,7 +25,7 @@ public abstract class Carta implements Serializable {
 
     public Carta(String id, EstadoCarta estado, TipoCarta tipo) {
         this.id = id;
-        this.estado = estado;
+        setEstado(estado);
         this.tipo = tipo;
         
         try {
