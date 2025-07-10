@@ -103,8 +103,13 @@ public class Tablero implements Serializable {
                     throw new IllegalArgumentException("Tipo de carta desconocido: " + tipo);
             }
             
-            // Solo establecer el estado (el setter ahora maneja la imagen)
-            carta.setEstado(estado);  // <<-- Aquí se actualiza la imagen automáticamente
+            // SOLO mantener estado si está emparejada
+            // Resetear a Oculta si estaba Revelada
+            if (estado == Carta.EstadoCarta.Emparejada) {
+                carta.setEstado(estado);
+            } else {
+                carta.setEstado(Carta.EstadoCarta.Oculta);
+            }
             
             cartas[i][j] = carta;
         }

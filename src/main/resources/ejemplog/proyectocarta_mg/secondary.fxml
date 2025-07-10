@@ -5,103 +5,106 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="1080.0" prefWidth="1920.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ejemplog.proyectocarta_mg.SecondaryController">
-    
-    <children>
-        <AnchorPane prefHeight="600.0" prefWidth="800.0">
-            <children>
-                <ImageView fitHeight="424.0" fitWidth="641.0" layoutX="1.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../../imagenes/FONDO%20Proyecto.png" />
-                    </image>
-                </ImageView>
-                
-                <GridPane layoutX="206.0" layoutY="28.0" prefHeight="364.0" prefWidth="400.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="10.0" prefWidth="146.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="145.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="141.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="136.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints />
-                        <RowConstraints maxHeight="187.0" minHeight="10.0" prefHeight="119.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="221.0" minHeight="10.0" prefHeight="115.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="218.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Button fx:id="BtnX2_Y0" mnemonicParsing="false" onAction="#handleBtnX2_Y0" prefHeight="76.0" prefWidth="66.0" GridPane.rowIndex="3" />
-                        <Button fx:id="BtnX0_Y1" mnemonicParsing="false" onAction="#handleBtnX0_Y1" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button fx:id="BtnX0_Y3" mnemonicParsing="false" onAction="#handleBtnX0_Y3" prefHeight="76.0" prefWidth="69.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <Button fx:id="BtnX0_Y2" mnemonicParsing="false" onAction="#handleBtnX0_Y2" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Button fx:id="BtnX2_Y2" mnemonicParsing="false" onAction="#handleBtnX2_Y2" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Button fx:id="BtnX2_Y3" mnemonicParsing="false" onAction="#handleBtnX2_Y3" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <Button fx:id="BtnX2_Y1" mnemonicParsing="false" onAction="#handleBtnX2_Y1" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Button fx:id="BtnX1_Y1" mnemonicParsing="false" onAction="#handleBtnX1_Y1" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Button fx:id="BtnX1_Y0" mnemonicParsing="false" onAction="#handleBtnX1_Y0" prefHeight="76.0" prefWidth="66.0" GridPane.rowIndex="2" />
-                        <Button fx:id="BtnX1_Y3" mnemonicParsing="false" onAction="#handleBtnX1_Y3" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Button fx:id="BtnX1_Y2" mnemonicParsing="false" onAction="#handleBtnX1_Y2" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <Button fx:id="BtnX0_Y0" mnemonicParsing="false" onAction="#handleBtnX0_Y0" prefHeight="76.0" prefWidth="66.0" GridPane.rowIndex="1" />
-                    </children>
-                </GridPane>
-                
-                <HBox layoutX="50.0" layoutY="466.0" spacing="20.0" />
-                
-                <Label fx:id="Labeltiempo" layoutX="446.0" layoutY="378.0" text="tiempo" textFill="#18ab1d">
-                    <font>
-                        <Font name="Bauhaus 93" size="20.0" />
-                    </font>
-                </Label>
-                <Label fx:id="Labeltxt" layoutX="108.0" layoutY="378.0" prefHeight="14.0" prefWidth="135.0" text="nombre" textFill="#18ab1d">
-                    <font>
-                        <Font name="Bauhaus 93" size="20.0" />
-                    </font>
-                </Label>
-                <Label fx:id="Labelvidas" layoutX="337.0" layoutY="378.0" prefHeight="24.0" prefWidth="90.0" text="vidas" textFill="#18ab1d">
-                    <font>
-                        <Font name="Bauhaus 93" size="20.0" />
-                    </font>
-                </Label>
-                <Label fx:id="LabelScore" layoutX="220.0" layoutY="376.0" prefHeight="29.0" prefWidth="143.0" text="Puntos" textFill="#18ab1d">
-                    <font>
-                        <Font name="Bauhaus 93" size="20.0" />
-                    </font>
-                </Label>
-                 
-                    <Button fx:id="Btn_Guardar" layoutX="25.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleGuardar" prefHeight="38.0" prefWidth="135.0" text="Guardar" textFill="#18ab1d">
-                     <font>
-                         <Font name="Bauhaus 93" size="15.0" />
-                     </font>
-                 </Button>
-                 
-                    <Button fx:id="secondaryButton" layoutX="25.0" layoutY="125.0" onAction="#switchToPrimary" prefHeight="38.0" prefWidth="135.0" text="Volver al Inicio" textFill="#18ab1d">
-                     <font>
-                         <Font name="Bauhaus 93" size="15.0" />
-                     </font>
-                 </Button>
-                 
-                    <Button fx:id="Btn_Guardar1" layoutX="25.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Cargar Partida" textFill="#18ab1d">
-                     <font>
-                         <Font name="Bauhaus 93" size="15.0" />
-                     </font>
-                 </Button>
-            <Button fx:id="Btn_Guardar11" layoutX="25.0" layoutY="202.0" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Ajustes" textFill="#18ab1d">
-               <font>
-                  <Font name="Bauhaus 93" size="15.0" />
-               </font>
-            </Button>
-            </children>
-        </AnchorPane>
-    </children>
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ejemplog.proyectocarta_mg.SecondaryController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
+
+    <!-- Área central: Imagen de fondo y GridPane de cartas -->
+    <StackPane prefHeight="500" prefWidth="800">
+        <!-- Imagen de fondo -->
+        <ImageView fitHeight="620.0" fitWidth="1006.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../imagenes/FONDO%20Proyecto.png" />
+            </image>
+        </ImageView>
+
+        <!-- GridPane de cartas centrado -->
+        <GridPane maxHeight="500.0" maxWidth="649.0" minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="638.0">
+            <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="605.0" minWidth="10.0" prefWidth="109.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="605.0" minWidth="10.0" prefWidth="142.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="147.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="144.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="120.0" />
+            </columnConstraints>
+            <rowConstraints>
+            <RowConstraints fillHeight="false" maxHeight="151.0" minHeight="37.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints fillHeight="false" maxHeight="229.0" minHeight="133.0" prefHeight="216.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="165.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="185.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="185.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button fx:id="BtnX0_Y0" mnemonicParsing="false" onAction="#handleBtnX0_Y0" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="BtnX0_Y1" mnemonicParsing="false" onAction="#handleBtnX0_Y1" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Button fx:id="BtnX0_Y2" mnemonicParsing="false" onAction="#handleBtnX0_Y2" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <Button fx:id="BtnX0_Y3" mnemonicParsing="false" onAction="#handleBtnX0_Y3" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                
+                <Button fx:id="BtnX1_Y0" mnemonicParsing="false" onAction="#handleBtnX1_Y0" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button fx:id="BtnX1_Y1" mnemonicParsing="false" onAction="#handleBtnX1_Y1" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Button fx:id="BtnX1_Y2" mnemonicParsing="false" onAction="#handleBtnX1_Y2" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <Button fx:id="BtnX1_Y3" mnemonicParsing="false" onAction="#handleBtnX1_Y3" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                
+                <Button fx:id="BtnX2_Y0" mnemonicParsing="false" onAction="#handleBtnX2_Y0" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Button fx:id="BtnX2_Y1" mnemonicParsing="false" onAction="#handleBtnX2_Y1" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <Button fx:id="BtnX2_Y2" mnemonicParsing="false" onAction="#handleBtnX2_Y2" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Button fx:id="BtnX2_Y3" mnemonicParsing="false" onAction="#handleBtnX2_Y3" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+              <Button fx:id="Btn_Guardar" mnemonicParsing="false" onAction="#handleGuardar" prefHeight="38.0" prefWidth="131.0" text="Guardar" textFill="#18ab1d" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <font>
+                      <Font name="Bauhaus 93" size="15.0" />
+                  </font>
+              </Button>
+              <Button fx:id="secondaryButton" mnemonicParsing="false" onAction="#switchToPrimary" prefHeight="38.0" prefWidth="126.0" text="Volver al Inicio" textFill="#18ab1d" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <font>
+                      <Font name="Bauhaus 93" size="15.0" />
+                  </font>
+              </Button>
+              <Button fx:id="Btn_Guardar1" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Cargar Partida" textFill="#18ab1d" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                  <font>
+                      <Font name="Bauhaus 93" size="15.0" />
+                  </font>
+              </Button>
+              <Button fx:id="Btn_Guardar11" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Ajustes" textFill="#18ab1d" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                  <font>
+                      <Font name="Bauhaus 93" size="15.0" />
+                  </font>
+              </Button>
+              <Label fx:id="Labeltxt" prefHeight="24.0" prefWidth="135.0" text="nombre" textFill="WHITE" GridPane.columnIndex="4">
+                  <font>
+                      <Font name="Bauhaus 93" size="20.0" />
+                  </font>
+              </Label>
+              <Label fx:id="LabelScore" prefHeight="24.0" prefWidth="148.0" text="Puntos" textFill="WHITE" GridPane.columnIndex="1">
+                  <font>
+                      <Font name="Bauhaus 93" size="20.0" />
+                  </font>
+              </Label>
+              <Label fx:id="Labelvidas" prefHeight="24.0" prefWidth="120.0" text="vidas" textFill="WHITE" GridPane.columnIndex="2">
+                  <font>
+                      <Font name="Bauhaus 93" size="20.0" />
+                  </font>
+              </Label>
+              <Label fx:id="Labeltiempo" prefHeight="24.0" prefWidth="129.0" text="tiempo" textFill="#eeeeee" GridPane.columnIndex="3">
+                  <font>
+                      <Font name="Bauhaus 93" size="20.0" />
+                  </font>
+              </Label>
+            </children>
+        </GridPane>
+    </StackPane>
+
+       <!-- Botones superiores: Guardar, Volver, Cargar, Ajustes -->
+    <HBox alignment="CENTER" spacing="10" />
+
+    <!-- Barra inferior con etiquetas -->
+    <HBox alignment="CENTER" prefHeight="24.0" prefWidth="925.0" spacing="30" />
 </VBox>
