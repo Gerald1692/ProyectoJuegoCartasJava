@@ -32,7 +32,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SecondaryController {
-    
+    private boolean juegoTerminado = false;
     private Timeline replayTimeline;
     private boolean enReplay = false;
     @FXML
@@ -145,20 +145,29 @@ private void showSettings() {
 
    @FXML
 private void iniciarReplay() {
+    // Verificar si el juego ha terminado
+    if (!juegoTerminado) {
+        mostrarAlerta("Replay no disponible", "El replay solo está disponible después de terminar el juego");
+        return;
+    }
+    // Verificar si hay historial para reproducir
     List<MovimientoReplay> historial = juego != null ? juego.getHistorialReplay() : null;
-    
     if (historial == null || historial.isEmpty()) {
         mostrarAlerta("Replay", "No hay historial para reproducir");
         return;
     }
 
+    // Configurar estado para el replay
     enReplay = true;
+    btnReplay.setDisable(true); // Deshabilitar el botón durante el replay
     disableAllCards();
     reiniciarTableroParaReplay();
     
+    // Configurar timeline para el replay
     replayTimeline = new Timeline();
     replayTimeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, e -> {}));
     
+    // Agregar cada movimiento al timeline
     for (MovimientoReplay movimiento : historial) {
         if (movimiento != null) {
             KeyFrame frame = new KeyFrame(
@@ -169,15 +178,13 @@ private void iniciarReplay() {
         }
     }
     
-    MovimientoReplay ultimoMovimiento = historial.get(historial.size() - 1);
-    if (ultimoMovimiento != null) {
-        KeyFrame finalFrame = new KeyFrame(
-            Duration.millis(ultimoMovimiento.getTiempoTranscurrido() + 1000),
-            e -> finalizarReplay()
-        );
-        replayTimeline.getKeyFrames().add(finalFrame);
-    }
+    // Configurar acción final
+    replayTimeline.setOnFinished(e -> {
+        finalizarReplay();
+        btnReplay.setDisable(false); // Volver a habilitar el botón
+    });
     
+    // Iniciar el replay
     replayTimeline.play();
 }
 private void reiniciarTableroParaReplay() {
@@ -270,13 +277,22 @@ private void actualizarUI() {
         }
     }
     
-    if (!enReplay && juego.isTerminarJuego()) {
+    // Verificar fin del juego solo si:
+    // 1. No estamos en replay
+    // 2. El juego marca que ha terminado
+    // 3. No hemos procesado ya el fin del juego
+    if (!enReplay && juego.isTerminarJuego() && !juegoTerminado) {
         disableAllCards();
         if (juego.getVidas() <= 0) {
-            gameOver();
+            gameOver(); // Esto establecerá juegoTerminado = true
         } else {
-            gameWon();
+            gameWon(); // Esto establecerá juegoTerminado = true
         }
+    }
+    
+    // Si el juego ha terminado y no estamos en replay, deshabilitar cartas
+    if (juegoTerminado && !enReplay) {
+        disableAllCards();
     }
 }
     
@@ -308,8 +324,13 @@ private void actualizarUI() {
         Labelvidas.setText("Vidas: " + lives);
         Labeltiempo.setText("Tiempo: " + App.gameDuration);
         LabelScore.setText("Puntos: "+score);
+        
+        if (btnReplay != null) {
+        btnReplay.setDisable(true);
+    }
         setupGame();
         startTimer();
+        
     }
 
     private void setupGame() {
@@ -498,6 +519,7 @@ private void checkMatch() {
     }
     
  private void gameOver() {
+    juegoTerminado = true; // Marcar juego como terminado
     gameTimer.stop();
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
@@ -509,7 +531,7 @@ private void checkMatch() {
         
         alert.setOnHidden(event -> {
             App.getSoundManager().resumeBackgroundMusic();
-            iniciarReplay(); // ACTIVAR REPLAY
+            btnReplay.setDisable(false); // Habilitar el botón de replay
         });
         
         alert.showAndWait();
@@ -518,6 +540,7 @@ private void checkMatch() {
 }
 
 private void gameWon() {
+    juegoTerminado = true; // Marcar juego como terminado
     gameTimer.stop();
     int puntajeFinal = juego.getPuntajeJugador();
     Platform.runLater(() -> {
@@ -529,7 +552,7 @@ private void gameWon() {
         
         alert.setOnHidden(event -> {
             App.getSoundManager().resumeBackgroundMusic();
-            iniciarReplay(); // ACTIVAR REPLAY
+            btnReplay.setDisable(false); // Habilitar el botón de replay
         });
         
         alert.showAndWait();

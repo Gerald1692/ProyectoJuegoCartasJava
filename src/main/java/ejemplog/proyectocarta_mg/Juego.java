@@ -163,12 +163,9 @@ public final class Juego implements Serializable {
         if (!todasEmparejadas) break;
     }
     
-
-   
-
+    // Actualizar estado de terminación
     terminarJuego = todasEmparejadas || vidas <= 0;
 }
-    
 
 
   
