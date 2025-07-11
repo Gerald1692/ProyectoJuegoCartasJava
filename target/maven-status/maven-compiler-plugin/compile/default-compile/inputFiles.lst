@@ -1,19 +1,19 @@
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\Tablero.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\SettingsController.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\controller\Controller.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\SecondaryController.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\controller\ControladorJuego.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\CartaCastigo.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\Movimiento.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\CartaBonus.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\Jugador.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\MovimientoReplay.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\Juego.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\controller\FlowController.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\module-info.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\PrimaryController.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\Carta.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\Excepciones.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\SoundManager.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\App.java
-C:\Users\admar\OneDrive\Documents\UISIL\5°Cuatri\PROGRAMACIÓN IV\Rep\ProyectoJuegoCartasJava\src\main\java\ejemplog\proyectocarta_mg\CartaNormal.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\Juego.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\SoundManager.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\CartaBonus.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\controller\Controller.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\PrimaryController.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\Carta.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\Excepciones.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\MovimientoReplay.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\CartaCastigo.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\controller\FlowController.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\SettingsController.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\controller\ControladorJuego.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\Tablero.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\Movimiento.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\SecondaryController.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\App.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\Jugador.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\module-info.java
+C:\Users\geral\OneDrive\Documentos\UISIL\V cuatrimestre\PROYECTO1\ProyectoCarta_MG Actual\ProyectoCarta_MG\src\main\java\ejemplog\proyectocarta_mg\CartaNormal.java

@@ -30,9 +30,9 @@
         <!-- GridPane de cartas centrado -->
         <GridPane maxHeight="500.0" maxWidth="649.0" minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="638.0">
             <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="605.0" minWidth="10.0" prefWidth="109.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="605.0" minWidth="10.0" prefWidth="142.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="147.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="605.0" minWidth="10.0" prefWidth="132.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="605.0" minWidth="10.0" prefWidth="124.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="375.0" minWidth="10.0" prefWidth="131.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="144.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="120.0" />
             </columnConstraints>
@@ -58,22 +58,22 @@
                 <Button fx:id="BtnX2_Y1" mnemonicParsing="false" onAction="#handleBtnX2_Y1" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                 <Button fx:id="BtnX2_Y2" mnemonicParsing="false" onAction="#handleBtnX2_Y2" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                 <Button fx:id="BtnX2_Y3" mnemonicParsing="false" onAction="#handleBtnX2_Y3" prefHeight="76.0" prefWidth="66.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-              <Button fx:id="Btn_Guardar" mnemonicParsing="false" onAction="#handleGuardar" prefHeight="38.0" prefWidth="131.0" text="Guardar" textFill="#18ab1d" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <Button fx:id="Btn_Guardar" mnemonicParsing="false" onAction="#handleGuardar" prefHeight="38.0" prefWidth="110.0" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="4">
                   <font>
                       <Font name="Bauhaus 93" size="15.0" />
                   </font>
               </Button>
-              <Button fx:id="secondaryButton" mnemonicParsing="false" onAction="#switchToPrimary" prefHeight="38.0" prefWidth="126.0" text="Volver al Inicio" textFill="#18ab1d" GridPane.columnIndex="2" GridPane.rowIndex="4">
+              <Button fx:id="secondaryButton" mnemonicParsing="false" onAction="#switchToPrimary" prefHeight="38.0" prefWidth="126.0" text="Volver al Inicio" GridPane.columnIndex="2" GridPane.rowIndex="4">
                   <font>
                       <Font name="Bauhaus 93" size="15.0" />
                   </font>
               </Button>
-              <Button fx:id="Btn_Guardar1" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Cargar Partida" textFill="#18ab1d" GridPane.columnIndex="3" GridPane.rowIndex="4">
+              <Button fx:id="Btn_Guardar1" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Cargar Partida" GridPane.columnIndex="3" GridPane.rowIndex="4">
                   <font>
                       <Font name="Bauhaus 93" size="15.0" />
                   </font>
               </Button>
-              <Button fx:id="Btn_Guardar11" mnemonicParsing="false" onAction="#handleCargar" prefHeight="38.0" prefWidth="135.0" text="Ajustes" textFill="#18ab1d" GridPane.columnIndex="4" GridPane.rowIndex="4">
+              <Button fx:id="Btn_Guardar11" mnemonicParsing="false" onAction="#showSettings" prefHeight="38.0" prefWidth="135.0" text="Ajustes" GridPane.columnIndex="4" GridPane.rowIndex="4">
                   <font>
                       <Font name="Bauhaus 93" size="15.0" />
                   </font>
@@ -98,7 +98,7 @@
                       <Font name="Bauhaus 93" size="20.0" />
                   </font>
               </Label>
-            <Button fx:id="btnReplay" mnemonicParsing="false" onAction="#iniciarReplay" prefHeight="38.0" prefWidth="135.0" text="Ajustes" textFill="#18ab1d" GridPane.rowIndex="4">
+            <Button fx:id="btnReplay" mnemonicParsing="false" onAction="#iniciarReplay" prefHeight="38.0" prefWidth="121.0" text=" Repeticiones" GridPane.rowIndex="4">
                <font>
                   <Font name="Bauhaus 93" size="15.0" />
                </font>

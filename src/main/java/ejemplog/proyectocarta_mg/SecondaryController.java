@@ -24,6 +24,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Optional;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class SecondaryController {
     
@@ -114,7 +119,29 @@ private void handleCargar() {
     @FXML
     private Label LabelScore;
 
-    
+    @FXML
+private void showSettings() {
+    try {
+        // Cargar el FXML de ajustes
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml"));
+        Parent root = loader.load();
+        
+        // Crear nueva escena
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Ajustes");
+        stage.setScene(scene);
+        
+        // Configurar como ventana modal
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        mostrarAlerta("Error", "No se pudo cargar la ventana de ajustes.");
+    }
+}
+
+
    @FXML
 private void iniciarReplay() {
     List<MovimientoReplay> historial = juego != null ? juego.getHistorialReplay() : null;
@@ -484,6 +511,7 @@ private void gameWon() {
         if (gameTimer != null) {
             gameTimer.stop();
         }
+        App.resetGame();
         App.setRoot("primary");
     }
     

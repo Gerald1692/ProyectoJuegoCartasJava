@@ -26,8 +26,8 @@
         </ImageView>
         
         <!-- Contenedor para los controles centrados -->
-        <VBox alignment="CENTER" prefHeight="711.0" prefWidth="955.0" spacing="20.0">
-         <Label contentDisplay="TOP" prefHeight="103.0" prefWidth="551.0" text="Bienvenido al juego de" textAlignment="CENTER" textFill="#50c878" textOverrun="CENTER_ELLIPSIS">
+        <VBox alignment="CENTER" prefHeight="690.0" prefWidth="954.0" spacing="20.0">
+         <Label contentDisplay="TOP" prefHeight="103.0" prefWidth="551.0" textAlignment="CENTER" textFill="#50c878" textOverrun="CENTER_ELLIPSIS">
             <font>
                <Font name="Comic Sans MS" size="52.0" />
             </font>

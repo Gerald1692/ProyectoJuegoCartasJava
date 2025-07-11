@@ -48,6 +48,7 @@ private void showSettings() {
             mostrarAlerta("Error", "Debe ingresar un nombre");
             return;
         }
+        App.resetGame();
         App.playerName = nombre;
         App.setRoot("secondary");
     }
