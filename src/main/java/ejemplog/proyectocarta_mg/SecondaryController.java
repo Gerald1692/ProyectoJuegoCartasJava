@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Optional;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -193,12 +194,39 @@ private void reiniciarTableroParaReplay() {
 
 private void reproducirMovimiento(MovimientoReplay movimiento) {
     Button btn = buttonsGrid[movimiento.getFila()][movimiento.getColumna()];
+    Carta carta = buttonCartaMap.get(btn);
     
-    if (movimiento.getActionType() == MovimientoReplay.ActionType.SHOW) {
-        flipCard(btn, true); // Mostrar frente
-    } else {
-        flipCard(btn, false); // Mostrar reverso
+    switch(movimiento.getActionType()) {
+        case SHOW:
+            flipCard(btn, true);
+            break;
+        case HIDE:
+            flipCard(btn, false);
+            break;
+        case REMOVE_PENALTY:
+            // Animación especial para quitar castigo
+            removePenaltyAnimation(btn, carta);
+            break;
     }
+}
+
+private void removePenaltyAnimation(Button btn, Carta carta) {
+    // 1. Primero mostramos la carta (como SHOW)
+    flipCard(btn, true);
+    
+    // 2. Luego una animación especial para indicar que fue removida
+    PauseTransition pause = new PauseTransition(Duration.millis(500));
+    pause.setOnFinished(e -> {
+        // Destacar visualmente la carta de castigo removida
+        btn.setStyle("-fx-border-color: gold; -fx-border-width: 3;");
+        
+        // Opcional: Efecto de desvanecimiento
+        FadeTransition fade = new FadeTransition(Duration.millis(1000), btn);
+        fade.setFromValue(1.0);
+        fade.setToValue(0.5);
+        fade.play();
+    });
+    pause.play();
 }
 
 private void finalizarReplay() {

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author admar
  */
 public class MovimientoReplay implements Serializable {
-    public enum ActionType { SHOW, HIDE }
+    public enum ActionType { SHOW, HIDE ,  REMOVE_PENALTY }
     
     private final int fila;
     private final int columna;

@@ -176,13 +176,19 @@ public final class Juego implements Serializable {
     for (int i = 0; i < tablero.getFilas(); i++) {
         for (int j = 0; j < tablero.getColumnas(); j++) {
             Carta c = tablero.getCarta(i, j);
-            // Solo afecta a cartas de castigo que estén ocultas
             if (c.getTipo() == Carta.TipoCarta.Castigo && c.getEstado() == Carta.EstadoCarta.Oculta) {
                 try {
-                    c.voltearCarta(); // Revela la carta
-                    c.setEstado(Carta.EstadoCarta.Revelada); // Cambia a estado Revelada
-                } catch (Excepciones.CartaNoVoltearExcepcion e) {
+                    c.voltearCarta();
+                    c.setEstado(Carta.EstadoCarta.Revelada);
                     
+                    // Registrar el evento de quitar castigo
+                    historialReplay.add(new MovimientoReplay(
+                        i, j,
+                        System.currentTimeMillis() - tiempoInicio,
+                        MovimientoReplay.ActionType.REMOVE_PENALTY
+                    ));
+                } catch (Excepciones.CartaNoVoltearExcepcion e) {
+                    System.err.println("Error al revelar castigo: " + e.getMessage());
                 }
             }
         }
