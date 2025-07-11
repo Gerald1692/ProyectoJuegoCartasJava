@@ -1,6 +1,7 @@
 package ejemplog.proyectocarta_mg;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,6 +42,11 @@ private void showSettings() {
         mostrarAlerta("Error", "No se pudo cargar la ventana de ajustes.");
     }
 }
+@FXML
+    private void exitApplication() {
+        // Cierra completamente la aplicación
+        Platform.exit();
+    }
     @FXML
     private void switchToSecondary() throws IOException {
         String nombre = textonombre.getText().trim();

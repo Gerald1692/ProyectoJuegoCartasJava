@@ -27,27 +27,32 @@
         
         <!-- Contenedor para los controles centrados -->
         <VBox alignment="CENTER" prefHeight="690.0" prefWidth="954.0" spacing="20.0">
-         <Label contentDisplay="TOP" prefHeight="103.0" prefWidth="551.0" textAlignment="CENTER" textFill="#50c878" textOverrun="CENTER_ELLIPSIS">
+         <Label contentDisplay="TOP" prefHeight="90.0" prefWidth="542.0" textAlignment="CENTER" textFill="#50c878" textOverrun="CENTER_ELLIPSIS">
             <font>
                <Font name="Comic Sans MS" size="52.0" />
             </font>
          </Label>
-            <TextArea fx:id="textonombre" cacheShape="false" centerShape="false" focusTraversable="false" maxWidth="200.0" minHeight="50.0" minWidth="50.0" opacity="0.73" prefHeight="50.0" prefWidth="200.0" promptText="Ingrese su nombre" scaleShape="false">
+            <TextArea fx:id="textonombre" cacheShape="false" centerShape="false" focusTraversable="false" maxWidth="200.0" minHeight="40.0" minWidth="50.0" opacity="0.73" prefHeight="40.0" prefWidth="189.0" promptText="Ingrese su nombre" scaleShape="false">
                 <font>
                     <Font name="Kristen ITC" size="18.0" />
                 </font>
             </TextArea>
-         <Button fx:id="BtnEntrar1" mnemonicParsing="false" onAction="#switchToSecondary" prefHeight="35.0" prefWidth="186.0" text="Jugar ahora" textAlignment="CENTER">
+         <Button fx:id="BtnEntrar1" mnemonicParsing="false" onAction="#switchToSecondary" prefHeight="37.0" prefWidth="141.0" text="Jugar ahora" textAlignment="CENTER">
             <font>
                <Font name="Comic Sans MS" size="18.0" />
             </font>
          </Button>
             
-            <Button fx:id="BtnEntrar" mnemonicParsing="false" onAction="#showSettings" prefHeight="27.0" prefWidth="191.0" text="Ajustes" textAlignment="CENTER">
+            <Button fx:id="BtnEntrar" mnemonicParsing="false" onAction="#showSettings" prefHeight="37.0" prefWidth="141.0" text="Ajustes" textAlignment="CENTER">
                 <font>
                     <Font name="Comic Sans MS" size="18.0" />
                 </font>
             </Button>
+         <Button fx:id="BtnEntrar2" mnemonicParsing="false" onAction="#exitApplication" prefHeight="37.0" prefWidth="143.0" text="Salir" textAlignment="CENTER">
+            <font>
+               <Font name="Comic Sans MS" size="18.0" />
+            </font>
+         </Button>
             
             
           
