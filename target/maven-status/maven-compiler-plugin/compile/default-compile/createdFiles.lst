@@ -10,6 +10,7 @@ ejemplog\proyectocarta_mg\SecondaryController.class
 ejemplog\proyectocarta_mg\Movimiento.class
 ejemplog\proyectocarta_mg\Tablero.class
 ejemplog\proyectocarta_mg\Carta$EstadoCarta.class
+ejemplog\proyectocarta_mg\MovimientoReplay$ActionType.class
 ejemplog\proyectocarta_mg\Carta$TipoCarta.class
 ejemplog\proyectocarta_mg\Tablero$1.class
 ejemplog\proyectocarta_mg\CartaCastigo.class

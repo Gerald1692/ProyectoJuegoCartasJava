@@ -193,7 +193,12 @@ private void reiniciarTableroParaReplay() {
 
 private void reproducirMovimiento(MovimientoReplay movimiento) {
     Button btn = buttonsGrid[movimiento.getFila()][movimiento.getColumna()];
-    flipCard(btn, true);
+    
+    if (movimiento.getActionType() == MovimientoReplay.ActionType.SHOW) {
+        flipCard(btn, true); // Mostrar frente
+    } else {
+        flipCard(btn, false); // Mostrar reverso
+    }
 }
 
 private void finalizarReplay() {
@@ -309,40 +314,61 @@ private void actualizarUI() {
         }
     }
     
-    private void flipCard(Button card, boolean showFront) {
-    // Solo reproducir sonido si NO estamos en replay
+private void flipCard(Button card, boolean showFront) {
+    // No reproducir sonido durante el replay
     if (!enReplay) {
         App.getSoundManager().playFlipSound();
     }
-    
+
     ImageView iv = (ImageView) card.getGraphic();
-    RotateTransition rt = new RotateTransition(Duration.millis(500), iv);
+    Carta carta = buttonCartaMap.get(card);
     
+    // Configurar la animación de volteo
+    RotateTransition rt = new RotateTransition(Duration.millis(300), iv);
     rt.setAxis(Rotate.Y_AXIS);
-    rt.setFromAngle(showFront ? 0 : 180);
-    rt.setToAngle(showFront ? 180 : 0);
     
-    // Deshabilitar durante animación
+    if (showFront) {
+        rt.setFromAngle(0);
+        rt.setToAngle(180);
+    } else {
+        rt.setFromAngle(180);
+        rt.setToAngle(0);
+    }
+
+    // Deshabilitar interacción durante la animación
     card.setDisable(true);
-    
+
     rt.setOnFinished(e -> {
-        Carta carta = buttonCartaMap.get(card);
         try {
+            // Cambiar la imagen según el tipo de acción
             if (showFront) {
                 iv.setImage(carta.getImaCara());
+                
+                // Solo actualizar estado si no es replay
+                if (!enReplay) {
+                    carta.setEstado(Carta.EstadoCarta.Revelada);
+                }
             } else {
                 iv.setImage(carta.getImaEspalda());
+                
+                // Solo actualizar estado si no es replay
+                if (!enReplay) {
+                    carta.setEstado(Carta.EstadoCarta.Oculta);
+                }
+            }
+
+            // Habilitar solo si no está emparejada y no es replay
+            if (!enReplay) {
+                card.setDisable(carta.getEstado() == Carta.EstadoCarta.Emparejada);
+            } else {
+                // Durante replay, mantener habilitado para próximas animaciones
+                card.setDisable(false);
             }
         } catch (Exception ex) {
-            System.err.println("Error cambiando imagen: " + ex.getMessage());
-        }
-        
-        // Solo actualizar estado si NO estamos en replay
-        if (!enReplay) {
-            card.setDisable(carta.getEstado() == Carta.EstadoCarta.Emparejada);
+            System.err.println("Error en flipCard: " + ex.getMessage());
         }
     });
-    
+
     rt.play();
 }
     

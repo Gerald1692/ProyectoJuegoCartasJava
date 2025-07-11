@@ -67,11 +67,11 @@ public final class Juego implements Serializable {
         historialReplay.clear();
     }
 
-   public void seleccionarCarta(int fila, int columna) {
+  public void seleccionarCarta(int fila, int columna) {
     if (terminarJuego) return;
     
     Carta cartaSelect = tablero.getCarta(fila, columna);
-    EstadoCarta estadoPrevio = cartaSelect.getEstado(); // Guardar estado previo
+    EstadoCarta estadoPrevio = cartaSelect.getEstado();
     
     try {
         cartaSelect.voltearCarta();
@@ -80,11 +80,16 @@ public final class Juego implements Serializable {
             primerSeleccion = cartaSelect;
         } else if (segundaSeleccion == null) {
             segundaSeleccion = cartaSelect;
-            
             verificarPareja();
         }
+        
         long tiempoTranscurrido = System.currentTimeMillis() - tiempoInicio;
-        historialReplay.add(new MovimientoReplay(fila, columna, tiempoTranscurrido));
+        historialReplay.add(new MovimientoReplay(
+            fila, 
+            columna, 
+            tiempoTranscurrido, 
+            MovimientoReplay.ActionType.SHOW
+        ));
     } catch (Excepciones.CartaNoVoltearExcepcion e) {
         System.out.println("No se puede voltear: " + e.getMessage());
     }
@@ -94,36 +99,56 @@ public final class Juego implements Serializable {
    }
     
     private void verificarPareja() {
-        if (primerSeleccion.getId().equals(segundaSeleccion.getId())) {
-            primerSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
-            segundaSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
-            puntajeJugador += primerSeleccion.obtenerPuntos();
-            aciertos++;
-            
-            if (aciertos == 3) { // Ejemplo: cada 3 aciertos? Ajustar según reglas
-                quitarCastigos();
-                aciertos = 0;
-            }
-        } else {
-            vidas--;
-            
-            if (vidas <= 0) {
-                terminarJuego = true;
-            } else {
-                // Volver a ocultar
-                primerSeleccion.setEstado(Carta.EstadoCarta.Oculta);
-                primerSeleccion.setImagenCarta(primerSeleccion.getImaEspalda());
-                segundaSeleccion.setEstado(Carta.EstadoCarta.Oculta);
-                segundaSeleccion.setImagenCarta(segundaSeleccion.getImaEspalda());
-            }
+    if (primerSeleccion.getId().equals(segundaSeleccion.getId())) {
+        primerSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
+        segundaSeleccion.setEstado(Carta.EstadoCarta.Emparejada);
+        puntajeJugador += primerSeleccion.obtenerPuntos();
+        aciertos++;
+        
+        if (aciertos == 3) { 
+            quitarCastigos();
+            aciertos = 0;
         }
-        primerSeleccion = null;
-        segundaSeleccion = null;
-        verificarFinJuego();
+    } else {
+        vidas--;
         
-        
-        
+        if (vidas <= 0) {
+            terminarJuego = true;
+        } else {
+            // Obtener coordenadas antes de voltear
+            int fila1 = -1, columna1 = -1, fila2 = -1, columna2 = -1;
+            for (int i = 0; i < tablero.getFilas(); i++) {
+                for (int j = 0; j < tablero.getColumnas(); j++) {
+                    if (tablero.getCarta(i, j) == primerSeleccion) {
+                        fila1 = i;
+                        columna1 = j;
+                    }
+                    if (tablero.getCarta(i, j) == segundaSeleccion) {
+                        fila2 = i;
+                        columna2 = j;
+                    }
+                }
+            }
+            
+            // Registrar acciones de ocultar (con 1 segundo de retraso)
+            long tiempoOcultar = System.currentTimeMillis() - tiempoInicio + 1000;
+            historialReplay.add(new MovimientoReplay(
+                fila1, columna1, tiempoOcultar, MovimientoReplay.ActionType.HIDE));
+            historialReplay.add(new MovimientoReplay(
+                fila2, columna2, tiempoOcultar, MovimientoReplay.ActionType.HIDE));
+            
+            // Volver a ocultar las cartas
+            primerSeleccion.setEstado(Carta.EstadoCarta.Oculta);
+            primerSeleccion.setImagenCarta(primerSeleccion.getImaEspalda());
+            segundaSeleccion.setEstado(Carta.EstadoCarta.Oculta);
+            segundaSeleccion.setImagenCarta(segundaSeleccion.getImaEspalda());
+        }
     }
+    
+    primerSeleccion = null;
+    segundaSeleccion = null;
+    verificarFinJuego();
+}
     
    public void verificarFinJuego() {
     boolean todasEmparejadas = true;
@@ -157,7 +182,7 @@ public final class Juego implements Serializable {
                     c.voltearCarta(); // Revela la carta
                     c.setEstado(Carta.EstadoCarta.Revelada); // Cambia a estado Revelada
                 } catch (Excepciones.CartaNoVoltearExcepcion e) {
-                    // Manejar excepción si es necesario
+                    
                 }
             }
         }

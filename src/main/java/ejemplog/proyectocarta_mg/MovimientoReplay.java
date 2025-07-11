@@ -11,18 +11,34 @@ import java.io.Serializable;
  * @author admar
  */
 public class MovimientoReplay implements Serializable {
+    public enum ActionType { SHOW, HIDE }
+    
     private final int fila;
     private final int columna;
-    private final long tiempoTranscurrido; // milisegundos desde inicio
-    
-    public MovimientoReplay(int fila, int columna, long tiempoTranscurrido) {
+    private final long tiempoTranscurrido;
+    private final ActionType actionType; // Nuevo campo
+
+    public MovimientoReplay(int fila, int columna, long tiempoTranscurrido, ActionType actionType) {
         this.fila = fila;
         this.columna = columna;
         this.tiempoTranscurrido = tiempoTranscurrido;
+        this.actionType = actionType;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public long getTiempoTranscurrido() {
+        return tiempoTranscurrido;
     }
     
-    // Getters
-    public int getFila() { return fila; }
-    public int getColumna() { return columna; }
-    public long getTiempoTranscurrido() { return tiempoTranscurrido; }
+   
+    public ActionType getActionType() {
+        return actionType;
+    }
 }
