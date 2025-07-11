@@ -178,6 +178,9 @@ public final class Juego implements Serializable {
                     c.voltearCarta();
                     c.setEstado(Carta.EstadoCarta.Revelada);
                     
+                    // Reproducir sonido de eliminación de castigo
+                    App.getSoundManager().playRemovePenaltySound();
+                    
                     // Registrar el evento de quitar castigo
                     historialReplay.add(new MovimientoReplay(
                         i, j,

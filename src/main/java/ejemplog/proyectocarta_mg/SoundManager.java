@@ -79,6 +79,20 @@ public class SoundManager {
         }
     }
     
+    public void playRemovePenaltySound() {
+    try {
+        URL resource = getClass().getResource("/musica/QuitarCastigo.mp3"); // Asegúrate de tener este archivo en tu carpeta de música
+        if (resource != null) {
+            Media sound = new Media(resource.toString());
+            MediaPlayer penaltyPlayer = new MediaPlayer(sound);
+            penaltyPlayer.setVolume(volume);
+            penaltyPlayer.play();
+        }
+    } catch (Exception e) {
+        System.err.println("Error al reproducir sonido de eliminar castigo: " + e.getMessage());
+    }
+}
+    
     public void stopBackgroundMusic() {
         if (backgroundPlayer != null) {
             backgroundPlayer.stop();
