@@ -30,7 +30,28 @@ public class SoundManager {
             System.err.println("Error al cargar la música: " + e.getMessage());
         }
     }
-    
+    public void sonidobonus() {
+        try {
+            URL resource = getClass().getResource("/musica/plants-vs-zombies-sun-pickup.mp3");
+            if (resource != null) {
+                Media sound = new Media(resource.toString());
+                MediaPlayer bonusPlayer = new MediaPlayer(sound);
+                bonusPlayer.setVolume(volume);
+                bonusPlayer.play();
+                
+                // Reanudar música principal cuando termine el sonido de bonus
+                bonusPlayer.setOnEndOfMedia(() -> {
+                    if (backgroundPlayer != null) {
+                        backgroundPlayer.play();
+                    }
+                });
+            }
+        } catch (Exception e) {
+            System.err.println("Error al reproducir sonido de bonus: " + e.getMessage());
+        }
+        
+    }
+     
     public void playGameEndSound() {
         try {
             // Detener música de fondo primero

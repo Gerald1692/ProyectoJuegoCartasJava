@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,12 +46,7 @@ public class SecondaryController {
     @FXML private Button BtnX2_Y0, BtnX0_Y1, BtnX0_Y3, BtnX0_Y2, BtnX2_Y2;
     @FXML private Button BtnX2_Y3, BtnX2_Y1, BtnX1_Y1, BtnX1_Y0, BtnX1_Y3;
     @FXML private Button BtnX1_Y2, BtnX0_Y0;
-    @FXML
-    private Button Btn_Guardar1;
-    @FXML
-    private Button Btn_Guardar;
-    @FXML
-    private Button Btn_Guardar11;
+    
     
     ////////////////////////////////////////////////
    @FXML
@@ -361,6 +357,15 @@ private void actualizarUI() {
         if (flippedCards.size() == 2) {
             checkMatch();
         }
+        Carta carta = buttonCartaMap.get(card);
+    if (carta.getTipo() == Carta.TipoCarta.Bonus) {
+        App.getSoundManager().sonidobonus();
+       ;
+        
+    } else {
+        App.getSoundManager().playFlipSound();
+    }
+
     }
     
 private void flipCard(Button card, boolean showFront) {
