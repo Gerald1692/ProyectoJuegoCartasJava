@@ -46,14 +46,9 @@ public class SecondaryController {
     @FXML private Button BtnX2_Y3, BtnX2_Y1, BtnX1_Y1, BtnX1_Y0, BtnX1_Y3;
     @FXML private Button BtnX1_Y2, BtnX0_Y0;
     @FXML
-    private Button Btn_Guardar1;
-    @FXML
-    private Button Btn_Guardar;
-    @FXML
-    private Button Btn_Guardar11;
-    
+   
     ////////////////////////////////////////////////
-   @FXML
+
 private void handleGuardar() {
     TextInputDialog dialog = new TextInputDialog("Partida1");
     dialog.setTitle("Guardar Partida");
