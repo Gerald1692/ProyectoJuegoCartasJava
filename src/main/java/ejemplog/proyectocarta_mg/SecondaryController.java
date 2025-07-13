@@ -53,7 +53,11 @@ public class SecondaryController {
     @FXML
    
 
+<<<<<<< HEAD
     ////////////////////////////////////////////////
+=======
+
+>>>>>>> cb2f79b4b55bfed2f3190510ff47c331d9f58adc
 
 private void handleGuardar() {
     TextInputDialog dialog = new TextInputDialog("Partida1");
