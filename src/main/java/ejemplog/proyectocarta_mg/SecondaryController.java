@@ -75,7 +75,6 @@ private void handleGuardar() {
 
 @FXML
 private void handleCargar() {
-    // Ruta a la carpeta "CargaPartidas" dentro de resources
     File carpeta = new File("src/main/resources/CargaPartidas");
     if (!carpeta.exists()) {
         carpeta.mkdirs();
@@ -100,6 +99,19 @@ private void handleCargar() {
         
         if (juegoCargado != null) {
             this.juego = juegoCargado;
+            
+            // Reiniciar estado de cartas volteadas
+            flippedCards.clear();
+            
+            // Reiniciar estado del juego
+            juegoTerminado = false;
+            
+            // Reiniciar el timer
+            if (gameTimer != null) {
+                gameTimer.stop();
+            }
+            startTimer();
+            
             actualizarUI();
             mostrarAlerta("Partida Cargada", "Partida cargada: " + nombre);
         }

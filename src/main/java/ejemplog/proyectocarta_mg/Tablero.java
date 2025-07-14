@@ -69,10 +69,7 @@ public class Tablero implements Serializable {
         return mapeo;
     }
     
-    /**
-     * Método para reconstruir el tablero desde un mapeo guardado
-     * @param mapeo Array bidimensional con información de cada carta
-     */
+   
  public void cargarDesdeMapeo(String[][] mapeo) {
     int filas = mapeo.length;
     int columnas = mapeo[0].length;
@@ -107,16 +104,24 @@ public class Tablero implements Serializable {
             carta.setEstado(estado);
             
             // Configurar la imagen según el estado
-            if (estado == Carta.EstadoCarta.Emparejada || estado == Carta.EstadoCarta.Revelada) {
-                carta.setImagenCarta(carta.getImaCara());
-            } else {
+            if (estado == Carta.EstadoCarta.Oculta) {
                 carta.setImagenCarta(carta.getImaEspalda());
+            } else {
+                carta.setImagenCarta(carta.getImaCara());
+                
+                // SOLO PARA CARTAS NORMALES Y BONUS: 
+                // Si están reveladas pero no emparejadas, volver a ocultar
+                if (estado == Carta.EstadoCarta.Revelada && 
+                    tipo != Carta.TipoCarta.Castigo) {
+                    
+                    carta.setEstado(Carta.EstadoCarta.Oculta);
+                    carta.setImagenCarta(carta.getImaEspalda());
+                }
             }
             
             cartas[i][j] = carta;
         }
     }
-
 }
     
     public Carta getCarta(int fila, int columna) {
