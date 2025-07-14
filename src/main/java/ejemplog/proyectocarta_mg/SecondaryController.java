@@ -33,6 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SecondaryController {
+    // declaracion de atributos 
     private boolean juegoTerminado = false;
     private Timeline replayTimeline;
     private boolean enReplay = false;
@@ -47,7 +48,18 @@ public class SecondaryController {
     @FXML private Button BtnX2_Y3, BtnX2_Y1, BtnX1_Y1, BtnX1_Y0, BtnX1_Y3;
     @FXML private Button BtnX1_Y2, BtnX0_Y0;
 
-    
+    private Juego juego;
+    private Map<Button, Carta> buttonCartaMap = new HashMap<>();
+    private List<Button> flippedCards = new ArrayList<>();
+    private int score;
+    private int lives;
+    private int comboCount = 0;
+    private static final int COMBO_REQUIRED = 3;
+    private Timeline gameTimer;
+    private Button[][] buttonsGrid;
+    private Button btnRetrocederPaso;
+    @FXML
+    private Label LabelScore;
     
 
     @FXML
@@ -120,18 +132,7 @@ private void handleCargar() {
     //////////////////////////////////////////////////////////////////////
     
     
-    private Juego juego;
-    private Map<Button, Carta> buttonCartaMap = new HashMap<>();
-    private List<Button> flippedCards = new ArrayList<>();
-    private int score;
-    private int lives;
-    private int comboCount = 0;
-    private static final int COMBO_REQUIRED = 3;
-    private Timeline gameTimer;
-    private Button[][] buttonsGrid;
-    private Button btnRetrocederPaso;
-    @FXML
-    private Label LabelScore;
+ 
 
     @FXML
 private void showSettings() {
@@ -290,10 +291,7 @@ private void actualizarUI() {
         }
     }
     
-    // Verificar fin del juego solo si:
-    // 1. No estamos en replay
-    // 2. El juego marca que ha terminado
-    // 3. No hemos procesado ya el fin del juego
+   
     if (!enReplay && juego.isTerminarJuego() && !juegoTerminado) {
         disableAllCards();
         if (juego.getVidas() <= 0) {
@@ -457,6 +455,7 @@ private void checkMatch() {
         boolean sonPareja = buttonCartaMap.get(btn1).getId().equals(buttonCartaMap.get(btn2).getId());
         
         if (sonPareja) {
+            // se pasa a la clase juego al metodo seleccionar carta
             juego.seleccionarCarta(fila1, columna1);
             juego.seleccionarCarta(fila2, columna2);
             
